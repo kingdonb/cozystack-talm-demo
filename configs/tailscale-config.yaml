@@ -3,4 +3,4 @@ apiVersion: v1alpha1
 kind: ExtensionServiceConfig
 name: tailscale
 environment:
-  - TS_AUTHKEY=tskey-auth-k6k7PvxP4L11CNTRL-cjZrLe936w8bxmbaBAKWw8aonmUDkqkd
+  - TS_AUTHKEY=tskey-auth-k5neEEqtTy11CNTRL-AxVvxKNaHSNwJMTVrrwhSN3sUW79Fh9YT
