@@ -7,4 +7,4 @@ podSubnets:
 serviceSubnets:
 - 10.96.0.0/16
 advertisedSubnets:
-- 192.168.100.0/24
+- 10.17.13.0/24
