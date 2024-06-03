@@ -42,7 +42,7 @@ machine:
     #    wwid: t10.ATA     WDC WD1600JD-00GBB0                     WD-WMAES1814283\0\0\0\0\0
     #    size: 0.15 TB
     disk: /dev/nvme0n1
-    image: factory.talos.dev/installer/3ae6b4a0295b08e42584419c4776f76ef21fdba0e14296fe41c68d479a456fa7:v1.7.4
+    image: ghcr.io/aenix-io/cozystack/talos:v1.7.1
   files:
     - content: "[plugins]\n  [plugins.\"io.containerd.grpc.v1.cri\"]\n    device_ownership_from_security_context = true      \n"
       permissions: 0o0
