@@ -4,3 +4,4 @@ kind: ExtensionServiceConfig
 name: tailscale
 environment:
   - TS_AUTHKEY=tskey-auth-k5neEEqtTy11CNTRL-AxVvxKNaHSNwJMTVrrwhSN3sUW79Fh9YT
+  - TS_ROUTES=10.96.0.0/12,10.244.0.0/16,10.17.13.0/24,10.17.12.0/24
