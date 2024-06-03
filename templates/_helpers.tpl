@@ -39,9 +39,9 @@ machine:
       routes:
         - network: 0.0.0.0/0
           gateway: {{ include "talm.discovered.default_gateway" . }}
-      {{- with .Values.floatingIP }}
+      {{- with .Values.floatingIP }}{{ if eq .MachineType "controlplane" }}
       vip:
-        ip: {{ . }}
+        ip: {{ . }}{{ end }}
       {{- end }}
 
 
