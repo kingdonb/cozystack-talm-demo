@@ -5,7 +5,7 @@ none:
 
 install:
 	kubectl create ns cozy-system
-	kubectl apply -f cozystack-config.yaml
+	kubectl apply -f configs/cozystack-config.yaml
 	kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.7.0/manifests/cozystack-installer.yaml
 
 tailscale:
@@ -17,3 +17,14 @@ storage:
 
 metallb:
 	kubectl create -f configs/metallb-config.yaml
+
+mrproper: clean-kubeconfig clean-talosconfig clean-secrets
+
+clean-kubeconfig:
+	rm kubeconfig
+
+clean-talosconfig:
+	rm talosconfig
+
+clean-secrets:
+	rm secrets.yaml
