@@ -18,7 +18,9 @@ storage:
 metallb:
 	kubectl create -f configs/metallb-config.yaml
 
-mrproper: clean-kubeconfig clean-talosconfig clean-secrets
+clean: clean-kubeconfig clean-talosconfig clean-secrets
+
+mrproper: clean clean-template
 
 clean-kubeconfig:
 	rm kubeconfig
@@ -28,3 +30,9 @@ clean-talosconfig:
 
 clean-secrets:
 	rm secrets.yaml
+
+clean-template:
+	rm -rf charts Chart.yaml values.yaml templates
+
+clean-nodes:
+	rm -r nodes
