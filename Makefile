@@ -40,9 +40,9 @@ clean-nodes:
 nuke-all-nodes:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
-	@echo "talosctl reset -n 10.17.13.207 -e 10.17.13.207 \n\
-		--wipe-mode all --user-disks-to-wipe /dev/sdb,/dev/sdc \n\
-		--graceful=false; talosctl reset -n 10.17.13.92 -e 10.17.13.92 \n\
+	@echo "talosctl reset -n 10.17.13.207 -e 10.17.13.207 \\ \n\
+		--wipe-mode all --user-disks-to-wipe /dev/sdb,/dev/sdc \\ \n\
+		--graceful=false; talosctl reset -n 10.17.13.92 -e 10.17.13.92 \\ \n\
 		--wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
