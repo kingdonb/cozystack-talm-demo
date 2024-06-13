@@ -46,3 +46,13 @@ nuke-all-nodes:
 		--wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
+
+nuke-only-storage:
+	@echo "Be sure you know what you are doing!!"
+	@echo "====================================="
+	@echo "talosctl reset -n 10.17.13.207 -e 10.17.13.207 --reboot \\ \n\
+		--wipe-mode user-disks --user-disks-to-wipe /dev/sdb,/dev/sdc \\ \n\
+		--graceful=false; talosctl reset -n 10.17.13.92 -e 10.17.13.92 --reboot \\ \n\
+		--wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false"
+	@echo "====================================="
+	@echo "Don't say you weren't warned! Danger!"
