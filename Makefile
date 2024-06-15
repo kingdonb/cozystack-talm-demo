@@ -40,9 +40,9 @@ clean-nodes:
 nuke-all-nodes:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
-	@echo "talosctl reset -n 10.17.13.207 -e 10.17.13.207 --reboot \\ \n\
+	@echo "talm reset -f nodes/moo.yaml --reboot \\ \n\
 		--wipe-mode all --user-disks-to-wipe /dev/sdb,/dev/sdc \\ \n\
-		--graceful=false; talosctl reset -n 10.17.13.92 -e 10.17.13.92 --reboot \\ \n\
+		--graceful=false; talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
 		--wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
@@ -50,9 +50,9 @@ nuke-all-nodes:
 nuke-only-storage:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
-	@echo "talosctl reset -n 10.17.13.207 -e 10.17.13.207 --reboot \\ \n\
+	@echo "talm reset -f nodes/moo.yaml --reboot \\ \n\
 		--wipe-mode user-disks --user-disks-to-wipe /dev/sdb,/dev/sdc \\ \n\
-		--graceful=false; talosctl reset -n 10.17.13.92 -e 10.17.13.92 --reboot \\ \n\
+		--graceful=false; talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
 		--wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
