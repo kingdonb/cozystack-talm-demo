@@ -90,6 +90,10 @@ NODE_LIST := hpworker01.turkey.local moo.turkey.local
 DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
 UP_TIMEOUT := 300    # Time in seconds to wait for all nodes to come back up
 
+# Path to mock scripts
+MOCK_PING := ./mock_ping.sh
+MOCK_REBOOT := ./mock_reboot.sh
+
 .PHONY: monitor-nodes-reboot force-reboot-all-nodes
 
 monitor-nodes-reboot:
@@ -107,7 +111,7 @@ monitor-nodes-reboot:
 		function monitor_nodes { \
 			for i in `seq 1 $$DOWN_TIMEOUT`; do \
 				for node in $$NODES; do \
-					if ping -c 1 $$node &> /dev/null; then \
+					if $(MOCK_PING) $$node; then \
 						FAILURE_COUNT[$$node]=0; \
 						if [[ $${STATUS[$$node]} == "down" ]]; then \
 							STATUS[$$node]="down-up"; \
@@ -149,6 +153,6 @@ force-reboot-all-nodes:
 		for node in $$NODES; do \
 			short_name=$$(echo $$node | cut -d. -f1); \
 			echo "Rebooting node: $$short_name"; \
-			talm reboot -f nodes/$$short_name.yaml --wait=false; \
+			$(MOCK_REBOOT) $$short_name; \
 		done \
 	'
