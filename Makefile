@@ -84,7 +84,7 @@ nuke-only-storage:
 
 ## Credit to the below goes to ChatGPT
 # Define the list of node IPs or hostnames (space-separated)
-NODE_LIST := node1_ip node2_ip node3_ip node4_ip
+NODE_LIST := hpworker01.turkey.local moo.turkey.local
 
 # Define timeout values
 DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
@@ -121,12 +121,14 @@ monitor-nodes-reboot:
 						FAILURE_COUNT[$$node]=0; \
 						if [[ $${STATUS[$$node]} == "down" ]]; then \
 							STATUS[$$node]="down-up"; \
+							echo "Node $$node is back up."; \
 						fi; \
 					else \
 						FAILURE_COUNT[$$node]=$$((FAILURE_COUNT[$$node] + 1)); \
 						if [[ $${FAILURE_COUNT[$$node]} -ge 3 ]]; then \
 							if [[ $${STATUS[$$node]} == "up" ]]; then \
 								STATUS[$$node]="down"; \
+								echo "Node $$node is down."; \
 							fi; \
 						fi; \
 					fi; \
