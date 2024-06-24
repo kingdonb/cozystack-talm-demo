@@ -19,15 +19,39 @@ storage:
 metallb:
 	kubectl create -f configs/metallb-config.yaml
 
+init:
+	talm init --preset cozystack
+
+template:
+	mkdir -p nodes
+	talm template -e 10.17.13.92 -n 10.17.13.92 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.92 -n 10.17.13.207 -t templates/worker.yaml -i > nodes/moo.yaml
+
+apply: apply-moo apply-hpworker01
+
+apply-moo:
+	talm apply -f nodes/moo.yaml -i
+apply-hpworker01:
+	talm apply -f nodes/hpworker01.yaml -i
+
+bootstrap:
+	talm bootstrap -f nodes/hpworker01.yaml
+
+dashboard:
+	talm dashboard -f nodes/hpworker01.yaml -f nodes/moo.yaml
+
+kubeconfig:
+	talm kubeconfig kubeconfig -f nodes/hpworker01.yaml
+
 clean: clean-kubeconfig clean-talosconfig clean-secrets
 
 mrproper: clean clean-template
 
 clean-kubeconfig:
-	rm kubeconfig
+	rm -f kubeconfig
 
 clean-talosconfig:
-	rm talosconfig
+	rm -f talosconfig
 
 clean-secrets:
 	rm secrets.yaml
