@@ -91,8 +91,8 @@ DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
 UP_TIMEOUT := 300    # Time in seconds to wait for all nodes to come back up
 
 # Path to mock scripts
-MOCK_PING := ./mock_ping.sh
-MOCK_REBOOT := ./mock_reboot.sh
+MOCK_PING := ./hack/mock_ping.sh
+MOCK_REBOOT := ./hack/mock_reboot.sh
 
 .PHONY: monitor-nodes-reboot force-reboot-all-nodes
 
@@ -111,13 +111,16 @@ monitor-nodes-reboot:
 		function monitor_nodes { \
 			for i in `seq 1 $$DOWN_TIMEOUT`; do \
 				for node in $$NODES; do \
-					if $(MOCK_PING) $$node; then \
+					short_name=$$(echo $$node | cut -d. -f1); \
+					if $(MOCK_PING) $$short_name; then \
+						echo "Node $$node answered."; \
 						FAILURE_COUNT[$$node]=0; \
 						if [[ $${STATUS[$$node]} == "down" ]]; then \
 							STATUS[$$node]="down-up"; \
 							echo "Node $$node is back up."; \
 						fi; \
 					else \
+						echo "Node $$node did not answer."; \
 						FAILURE_COUNT[$$node]=$$((FAILURE_COUNT[$$node] + 1)); \
 						if [[ $${FAILURE_COUNT[$$node]} -ge 3 ]]; then \
 							if [[ $${STATUS[$$node]} == "up" ]]; then \
