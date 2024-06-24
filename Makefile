@@ -19,15 +19,39 @@ storage:
 metallb:
 	kubectl create -f configs/metallb-config.yaml
 
+init:
+	talm init --preset cozystack
+
+template:
+	mkdir -p nodes
+	talm template -e 10.17.13.92 -n 10.17.13.92 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.92 -n 10.17.13.207 -t templates/worker.yaml -i > nodes/moo.yaml
+
+apply: apply-moo apply-hpworker01
+
+apply-moo:
+	talm apply -f nodes/moo.yaml -i
+apply-hpworker01:
+	talm apply -f nodes/hpworker01.yaml -i
+
+bootstrap:
+	talm bootstrap -f nodes/hpworker01.yaml
+
+dashboard:
+	talm dashboard -f nodes/hpworker01.yaml -f nodes/moo.yaml
+
+kubeconfig:
+	talm kubeconfig kubeconfig -f nodes/hpworker01.yaml
+
 clean: clean-kubeconfig clean-talosconfig clean-secrets
 
 mrproper: clean clean-template
 
 clean-kubeconfig:
-	rm kubeconfig
+	rm -f kubeconfig
 
 clean-talosconfig:
-	rm talosconfig
+	rm -f talosconfig
 
 clean-secrets:
 	rm secrets.yaml
@@ -57,3 +81,79 @@ nuke-only-storage:
 		--wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
+
+## Credit to the below goes to ChatGPT
+# Define the list of node IPs or hostnames (space-separated)
+NODE_LIST := hpworker01.turkey.local moo.turkey.local
+
+# Define timeout values
+DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
+UP_TIMEOUT := 300    # Time in seconds to wait for all nodes to come back up
+
+# Path to mock scripts
+MOCK_PING := ./hack/mock_ping.sh
+MOCK_REBOOT := ./hack/mock_reboot.sh
+
+.PHONY: monitor-nodes-reboot force-reboot-all-nodes
+
+monitor-nodes-reboot:
+	@echo "Monitoring node reboot process for nodes: $(NODE_LIST)..."
+	@bash -c ' \
+		NODES="$(NODE_LIST)"; \
+		DOWN_TIMEOUT=$(DOWN_TIMEOUT); \
+		UP_TIMEOUT=$(UP_TIMEOUT); \
+		declare -A STATUS; \
+		declare -A FAILURE_COUNT; \
+		for node in $$NODES; do \
+			STATUS[$$node]="up"; \
+			FAILURE_COUNT[$$node]=0; \
+		done; \
+		function monitor_nodes { \
+			for i in `seq 1 $$DOWN_TIMEOUT`; do \
+				for node in $$NODES; do \
+					short_name=$$(echo $$node | cut -d. -f1); \
+					if ping -t 1 -c 1 $$node &> /dev/null; then \
+						FAILURE_COUNT[$$node]=0; \
+						if [[ $${STATUS[$$node]} == "down" ]]; then \
+							STATUS[$$node]="down-up"; \
+							echo "Node $$short_name is back up."; \
+						fi; \
+					else \
+						FAILURE_COUNT[$$node]=$$((FAILURE_COUNT[$$node] + 1)); \
+						if [[ $${FAILURE_COUNT[$$node]} -ge 3 ]]; then \
+							if [[ $${STATUS[$$node]} == "up" ]]; then \
+								STATUS[$$node]="down"; \
+								echo "Node $$short_name is down."; \
+							fi; \
+						fi; \
+					fi; \
+				done; \
+				sleep 1; \
+				local all_done=true; \
+				for node in $$NODES; do \
+					if [[ $${STATUS[$$node]} != "down-up" ]]; then \
+						all_done=false; \
+						break; \
+					fi; \
+				done; \
+				if $$all_done; then \
+					echo "All nodes have rebooted successfully."; \
+					return 0; \
+				fi; \
+			done; \
+			echo "Error: Timeout waiting for all nodes to reboot."; \
+			return 1; \
+		}; \
+		monitor_nodes \
+	'
+
+force-reboot-all-nodes:
+	@echo "Forcing reboot for all nodes..."
+	@bash -c ' \
+		NODES="$(NODE_LIST)"; \
+		for node in $$NODES; do \
+			short_name=$$(echo $$node | cut -d. -f1); \
+			echo "Rebooting node: $$short_name"; \
+			talm reboot --wait=false -f nodes/$$short_name.yaml; \
+		done \
+	'
