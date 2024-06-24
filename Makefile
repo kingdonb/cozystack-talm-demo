@@ -90,7 +90,7 @@ NODE_LIST := hpworker01.turkey.local moo.turkey.local
 DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
 UP_TIMEOUT := 300    # Time in seconds to wait for all nodes to come back up
 
-.PHONY: monitor-nodes-reboot
+.PHONY: monitor-nodes-reboot force-reboot-all-nodes
 
 monitor-nodes-reboot:
 	@echo "Monitoring node reboot process for nodes: $(NODE_LIST)..."
@@ -104,16 +104,6 @@ monitor-nodes-reboot:
 			STATUS[$$node]="up"; \
 			FAILURE_COUNT[$$node]=0; \
 		done; \
-		function check_reboot_status { \
-			local all_done=true; \
-			for node in $$NODES; do \
-				if [[ $${STATUS[$$node]} != "down-up" ]]; then \
-					all_done=false; \
-					break; \
-				fi; \
-			done; \
-			$$all_done; \
-		}; \
 		function monitor_nodes { \
 			for i in `seq 1 $$DOWN_TIMEOUT`; do \
 				for node in $$NODES; do \
@@ -133,14 +123,32 @@ monitor-nodes-reboot:
 						fi; \
 					fi; \
 				done; \
-				if check_reboot_status; then \
+				sleep 1; \
+				local all_done=true; \
+				for node in $$NODES; do \
+					if [[ $${STATUS[$$node]} != "down-up" ]]; then \
+						all_done=false; \
+						break; \
+					fi; \
+				done; \
+				if $$all_done; then \
 					echo "All nodes have rebooted successfully."; \
 					return 0; \
 				fi; \
-				sleep 1; \
 			done; \
 			echo "Error: Timeout waiting for all nodes to reboot."; \
 			return 1; \
 		}; \
 		monitor_nodes \
+	'
+
+force-reboot-all-nodes:
+	@echo "Forcing reboot for all nodes..."
+	@bash -c ' \
+		NODES="$(NODE_LIST)"; \
+		for node in $$NODES; do \
+			short_name=$$(echo $$node | cut -d. -f1); \
+			echo "Rebooting node: $$short_name"; \
+			talm reboot -f nodes/$$short_name.yaml --wait=false; \
+		done \
 	'
