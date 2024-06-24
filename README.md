@@ -1,9 +1,32 @@
 # Cozystack Demo
 
 This is a test repo for Cozystack, we are using it in our home lab to test the
-integration of Cozystack and Flux-Operator
+integration of Cozystack and Flux-Operator as a scripted process.
 
 ## tl;dr
+
+```bash
+make mrproper
+make init
+git stash
+make apply
+make monitor-nodes-reboot
+make bootstrap
+make kubeconfig
+# kconf rm admin@cozystack
+kconf add kubeconfig
+make install
+
+# ... (wait a while!)
+flux get helmreleases -A
+
+# and see that Cozystack is installed! 🤞
+```
+
+That's literally as short as I can make it 😅 you should probably read on if
+you want to know how this works at all, in order to better follow my example.
+
+## How to use
 
 To use this repository:
 
