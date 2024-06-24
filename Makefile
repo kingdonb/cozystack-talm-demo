@@ -112,18 +112,18 @@ monitor-nodes-reboot:
 			for i in `seq 1 $$DOWN_TIMEOUT`; do \
 				for node in $$NODES; do \
 					short_name=$$(echo $$node | cut -d. -f1); \
-					if $(MOCK_PING) $$short_name; then \
+					if ping -t 1 -c 1 $$node &> /dev/null; then \
 						FAILURE_COUNT[$$node]=0; \
 						if [[ $${STATUS[$$node]} == "down" ]]; then \
 							STATUS[$$node]="down-up"; \
-							echo "Node $$node is back up."; \
+							echo "Node $$short_name is back up."; \
 						fi; \
 					else \
 						FAILURE_COUNT[$$node]=$$((FAILURE_COUNT[$$node] + 1)); \
 						if [[ $${FAILURE_COUNT[$$node]} -ge 3 ]]; then \
 							if [[ $${STATUS[$$node]} == "up" ]]; then \
 								STATUS[$$node]="down"; \
-								echo "Node $$node is down."; \
+								echo "Node $$short_name is down."; \
 							fi; \
 						fi; \
 					fi; \
@@ -154,6 +154,6 @@ force-reboot-all-nodes:
 		for node in $$NODES; do \
 			short_name=$$(echo $$node | cut -d. -f1); \
 			echo "Rebooting node: $$short_name"; \
-			$(MOCK_REBOOT) $$short_name; \
+			talm reboot --wait=false -f nodes/$$short_name.yaml; \
 		done \
 	'
