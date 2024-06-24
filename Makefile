@@ -113,14 +113,12 @@ monitor-nodes-reboot:
 				for node in $$NODES; do \
 					short_name=$$(echo $$node | cut -d. -f1); \
 					if $(MOCK_PING) $$short_name; then \
-						echo "Node $$node answered."; \
 						FAILURE_COUNT[$$node]=0; \
 						if [[ $${STATUS[$$node]} == "down" ]]; then \
 							STATUS[$$node]="down-up"; \
 							echo "Node $$node is back up."; \
 						fi; \
 					else \
-						echo "Node $$node did not answer."; \
 						FAILURE_COUNT[$$node]=$$((FAILURE_COUNT[$$node] + 1)); \
 						if [[ $${FAILURE_COUNT[$$node]} -ge 3 ]]; then \
 							if [[ $${STATUS[$$node]} == "up" ]]; then \
