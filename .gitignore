@@ -1,3 +1,6 @@
 kubeconfig
 secrets.yaml
 talosconfig
+harvey-kubeconfig.yaml
+test-kubeconfig.yaml
+*-kubeconfig.yaml
