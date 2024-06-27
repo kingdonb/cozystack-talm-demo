@@ -3,6 +3,9 @@ all: none
 none:
 	echo "try 'make tailscale'"
 
+help:
+	head -30 README.md
+
 install:
 	kubectl create ns cozy-system
 	kubectl apply -f configs/cozystack-config.yaml
