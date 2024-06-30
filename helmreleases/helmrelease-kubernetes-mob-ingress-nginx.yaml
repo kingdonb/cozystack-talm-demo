@@ -1,0 +1,50 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  annotations:
+    meta.helm.sh/release-name: kubernetes-mob
+    meta.helm.sh/release-namespace: tenant-test-tenant
+    reconcile.fluxcd.io/forceAt: "2024-06-29T12:37:12.20573-04:00"
+    reconcile.fluxcd.io/requestedAt: "2024-06-29T12:37:12.20573-04:00"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    coztstack.io/target-cluster-name: kubernetes-mob
+    cozystack.io/repository: system
+    helm.toolkit.fluxcd.io/name: kubernetes-mob
+    helm.toolkit.fluxcd.io/namespace: tenant-test-tenant
+  name: kubernetes-mob-ingress-nginx
+  namespace: tenant-test-tenant
+spec:
+  chart:
+    spec:
+      chart: cozy-ingress-nginx
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '*'
+  dependsOn:
+  - name: kubernetes-mob
+    namespace: tenant-test-tenant
+  - name: kubernetes-mob-cilium
+    namespace: tenant-test-tenant
+  install:
+    createNamespace: true
+  interval: 1m
+  kubeConfig:
+    secretRef:
+      name: kubernetes-mob-kubeconfig
+  releaseName: ingress-nginx
+  storageNamespace: cozy-ingress-nginx
+  targetNamespace: cozy-ingress-nginx
+  values:
+    ingress-nginx:
+      controller:
+        hostNetwork: true
+        kind: DaemonSet
+        service:
+          enabled: false
+      fullnameOverride: ingress-nginx
+      nodeSelector:
+        node-role.kubernetes.io/ingress-nginx: ""
