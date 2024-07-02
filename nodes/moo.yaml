@@ -1,0 +1,72 @@
+# talm: nodes=["10.17.13.207"], endpoints=["10.17.13.92"], templates=["templates/worker.yaml"]
+machine:
+  type: worker
+  kubelet:
+    extraConfig:
+      maxPods: 512
+    nodeIP:
+      validSubnets:
+        - 10.17.13.0/24
+  network:
+    # -- Discovered interfaces:
+    # enxfcaa14b949c0:
+    #   id: enp1s0
+    #   hardwareAddr:fc:aa:14:b9:49:c0
+    #   busPath: 0000:01:00.0
+    #   driver: r8169
+    #   vendor: Realtek Semiconductor Co., Ltd.
+    #   product: RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller)
+    interfaces:
+      - deviceSelector:
+          hardwareAddr: fc:aa:14:b9:49:c0
+          driver: r8169
+        addresses:
+          - 10.17.13.207/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.17.13.249
+    nameservers:
+      - 10.17.13.254
+  install:
+    # -- Discovered disks:
+    # /dev/sda:
+    #    model: PNY CS1211 120GB
+    #    serial: 
+    #    wwid: naa.5f8db4c205430835
+    #    size: 0.11 TB
+    # /dev/sdb:
+    #    model: ST1000DM003-1ER1
+    #    serial: 
+    #    wwid: naa.5000c5007bb7182a
+    #    size: 0.91 TB
+    # /dev/sdc:
+    #    model: Samsung SSD 850
+    #    serial: 
+    #    wwid: naa.5002538d4261c5f8
+    #    size: 0.23 TB
+    disk: /dev/sda
+    image: ghcr.io/aenix-io/cozystack/talos:v1.7.1
+  files:
+    - content: "[plugins]\n  [plugins.\"io.containerd.grpc.v1.cri\"]\n    device_ownership_from_security_context = true      \n"
+      permissions: 0o0
+      path: /etc/cri/conf.d/20-customization.part
+      op: create
+  kernel:
+    modules:
+      - name: openvswitch
+      - name: drbd
+        parameters:
+          - usermode_helper=disabled
+      - name: zfs
+      - name: spl
+cluster:
+  controlPlane:
+    endpoint: https://10.17.13.253:6443
+  clusterName: cozystack
+  network:
+    cni:
+      name: none
+    dnsDomain: cozy.local
+    serviceSubnets:
+      - 10.96.0.0/16
+
