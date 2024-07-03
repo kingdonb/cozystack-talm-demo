@@ -73,6 +73,9 @@ machine:
       registry.k8s.io:
         endpoints:
           - http://netmoom-13net.turkey.local:5051
+      quay.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5052
 cluster:
   controlPlane:
     endpoint: https://10.17.13.253:6443

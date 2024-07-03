@@ -5,6 +5,10 @@ machine:
         endpoints:
           - http://netmoom-13net.turkey.local:5050
 
+      quay.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5052
+
       gcr.io:
         endpoints:
           - http://netmoom-13net.turkey.local:5053
