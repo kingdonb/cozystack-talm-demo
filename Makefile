@@ -1,5 +1,8 @@
 all: none
 
+# Define the list of node IPs or hostnames (space-separated)
+NODE_LIST := hpworker01.turkey.local moo.turkey.local
+
 none:
 	echo "try 'make tailscale'"
 
@@ -29,6 +32,20 @@ template:
 	mkdir -p nodes
 	talm template -e 10.17.13.92 -n 10.17.13.92 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
 	talm template -e 10.17.13.92 -n 10.17.13.207 -t templates/worker.yaml -i > nodes/moo.yaml
+
+patch-nodes:
+	@echo "Merging patches into nodes/* : ..."
+	@bash -c ' \
+		NODES="$(NODE_LIST)"; \
+		PATCHES="caching-proxy-patch"; \
+		for node in $$NODES; do \
+			short_name=$$(echo $$node | cut -d. -f1); \
+			for patch in $$PATCHES; do \
+				echo "nodes/$$short_name.yaml (config/$$patch.yaml)"; \
+				yq -i ea ". as \$$item ireduce ({}; . * \$$item )" nodes/$${short_name}.yaml configs/$${patch}.yaml; \
+			done; \
+		done \
+	'
 
 apply: apply-moo apply-hpworker01
 
@@ -86,12 +103,8 @@ nuke-only-storage:
 	@echo "Don't say you weren't warned! Danger!"
 
 ## Credit to the below goes to ChatGPT
-# Define the list of node IPs or hostnames (space-separated)
-NODE_LIST := hpworker01.turkey.local moo.turkey.local
-
 # Define timeout values
 DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
-UP_TIMEOUT := 300    # Time in seconds to wait for all nodes to come back up
 
 # Path to mock scripts
 MOCK_PING := ./hack/mock_ping.sh
@@ -104,7 +117,6 @@ monitor-nodes-reboot:
 	@bash -c ' \
 		NODES="$(NODE_LIST)"; \
 		DOWN_TIMEOUT=$(DOWN_TIMEOUT); \
-		UP_TIMEOUT=$(UP_TIMEOUT); \
 		declare -A STATUS; \
 		declare -A FAILURE_COUNT; \
 		for node in $$NODES; do \
