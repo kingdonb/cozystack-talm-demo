@@ -69,6 +69,7 @@ mrproper: clean clean-template
 
 clean-kubeconfig:
 	rm -f kubeconfig
+	rm -f kubeconfig-*.yaml
 
 clean-talosconfig:
 	rm -f talosconfig
