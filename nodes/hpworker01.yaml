@@ -56,6 +56,20 @@ machine:
           - usermode_helper=disabled
       - name: zfs
       - name: spl
+  registries:
+    mirrors:
+      docker.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5050
+      gcr.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5053
+      ghcr.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5054
+      registry.k8s.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5051
 cluster:
   controlPlane:
     endpoint: https://10.17.13.253:6443
@@ -83,4 +97,3 @@ cluster:
     advertisedSubnets:
       - 10.17.13.0/24
   allowSchedulingOnControlPlanes: true
-
