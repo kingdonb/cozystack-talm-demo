@@ -1,7 +1,13 @@
 # Cozystack Demo
 
-This is a test repo for Cozystack, we are using it in our home lab to test the
-integration of Cozystack and Flux-Operator as a scripted process.
+This is a test repo for Cozystack, we are using it in our home lab to prove the
+integration of Cozystack and Flux-Operator as a process, and to be familiar
+with tear-down stand-up workflow for our Disaster Recovery scenarios.
+
+[Time trials][] are [on YouTube][] (some are linked at the bottom of the page!)
+
+[Time trials]: #time-trials
+[on YouTube]: https://youtube.com/@yebyen/streams
 
 ## tl;dr
 
@@ -54,3 +60,11 @@ Now follow Get Started guide starting from the [Install Cozystack][] section, to
 
 [cozystack.io: Configuration - Talm]: https://cozystack.io/docs/talos/configuration/talm/
 [Install Cozystack]: https://cozystack.io/docs/get-started/#install-cozystack
+
+### Time Trials
+
+* [youtu.be/q43l_YerEy8][] - immediately before this README was written
+* [youtu.be/bIgAeSfAEys][] - "Scaffolded speed-run" - recorded after the Makefile got `monitor-nodes-reboot`
+
+[youtu.be/q43l_YerEy8]: https://youtube.com/watch?v=q43l_YerEy8
+[youtu.be/bIgAeSfAEys]: https://youtube.com/watch?v=bIgAeSfAEys

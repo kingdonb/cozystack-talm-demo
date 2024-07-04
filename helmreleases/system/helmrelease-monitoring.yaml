@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    cozystack.io/repository: system
+  name: monitoring
+  namespace: cozy-monitoring
+spec:
+  chart:
+    spec:
+      chart: cozy-monitoring
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '*'
+  dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
+  - name: victoria-metrics-operator
+    namespace: cozy-victoria-metrics-operator
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  interval: 1m
+  releaseName: monitoring
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
