@@ -30,5 +30,5 @@ spec:
       retries: -1
   values:
     etcd: true
-    host: moomboo.space
+    host: example.org
     ingress: true

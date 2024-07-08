@@ -31,10 +31,15 @@ spec:
     namespace: tenant-test
   install:
     createNamespace: true
-  interval: 1m
+    remediation:
+      retries: -1
+  interval: 5m
   kubeConfig:
     secretRef:
       name: kubernetes-cluster-kubeconfig
   releaseName: fluxcd
   storageNamespace: cozy-fluxcd
   targetNamespace: cozy-fluxcd
+  upgrade:
+    remediation:
+      retries: -1

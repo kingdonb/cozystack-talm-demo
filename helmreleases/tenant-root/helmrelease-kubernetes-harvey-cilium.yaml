@@ -27,13 +27,18 @@ spec:
     namespace: tenant-root
   install:
     createNamespace: true
-  interval: 1m
+    remediation:
+      retries: -1
+  interval: 5m
   kubeConfig:
     secretRef:
       name: kubernetes-harvey-kubeconfig
   releaseName: cilium
   storageNamespace: cozy-cilium
   targetNamespace: cozy-cilium
+  upgrade:
+    remediation:
+      retries: -1
   values:
     cilium:
       autoDirectNodeRoutes: false

@@ -24,7 +24,9 @@ spec:
       fluxcd:
         enabled: true
       ingressNginx:
-        enabled: false
+        enabled: true
+        hosts:
+        - podinfo.local
     controlPlane:
       replicas: 2
     host: harvey.moomboo.space

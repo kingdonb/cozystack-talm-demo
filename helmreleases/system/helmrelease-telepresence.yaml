@@ -24,7 +24,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: traffic-manager
   upgrade:
     crds: CreateReplace

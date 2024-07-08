@@ -10,12 +10,12 @@ metadata:
     cozystack.io/repository: system
     helm.toolkit.fluxcd.io/name: kubernetes-harvey
     helm.toolkit.fluxcd.io/namespace: tenant-root
-  name: kubernetes-harvey-csi
+  name: kubernetes-harvey-ingress-nginx
   namespace: tenant-root
 spec:
   chart:
     spec:
-      chart: cozy-kubevirt-csi-node
+      chart: cozy-ingress-nginx
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -25,6 +25,8 @@ spec:
   dependsOn:
   - name: kubernetes-harvey
     namespace: tenant-root
+  - name: kubernetes-harvey-cilium
+    namespace: tenant-root
   install:
     createNamespace: true
     remediation:
@@ -33,9 +35,22 @@ spec:
   kubeConfig:
     secretRef:
       name: kubernetes-harvey-kubeconfig
-  releaseName: csi
-  storageNamespace: cozy-csi
-  targetNamespace: cozy-csi
+  releaseName: ingress-nginx
+  storageNamespace: cozy-ingress-nginx
+  targetNamespace: cozy-ingress-nginx
   upgrade:
     remediation:
       retries: -1
+  values:
+    ingress-nginx:
+      controller:
+        config:
+          proxy-connect-timeout: "10"
+          proxy-read-timeout: "10"
+        hostNetwork: true
+        kind: DaemonSet
+        service:
+          enabled: false
+      fullnameOverride: ingress-nginx
+      nodeSelector:
+        node-role.kubernetes.io/ingress-nginx: ""

@@ -29,10 +29,15 @@ spec:
     namespace: tenant-root
   install:
     createNamespace: true
-  interval: 1m
+    remediation:
+      retries: -1
+  interval: 5m
   kubeConfig:
     secretRef:
       name: kubernetes-harvey-kubeconfig
   releaseName: cert-manager
   storageNamespace: cozy-cert-manager
   targetNamespace: cozy-cert-manager
+  upgrade:
+    remediation:
+      retries: -1

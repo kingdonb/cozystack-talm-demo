@@ -28,7 +28,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: mariadb-operator
   upgrade:
     crds: CreateReplace

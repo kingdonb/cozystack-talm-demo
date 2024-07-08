@@ -24,7 +24,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: dashboard
   upgrade:
     crds: CreateReplace
@@ -35,5 +35,5 @@ spec:
       redis:
         master:
           podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:ad1e814a2983dad5610601f34c41769bc643165180a095ba88b0996ae1f52bd2
-            repository.cozystack.io/cozystack-extra: sha256:9ab80b555f87230e62182fc80f64ae034092434abfed9410c816cf8c5f6b91d3
+            repository.cozystack.io/cozystack-apps: sha256:538417d6277c6e0d43b33a97b0e0c31637ba0cd4eee618372f08159fe6c77146
+            repository.cozystack.io/cozystack-extra: sha256:e29e9cc117436e196a077b716a30ad67bd937bc137378736c28bde04079381ab

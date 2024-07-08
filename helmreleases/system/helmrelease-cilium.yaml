@@ -19,7 +19,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: cilium
   upgrade:
     crds: CreateReplace
