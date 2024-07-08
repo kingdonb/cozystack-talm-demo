@@ -47,8 +47,6 @@ spec:
         config:
           proxy-connect-timeout: "10"
           proxy-read-timeout: "10"
-        extraArgs:
-          enable-ssl-passthrough: ""
         hostNetwork: true
         kind: DaemonSet
         service:

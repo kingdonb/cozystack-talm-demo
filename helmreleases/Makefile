@@ -1,3 +1,7 @@
+none:
+	@echo "try: make all (reset, backup, sort)"
+all: reset backup sort
+
 backup:
 	kubectl get --all-namespaces helmreleases.helm.toolkit.fluxcd.io -oyaml | \
 		yq '.items.[] | split_doc' | \
