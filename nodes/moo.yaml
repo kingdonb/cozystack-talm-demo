@@ -1,4 +1,4 @@
-# talm: nodes=["10.17.13.207"], endpoints=["10.17.13.92"], templates=["templates/worker.yaml"]
+# talm: nodes=["10.17.13.207"], endpoints=["10.17.13.207"], templates=["templates/worker.yaml"]
 machine:
   type: worker
   kubelet:
@@ -64,6 +64,9 @@ machine:
       docker.io:
         endpoints:
           - http://netmoom-13net.turkey.local:5050
+      quay.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5052
       gcr.io:
         endpoints:
           - http://netmoom-13net.turkey.local:5053
@@ -73,9 +76,6 @@ machine:
       registry.k8s.io:
         endpoints:
           - http://netmoom-13net.turkey.local:5051
-      quay.io:
-        endpoints:
-          - http://netmoom-13net.turkey.local:5052
 cluster:
   controlPlane:
     endpoint: https://10.17.13.253:6443
