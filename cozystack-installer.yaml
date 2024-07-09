@@ -68,7 +68,7 @@ spec:
       serviceAccountName: cozystack
       containers:
       - name: cozystack
-        image: "kingdonb/cozystack:0.2.1"
+        image: "kingdonb/cozystack:0.2.2"
         env:
         - name: KUBERNETES_SERVICE_HOST
           value: localhost
@@ -87,7 +87,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
       - name: darkhttpd
-        image: "kingdonb/cozystack:0.2.1"
+        image: "kingdonb/cozystack:0.2.2"
         command:
         - /usr/bin/darkhttpd
         - /cozystack/assets
