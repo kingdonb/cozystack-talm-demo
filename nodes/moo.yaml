@@ -1,4 +1,4 @@
-# talm: nodes=["10.17.13.207"], endpoints=["10.17.13.92"], templates=["templates/worker.yaml"]
+# talm: nodes=["10.17.13.41"], endpoints=["10.17.13.73"], templates=["templates/worker.yaml"]
 machine:
   type: worker
   kubelet:
@@ -21,7 +21,7 @@ machine:
           hardwareAddr: fc:aa:14:b9:49:c0
           driver: r8169
         addresses:
-          - 10.17.13.207/24
+          - 10.17.13.41/24
         routes:
           - network: 0.0.0.0/0
             gateway: 10.17.13.249
