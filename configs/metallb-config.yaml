@@ -7,6 +7,7 @@ metadata:
 spec:
   ipAddressPools:
   - cozystack
+  - cozystack-manual
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -17,4 +18,16 @@ spec:
   addresses:
   - 10.17.13.241-10.17.13.248
   autoAssign: true
+  avoidBuggyIPs: false
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: cozystack-manual
+  namespace: cozy-metallb
+spec:
+  addresses:
+  - 10.17.13.201-10.17.13.220
+  - 10.17.13.221-10.17.13.240
+  autoAssign: false
   avoidBuggyIPs: false
