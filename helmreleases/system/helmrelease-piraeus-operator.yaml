@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    cozystack.io/repository: system
+    cozystack.io/system-app: "true"
+  name: piraeus-operator
+  namespace: cozy-linstor
+spec:
+  chart:
+    spec:
+      chart: cozy-piraeus-operator
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '*'
+  dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
+  - name: cert-manager
+    namespace: cozy-cert-manager
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: piraeus-operator
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1

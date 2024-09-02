@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    cozystack.io/ui: "true"
+  name: tenant-root
+  namespace: tenant-root
+spec:
+  chart:
+    spec:
+      chart: tenant
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-apps
+        namespace: cozy-public
+      version: 1.4.0
+  dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
+  install:
+    remediation:
+      retries: -1
+  interval: 1m
+  releaseName: tenant-root
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    etcd: true
+    host: moomboo.space
+    ingress: true
+    monitoring: true
+    seaweedfs: false

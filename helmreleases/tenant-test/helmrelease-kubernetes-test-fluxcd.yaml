@@ -1,0 +1,45 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  annotations:
+    meta.helm.sh/release-name: kubernetes-test
+    meta.helm.sh/release-namespace: tenant-test
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    coztstack.io/target-cluster-name: kubernetes-test
+    cozystack.io/repository: system
+    helm.toolkit.fluxcd.io/name: kubernetes-test
+    helm.toolkit.fluxcd.io/namespace: tenant-test
+  name: kubernetes-test-fluxcd
+  namespace: tenant-test
+spec:
+  chart:
+    spec:
+      chart: cozy-fluxcd
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '*'
+  dependsOn:
+  - name: kubernetes-test
+    namespace: tenant-test
+  - name: kubernetes-test-cilium
+    namespace: tenant-test
+  - name: kubernetes-test-fluxcd-operator
+    namespace: tenant-test
+  install:
+    createNamespace: true
+    remediation:
+      retries: -1
+  interval: 5m
+  kubeConfig:
+    secretRef:
+      name: kubernetes-test-kubeconfig
+  releaseName: fluxcd
+  storageNamespace: cozy-fluxcd
+  targetNamespace: cozy-fluxcd
+  upgrade:
+    remediation:
+      retries: -1
