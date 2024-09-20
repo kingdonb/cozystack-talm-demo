@@ -1,7 +1,8 @@
 all: none
 
 # Define the list of node IPs or hostnames (space-separated)
-NODE_LIST := hpworker01.turkey.local moo.turkey.local
+# NODE_LIST := hpworker01.turkey.local moo.turkey.local hpworker03.turkey.local dellwork01.turkey.local
+NODE_LIST := dellwork01.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -33,6 +34,7 @@ template:
 	talm template -e 10.17.13.73 -n 10.17.13.73 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.41 -t templates/worker.yaml -i > nodes/moo.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.86 -t templates/worker.yaml -i > nodes/hpworker03.yaml
+	talm template -e 10.17.13.73 -n 10.17.13.173 -t templates/worker.yaml -i > nodes/dellwork01.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -48,7 +50,7 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-moo apply-hpworker01
+apply: apply-moo apply-hpworker01 apply-hpworker03 apply-dellwork01
 
 apply-moo:
 	talm apply -f nodes/moo.yaml -i
@@ -56,12 +58,14 @@ apply-hpworker01:
 	talm apply -f nodes/hpworker01.yaml -i
 apply-hpworker03:
 	talm apply -f nodes/hpworker03.yaml -i
+apply-dellwork01:
+	talm apply -f nodes/dellwork01.yaml -i
 
 bootstrap:
 	talm bootstrap -f nodes/hpworker01.yaml
 
 dashboard:
-	talm dashboard -f nodes/hpworker01.yaml -f nodes/hpworker03.yaml -f nodes/moo.yaml
+	talm dashboard -f nodes/hpworker01.yaml -f nodes/hpworker03.yaml -f nodes/moo.yaml -f nodes/dellwork01.yaml
 
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/hpworker01.yaml
