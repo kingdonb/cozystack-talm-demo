@@ -12,7 +12,7 @@ help:
 install:
 	kubectl create ns cozy-system
 	kubectl apply -f configs/cozystack-config.yaml
-	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.13.0/manifests/cozystack-installer.yaml
+	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.15.0/manifests/cozystack-installer.yaml
 	# local:# kubectl apply -f cozystack-installer.yaml
 
 tailscale:
@@ -32,6 +32,7 @@ template:
 	mkdir -p nodes
 	talm template -e 10.17.13.73 -n 10.17.13.73 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.41 -t templates/worker.yaml -i > nodes/moo.yaml
+	talm template -e 10.17.13.73 -n 10.17.13.86 -t templates/worker.yaml -i > nodes/hpworker03.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -53,12 +54,14 @@ apply-moo:
 	talm apply -f nodes/moo.yaml -i
 apply-hpworker01:
 	talm apply -f nodes/hpworker01.yaml -i
+apply-hpworker03:
+	talm apply -f nodes/hpworker03.yaml -i
 
 bootstrap:
 	talm bootstrap -f nodes/hpworker01.yaml
 
 dashboard:
-	talm dashboard -f nodes/hpworker01.yaml -f nodes/moo.yaml
+	talm dashboard -f nodes/hpworker01.yaml -f nodes/hpworker03.yaml -f nodes/moo.yaml
 
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/hpworker01.yaml
