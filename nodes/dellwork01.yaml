@@ -37,6 +37,8 @@ machine:
     #    size: 0.93 TB
     disk: /dev/nvme0n1
     image: ghcr.io/aenix-io/cozystack/talos:v1.7.6
+    extraKernelArgs:
+      - sysctl.kernel.kexec_load_disabled=1
   files:
     - content: "[plugins]\n  [plugins.\"io.containerd.grpc.v1.cri\"]\n    device_ownership_from_security_context = true      \n"
       permissions: 0o0
