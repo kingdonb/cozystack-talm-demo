@@ -2,7 +2,7 @@ all: none
 
 # Define the list of node IPs or hostnames (space-separated)
 # NODE_LIST := hpworker01.turkey.local moo.turkey.local hpworker03.turkey.local dellwork01.turkey.local dellwork02.turkey.local
-NODE_LIST := dellwork02.turkey.local
+NODE_LIST := hpworker01.turkey.local dellwork02.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -98,14 +98,14 @@ nuke-all-nodes:
 	@echo "====================================="
 	@echo "talm reset -f nodes/moo.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sdb,/dev/sdc --graceful=false; \\ \n\
-	    talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
-	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
-	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false"
+	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
+	    talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
 
@@ -121,7 +121,9 @@ nuke-only-storage:
 	    talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
-	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb --graceful=false"
+	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
+	    talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
+	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
 

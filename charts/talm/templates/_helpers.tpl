@@ -24,7 +24,7 @@
 {{- define "talm.discovered.disks_info" }}
 # -- Discovered disks:
 {{- range .Disks }}
-{{- if not (regexMatch "^/dev/(zd)" .device_name) }}
+{{- if not (regexMatch "^/dev/(zd|drbd)" .device_name) }}
 # {{ .device_name }}:
 #    model: {{ .model }}
 #    serial: {{ .serial }}
@@ -55,7 +55,7 @@
 {{- $linkName := "" }}
 {{- $family := "" }}
 {{- range (lookup "routes" "" "").items }}
-{{- if and (eq .spec.dst "") (not (eq .spec.gateway "")) }}
+{{- if and (eq .spec.dst "") (not (eq .spec.gateway "")) (eq .spec.table "main") }}
 {{- $linkName = .spec.outLinkName }}
 {{- $family = .spec.family }}
 {{- end }}
@@ -122,8 +122,7 @@
 {{- range (lookup "routes" "" "").items }}
 {{- if and (eq .spec.dst "") (not (eq .spec.gateway "")) }}
 {{- with (lookup "links" "" .spec.outLinkName) }}
-hardwareAddr: {{ .spec.hardwareAddr }}
-driver: {{ .spec.driver }}
+busPath: {{ .spec.busPath }}
 {{- break }}
 {{- end }}
 {{- end }}
