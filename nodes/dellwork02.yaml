@@ -19,8 +19,7 @@ machine:
     #   product: Ethernet Connection (7) I219-LM)
     interfaces:
       - deviceSelector:
-          hardwareAddr: e4:54:e8:cc:bd:58
-          driver: e1000e
+          busPath: 0000:00:1f.6
         addresses:
           - 10.17.13.6/24
         routes:
