@@ -51,18 +51,18 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-moo apply-hpworker01 apply-hpworker03 apply-dellwork01
+apply: apply-hpworker01 apply-dellwork02 # apply-hpworker03 apply-dellwork01 apply-moo
 
-apply-moo:
-	talm apply -f nodes/moo.yaml -i
 apply-hpworker01:
 	talm apply -f nodes/hpworker01.yaml -i
+apply-dellwork02:
+	talm apply -f nodes/dellwork02.yaml -i
 apply-hpworker03:
 	talm apply -f nodes/hpworker03.yaml -i
 apply-dellwork01:
 	talm apply -f nodes/dellwork01.yaml -i
-apply-dellwork02:
-	talm apply -f nodes/dellwork02.yaml -i
+apply-moo:
+	talm apply -f nodes/moo.yaml -i
 
 bootstrap:
 	talm bootstrap -f nodes/hpworker01.yaml
