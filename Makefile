@@ -53,7 +53,7 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-hpworker01 apply-dellwork02 apply-hpworker04 # apply-hpworker03 apply-dellwork01 apply-moo
+apply: apply-hpworker01 apply-dellwork02 apply-dellwork03 apply-hpworker04 apply-hpworker03 # apply-dellwork01 apply-moo
 
 apply-hpworker01:
 	talm apply -f nodes/hpworker01.yaml -i
@@ -61,10 +61,10 @@ apply-dellwork02:
 	talm apply -f nodes/dellwork02.yaml -i
 apply-dellwork03:
 	talm apply -f nodes/dellwork03.yaml -i
-apply-hpworker04:
-	talm apply -f nodes/hpworker04.yaml -i
 apply-hpworker03:
 	talm apply -f nodes/hpworker03.yaml -i
+apply-hpworker04:
+	talm apply -f nodes/hpworker04.yaml -i
 apply-dellwork01:
 	talm apply -f nodes/dellwork01.yaml -i
 apply-moo:
@@ -74,7 +74,7 @@ bootstrap:
 	talm bootstrap -f nodes/hpworker01.yaml
 
 dashboard:
-	talm dashboard -f nodes/hpworker01.yaml -f nodes/hpworker03.yaml -f nodes/hpworker04.yaml -f nodes/dellwork02.yaml -f nodes/dellwork03.yaml -f nodes/moo.yaml -f nodes/dellwork01.yaml
+	talm dashboard -f nodes/hpworker01.yaml -f nodes/hpworker03.yaml -f nodes/hpworker04.yaml -f nodes/dellwork02.yaml -f nodes/dellwork03.yaml # -f nodes/moo.yaml -f nodes/dellwork01.yaml
 
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/hpworker01.yaml
@@ -105,7 +105,7 @@ nuke-all-nodes:
 	@echo "talm reset -f nodes/moo.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sdb,/dev/sdc --graceful=false; \\ \n\
 	    talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
-	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
@@ -123,7 +123,7 @@ nuke-only-storage:
 	    talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
-	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
+	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
