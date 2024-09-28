@@ -43,7 +43,7 @@ patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
 	@bash -c ' \
 		NODES="$(NODE_LIST)"; \
-		PATCHES="caching-proxy-patch"; \
+		PATCHES="caching-proxy-patch no-kexec-patch"; \
 		for node in $$NODES; do \
 			short_name=$$(echo $$node | cut -d. -f1); \
 			for patch in $$PATCHES; do \
@@ -132,6 +132,15 @@ nuke-only-storage:
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
+
+nuke-stateless:
+	@echo "Be sure you know what you are doing!!"
+	@echo "====================================="
+	@echo "talm reset -f nodes/dellwork03.yaml --reboot --wipe-mode all --graceful=false; \\ \n\
+	    talm reset -f nodes/hpworker04.yaml --reboot --wipe-mode all --graceful=false"
+	@echo "====================================="
+	@echo "Don't say you weren't warned! Danger!"
+
 
 ## Credit to the below goes to ChatGPT
 # Define timeout values
