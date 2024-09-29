@@ -2,7 +2,7 @@ all: none
 
 # Define the list of node IPs or hostnames (space-separated)
 # NODE_LIST := hpworker01.turkey.local hpworker03.turkey.local dellwork02.turkey.local hpworker04.turkey.local dellwork03.turkey.local dellwork01.turkey.local moo.turkey.local
-NODE_LIST := hpworker01.turkey.local dellwork02.turkey.local hpworker04.turkey.local dellwork03.turkey.local hpworker03.turkey.local
+NODE_LIST := hpworker01.turkey.local dellwork02.turkey.local hpworker04.turkey.local dellwork03.turkey.local hpworker03.turkey.local dellwork01.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -32,12 +32,12 @@ init:
 template:
 	mkdir -p nodes
 	talm template -e 10.17.13.73 -n 10.17.13.73 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.173 -n 10.17.13.173 -t templates/controlplane.yaml -i > nodes/dellwork01.yaml
 	# talm template -e 10.17.13.73 -n 10.17.13.41 -t templates/worker.yaml -i > nodes/moo.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.86 -t templates/worker.yaml -i > nodes/hpworker03.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.84 -t templates/worker.yaml -i > nodes/dellwork03.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.6 -t templates/worker.yaml -i > nodes/dellwork02.yaml
-	# talm template -e 10.17.13.73 -n 10.17.13.173 -t templates/worker.yaml -i > nodes/dellwork01.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -53,7 +53,7 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-hpworker01 apply-dellwork02 apply-dellwork03 apply-hpworker04 apply-hpworker03 # apply-dellwork01 apply-moo
+apply: apply-hpworker01 apply-dellwork02 apply-dellwork03 apply-hpworker04 apply-hpworker03 apply-dellwork01 # apply-moo
 
 apply-hpworker01:
 	talm apply -f nodes/hpworker01.yaml -i
@@ -128,7 +128,7 @@ nuke-only-storage:
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	    talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
-	    talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
+	    talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
