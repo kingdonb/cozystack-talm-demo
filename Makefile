@@ -1,8 +1,9 @@
 all: none
 
 # Define the list of node IPs or hostnames (space-separated)
-# NODE_LIST := hpworker01.turkey.local hpworker03.turkey.local dellwork02.turkey.local hpworker04.turkey.local dellwork03.turkey.local dellwork01.turkey.local moo.turkey.local
-NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local hpworker04.turkey.local dellwork02.turkey.local dellwork03.turkey.local hpworker03.turkey.local
+NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local dellwork03.turkey.local hpworker04.turkey.local
+# STORAGE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
+# STSLESS_LIST := dellwork03.turkey.local hpworker04.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -31,12 +32,12 @@ init:
 
 template:
 	mkdir -p nodes
-	talm template -e 10.17.13.73 -n 10.17.13.73 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
 	talm template -e 10.17.13.173 -n 10.17.13.173 -t templates/controlplane.yaml -i > nodes/dellwork01.yaml
-	talm template -e 10.17.13.144 -n 10.17.13.144 -t templates/controlplane.yaml -i > nodes/hpworker04.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.86 -t templates/worker.yaml -i > nodes/hpworker03.yaml
+	talm template -e 10.17.13.73 -n 10.17.13.6 -t templates/controlplane.yaml -i > nodes/dellwork02.yaml
+	talm template -e 10.17.13.73 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
+	talm template -e 10.17.13.73 -n 10.17.13.73 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.144 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
 	talm template -e 10.17.13.73 -n 10.17.13.84 -t templates/worker.yaml -i > nodes/dellwork03.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.6 -t templates/worker.yaml -i > nodes/dellwork02.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -70,7 +71,7 @@ apply-moo:
 	talm apply -f nodes/moo.yaml -i
 
 bootstrap:
-	talm bootstrap -f nodes/hpworker01.yaml
+	talm bootstrap -f nodes/dellwork01.yaml
 
 dashboard:
 	talm dashboard -f nodes/hpworker01.yaml -f nodes/dellwork01.yaml -f nodes/hpworker04.yaml -f nodes/hpworker03.yaml -f nodes/dellwork02.yaml -f nodes/dellwork03.yaml # -f nodes/moo.yaml
