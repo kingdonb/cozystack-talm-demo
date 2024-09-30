@@ -77,7 +77,7 @@ dashboard:
 	talm dashboard -f nodes/hpworker01.yaml -f nodes/dellwork01.yaml -f nodes/hpworker04.yaml -f nodes/hpworker03.yaml -f nodes/dellwork02.yaml -f nodes/dellwork03.yaml # -f nodes/moo.yaml
 
 kubeconfig:
-	talm kubeconfig kubeconfig -f nodes/hpworker01.yaml
+	talm kubeconfig kubeconfig -f nodes/dellwork01.yaml
 
 clean: clean-kubeconfig clean-talosconfig clean-secrets
 
