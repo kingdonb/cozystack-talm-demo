@@ -123,12 +123,8 @@ nuke-only-storage:
 	@echo "\\ \n\
 	talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
-	talm reset -f nodes/dellwork03.yaml --reboot \\ \n\
-	  --wipe-mode user-disks --graceful=false; \\ \n\
 	talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
-	talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
-	  --wipe-mode user-disks --graceful=false; \\ \n\
 	talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
 	talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
