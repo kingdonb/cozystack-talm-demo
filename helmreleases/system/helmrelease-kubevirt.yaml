@@ -3,6 +3,7 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/repository: system
+    cozystack.io/system-app: "true"
   name: kubevirt
   namespace: cozy-kubevirt
 spec:
@@ -26,7 +27,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: kubevirt
   upgrade:
     crds: CreateReplace

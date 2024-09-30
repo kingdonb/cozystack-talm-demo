@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: piraeus-operator
-  namespace: cozy-linstor
+  name: snapshot-controller
+  namespace: cozy-snapshot-controller
 spec:
   chart:
     spec:
-      chart: cozy-piraeus-operator
+      chart: cozy-snapshot-controller
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -21,14 +21,14 @@ spec:
     namespace: cozy-cilium
   - name: kubeovn
     namespace: cozy-kubeovn
-  - name: cert-manager
+  - name: cert-manager-issuers
     namespace: cozy-cert-manager
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: piraeus-operator
+  releaseName: snapshot-controller
   upgrade:
     crds: CreateReplace
     remediation:

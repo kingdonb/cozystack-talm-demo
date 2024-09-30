@@ -3,6 +3,7 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/repository: system
+    cozystack.io/system-app: "true"
   name: dashboard
   namespace: cozy-dashboard
 spec:
@@ -24,7 +25,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: dashboard
   upgrade:
     crds: CreateReplace
@@ -35,5 +36,5 @@ spec:
       redis:
         master:
           podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:ad1e814a2983dad5610601f34c41769bc643165180a095ba88b0996ae1f52bd2
-            repository.cozystack.io/cozystack-extra: sha256:9ab80b555f87230e62182fc80f64ae034092434abfed9410c816cf8c5f6b91d3
+            repository.cozystack.io/cozystack-apps: sha256:5fb53fbd2bd9b19d75ac205d1b3afecde6134be28e26d04af9c95d22cba8fa25
+            repository.cozystack.io/cozystack-extra: sha256:4c9f01028910e2ffd574c13b266c99f4be49e721ebf5f6e7e1427e4529b07187

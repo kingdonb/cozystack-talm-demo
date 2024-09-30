@@ -4,11 +4,13 @@ metadata:
   annotations:
     meta.helm.sh/release-name: ingress
     meta.helm.sh/release-namespace: tenant-root
+    reconcile.fluxcd.io/forceAt: "2024-08-14T12:27:28.317155-04:00"
+    reconcile.fluxcd.io/requestedAt: "2024-08-14T12:27:28.317155-04:00"
   labels:
     app.kubernetes.io/managed-by: Helm
     helm.toolkit.fluxcd.io/name: ingress
     helm.toolkit.fluxcd.io/namespace: tenant-root
-  name: ingress-nginx
+  name: ingress-nginx-system
   namespace: tenant-root
 spec:
   chart:
@@ -29,6 +31,9 @@ spec:
         ingressClassResource:
           controllerValue: k8s.io/ingress-nginx-tenant-root
           name: tenant-root
+        podLabels:
+          cozystack.io/service: ingress
+          policy.cozystack.io/allow-to-apiserver: "true"
         replicaCount: 2
         service:
           externalTrafficPolicy: Local

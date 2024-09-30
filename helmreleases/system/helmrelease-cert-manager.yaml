@@ -3,6 +3,7 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/repository: system
+    cozystack.io/system-app: "true"
   name: cert-manager
   namespace: cozy-cert-manager
 spec:
@@ -24,7 +25,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: cert-manager
   upgrade:
     crds: CreateReplace

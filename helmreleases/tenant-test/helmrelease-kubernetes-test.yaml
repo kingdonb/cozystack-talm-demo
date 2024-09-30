@@ -3,8 +3,8 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/ui: "true"
-  name: kubernetes-harvey
-  namespace: tenant-root
+  name: kubernetes-test
+  namespace: tenant-test
 spec:
   chart:
     spec:
@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.5.0
+      version: 0.10.0
   interval: 1m0s
   timeout: 5m0s
   values:
@@ -24,12 +24,13 @@ spec:
       fluxcd:
         enabled: true
       ingressNginx:
-        enabled: false
+        enabled: true
     controlPlane:
       replicas: 2
-    host: harvey.moomboo.space
+    host: ""
     nodeGroups:
       md0:
+        ephemeralStorage: 20Gi
         maxReplicas: 10
         minReplicas: 0
         resources:
@@ -37,3 +38,4 @@ spec:
           memory: 1024Mi
         roles:
         - ingress-nginx
+    storageClass: replicated

@@ -3,6 +3,7 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/repository: system
+    cozystack.io/system-app: "true"
   name: kubeovn
   namespace: cozy-kubeovn
 spec:
@@ -22,7 +23,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: kubeovn
   upgrade:
     crds: CreateReplace
@@ -30,7 +31,7 @@ spec:
       retries: -1
   values:
     cozystack:
-      nodesHash: fb92163930f26d3ea41890528085344683708b293ca5ce3cc479b2b3bc4e58c1
+      nodesHash: 656f12ab86a250c268c3cb1c9f7d5a588f0f5c3b0499d56ebb3f5625c583b46c
     kube-ovn:
       ipv4:
         JOIN_CIDR: 100.64.0.0/16

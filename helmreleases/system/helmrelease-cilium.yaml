@@ -3,6 +3,7 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/repository: system
+    cozystack.io/system-app: "true"
   name: cilium
   namespace: cozy-cilium
 spec:
@@ -14,12 +15,16 @@ spec:
         kind: HelmRepository
         name: cozystack-system
         namespace: cozy-system
+      valuesFiles:
+      - values.yaml
+      - values-talos.yaml
+      - values-kubeovn.yaml
       version: '*'
   install:
     crds: CreateReplace
     remediation:
       retries: -1
-  interval: 1m
+  interval: 5m
   releaseName: cilium
   upgrade:
     crds: CreateReplace

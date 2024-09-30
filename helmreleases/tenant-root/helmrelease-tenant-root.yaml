@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 1.1.0
+      version: 1.4.0
   dependsOn:
   - name: cilium
     namespace: cozy-cilium
@@ -32,3 +32,5 @@ spec:
     etcd: true
     host: moomboo.space
     ingress: true
+    monitoring: true
+    seaweedfs: false
