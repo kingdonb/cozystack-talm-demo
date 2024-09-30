@@ -147,7 +147,7 @@ nuke-stateless:
 
 ## Credit to the below goes to ChatGPT
 # Define timeout values
-DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
+DOWN_TIMEOUT := 900  # Time in seconds to wait for all nodes to go down
 
 # Path to mock scripts
 MOCK_PING := ./hack/mock_ping.sh
