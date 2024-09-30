@@ -33,11 +33,11 @@ init:
 template:
 	mkdir -p nodes
 	talm template -e 10.17.13.173 -n 10.17.13.173 -t templates/controlplane.yaml -i > nodes/dellwork01.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.6 -t templates/controlplane.yaml -i > nodes/dellwork02.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
-	talm template -e 10.17.13.144 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.84 -t templates/worker.yaml -i > nodes/dellwork03.yaml
+	talm template -e 10.17.13.6 -n 10.17.13.6 -t templates/controlplane.yaml -i > nodes/dellwork02.yaml
+	talm template -e 10.17.13.86 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
+	talm template -e 10.17.13.173 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.173 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
+	talm template -e 10.17.13.173 -n 10.17.13.84 -t templates/worker.yaml -i > nodes/dellwork03.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
