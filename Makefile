@@ -102,15 +102,18 @@ clean-nodes:
 nuke-all-nodes:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
-	@echo "talm reset -f nodes/moo.yaml --reboot \\ \n\
-	  --wipe-mode all --user-disks-to-wipe /dev/sdb,/dev/sdc --graceful=false; \\ \n\
-	    talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
+	@echo "\\ \n\
+	talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
-	    talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
-	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
-	    talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
+	talm reset -f nodes/dellwork03.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false; \\ \n\
+	talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
-	    talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
+	talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false; \\ \n\
+	talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
+	talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
