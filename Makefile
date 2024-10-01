@@ -44,7 +44,7 @@ patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
 	@bash -c ' \
 		NODES="$(NODE_LIST)"; \
-		PATCHES="caching-proxy-patch no-kexec-patch"; \
+		PATCHES="caching-proxy-patch no-kexec-patch domainname-patch"; \
 		for node in $$NODES; do \
 			short_name=$$(echo $$node | cut -d. -f1); \
 			for patch in $$PATCHES; do \
