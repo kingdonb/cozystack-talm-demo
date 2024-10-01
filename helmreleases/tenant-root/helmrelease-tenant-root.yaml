@@ -33,4 +33,4 @@ spec:
     host: moomboo.space
     ingress: true
     monitoring: true
-    seaweedfs: false
+    seaweedfs: true

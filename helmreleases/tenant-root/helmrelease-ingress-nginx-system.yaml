@@ -4,8 +4,6 @@ metadata:
   annotations:
     meta.helm.sh/release-name: ingress
     meta.helm.sh/release-namespace: tenant-root
-    reconcile.fluxcd.io/forceAt: "2024-08-14T12:27:28.317155-04:00"
-    reconcile.fluxcd.io/requestedAt: "2024-08-14T12:27:28.317155-04:00"
   labels:
     app.kubernetes.io/managed-by: Helm
     helm.toolkit.fluxcd.io/name: ingress

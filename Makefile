@@ -1,8 +1,10 @@
 all: none
 
 # Define the list of node IPs or hostnames (space-separated)
-# NODE_LIST := hpworker01.turkey.local hpworker03.turkey.local dellwork02.turkey.local hpworker04.turkey.local dellwork03.turkey.local dellwork01.turkey.local moo.turkey.local
-NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local hpworker04.turkey.local dellwork02.turkey.local dellwork03.turkey.local hpworker03.turkey.local
+# NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local dellwork03.turkey.local hpworker04.turkey.local
+# STORAGE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
+NODE_LIST:= dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
+# STSLESS_LIST := dellwork03.turkey.local hpworker04.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -31,12 +33,12 @@ init:
 
 template:
 	mkdir -p nodes
-	talm template -e 10.17.13.73 -n 10.17.13.73 -t templates/controlplane.yaml -i > nodes/hpworker01.yaml
 	talm template -e 10.17.13.173 -n 10.17.13.173 -t templates/controlplane.yaml -i > nodes/dellwork01.yaml
-	talm template -e 10.17.13.144 -n 10.17.13.144 -t templates/controlplane.yaml -i > nodes/hpworker04.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.86 -t templates/worker.yaml -i > nodes/hpworker03.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.84 -t templates/worker.yaml -i > nodes/dellwork03.yaml
-	talm template -e 10.17.13.73 -n 10.17.13.6 -t templates/worker.yaml -i > nodes/dellwork02.yaml
+	talm template -e 10.17.13.6 -n 10.17.13.6 -t templates/controlplane.yaml -i > nodes/dellwork02.yaml
+	talm template -e 10.17.13.86 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
+	# talm template -e 10.17.13.173 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
+	# talm template -e 10.17.13.173 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
+	# talm template -e 10.17.13.173 -n 10.17.13.84 -t templates/worker.yaml -i > nodes/dellwork03.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -52,31 +54,31 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-hpworker01 apply-dellwork01 apply-hpworker04 apply-dellwork02 apply-dellwork03 apply-hpworker03 # apply-moo
+apply: apply-dellwork01 apply-dellwork02 apply-hpworker03 # apply-hpworker01 apply-hpworker04 apply-dellwork03 # apply-moo
 
-apply-hpworker01:
-	talm apply -f nodes/hpworker01.yaml -i
+# apply-hpworker01:
+# 	talm apply -f nodes/hpworker01.yaml -i
 apply-dellwork01:
 	talm apply -f nodes/dellwork01.yaml -i
-apply-hpworker04:
-	talm apply -f nodes/hpworker04.yaml -i
+# apply-hpworker04:
+# 	talm apply -f nodes/hpworker04.yaml -i
 apply-dellwork02:
 	talm apply -f nodes/dellwork02.yaml -i
-apply-dellwork03:
-	talm apply -f nodes/dellwork03.yaml -i
+# apply-dellwork03:
+# 	talm apply -f nodes/dellwork03.yaml -i
 apply-hpworker03:
 	talm apply -f nodes/hpworker03.yaml -i
-apply-moo:
-	talm apply -f nodes/moo.yaml -i
+# apply-moo:
+# 	talm apply -f nodes/moo.yaml -i
 
 bootstrap:
-	talm bootstrap -f nodes/hpworker01.yaml
+	talm bootstrap -f nodes/dellwork01.yaml
 
 dashboard:
-	talm dashboard -f nodes/hpworker01.yaml -f nodes/dellwork01.yaml -f nodes/hpworker04.yaml -f nodes/hpworker03.yaml -f nodes/dellwork02.yaml -f nodes/dellwork03.yaml # -f nodes/moo.yaml
+	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml # -f nodes/hpworker04.yaml -f nodes/dellwork03.yaml -f nodes/hpworker01.yaml # -f nodes/moo.yaml
 
 kubeconfig:
-	talm kubeconfig kubeconfig -f nodes/hpworker01.yaml
+	talm kubeconfig kubeconfig -f nodes/dellwork01.yaml
 
 clean: clean-kubeconfig clean-talosconfig clean-secrets
 
@@ -117,34 +119,55 @@ nuke-all-nodes:
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
 
+nuke-all-nodes-fast:
+	@echo "Be sure you know what you are doing!!"
+	@echo "====================================="
+	@echo "\\ \n\
+	talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false& \\ \n\
+	talm reset -f nodes/dellwork03.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false& \\ \n\
+	talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false& \\ \n\
+	talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false& \\ \n\
+	talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false& \\ \n\
+	talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false"
+	@echo "====================================="
+	@echo "Don't say you weren't warned! Danger!"
+
 nuke-only-storage:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
-	@echo "talm reset -f nodes/moo.yaml --reboot \\ \n\
-	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb,/dev/sdc --graceful=false; \\ \n\
-	    talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
+	@echo "\\ \n\
+	talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
-	    talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
+	talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
+	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb --graceful=false; \\ \n\
+	talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
 	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
-	    talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
-	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false; \\ \n\
-	    talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
-	  --wipe-mode user-disks --user-disks-to-wipe /dev/sdb --graceful=false"
+	talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
+	  --wipe-mode user-disks --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
 
 nuke-stateless:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
-	@echo "talm reset -f nodes/dellwork03.yaml --reboot --wipe-mode all --graceful=false; \\ \n\
-	    talm reset -f nodes/hpworker04.yaml --reboot --wipe-mode all --graceful=false"
+	@echo "\\ \n\
+	talm reset -f nodes/dellwork03.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false; \\ \n\
+	talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
 
 
 ## Credit to the below goes to ChatGPT
 # Define timeout values
-DOWN_TIMEOUT := 300  # Time in seconds to wait for all nodes to go down
+DOWN_TIMEOUT := 900  # Time in seconds to wait for all nodes to go down
 
 # Path to mock scripts
 MOCK_PING := ./hack/mock_ping.sh
