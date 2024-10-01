@@ -31,7 +31,7 @@ spec:
       retries: -1
   values:
     cozystack:
-      nodesHash: 656f12ab86a250c268c3cb1c9f7d5a588f0f5c3b0499d56ebb3f5625c583b46c
+      nodesHash: 9543c6dc266e1f49245b138ec2b7ac612e67919f33db23f6bc28af26b8b1cbf5
     kube-ovn:
       ipv4:
         JOIN_CIDR: 100.64.0.0/16

@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/ui: "true"
-  name: kubernetes-test
+  name: kubernetes-cluster
   namespace: tenant-test
 spec:
   chart:
