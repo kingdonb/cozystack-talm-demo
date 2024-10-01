@@ -1,8 +1,9 @@
 all: none
 
 # Define the list of node IPs or hostnames (space-separated)
-NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local dellwork03.turkey.local hpworker04.turkey.local
+# NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local dellwork03.turkey.local hpworker04.turkey.local
 # STORAGE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
+NODE_LIST:= dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
 # STSLESS_LIST := dellwork03.turkey.local hpworker04.turkey.local
 
 none:
