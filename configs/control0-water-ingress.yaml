@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+  name: water
+  namespace: water
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: water.teamhephy.info
+    http:
+      paths:
+      - backend:
+          service:
+            name: water
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - water.teamhephy.info
+    secretName: water-tls
