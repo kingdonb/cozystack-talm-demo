@@ -5,3 +5,7 @@ harvey-kubeconfig.yaml
 test-kubeconfig.yaml
 mo*-kubeconfig.yaml
 *-kubeconfig.yaml
+sqldump/db-deis-hephy-workflow.sqldump
+sqldump/db-download-counts-dlcounts.sqldump
+sqldump/db-download-counts-test.sqldump
+sqldump/db-download-counts.sqldump
