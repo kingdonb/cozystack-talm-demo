@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    cozystack.io/repository: system
+    cozystack.io/system-app: "true"
+  name: dashboard
+  namespace: cozy-dashboard
+spec:
+  chart:
+    spec:
+      chart: cozy-dashboard
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '*'
+  dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: dashboard
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  values:
+    kubeapps:
+      redis:
+        master:
+          podAnnotations:
+            repository.cozystack.io/cozystack-apps: sha256:2d87a009d62d84c1e47e4a87f25fe891f98015e100a12ac34bab7a5b626f3b6f
+            repository.cozystack.io/cozystack-extra: sha256:8c14cc9df34817362830a31edf39b723f2d767cde344cb87f81d6d1a39cded32
