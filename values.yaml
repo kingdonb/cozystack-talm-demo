@@ -1,0 +1,10 @@
+endpoint: "https://10.17.13.253:6443"
+clusterDomain: cozy.local
+floatingIP: 10.17.13.253
+image: "ghcr.io/aenix-io/cozystack/talos:v1.8.0"
+podSubnets:
+- 10.244.0.0/16
+serviceSubnets:
+- 10.96.0.0/16
+advertisedSubnets:
+- 10.17.13.0/24
