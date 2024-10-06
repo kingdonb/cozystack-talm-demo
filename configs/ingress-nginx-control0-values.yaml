@@ -5,3 +5,5 @@ controller:
   hostNetwork: true
   hostPort:
     enabled: true
+  service:
+    type: NodePort
