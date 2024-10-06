@@ -42,13 +42,13 @@ machine:
     #    wwid: naa.50014ee21073a2cd
     #    size: 1.82 TB
     disk: /dev/nvme0n1
-    image: ghcr.io/aenix-io/cozystack/talos:v1.7.6
+    image: ghcr.io/aenix-io/cozystack/talos:v1.8.0
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"
       - "proc.sys.kernel.kexec_load_disabled=1"
   files:
-    - content: "[plugins]\n  [plugins.\"io.containerd.grpc.v1.cri\"]\n    device_ownership_from_security_context = true      \n"
+    - content: "[plugins]\n  [plugins.\"io.containerd.grpc.v1.cri\"]\n    device_ownership_from_security_context = true      \n  [plugins.\"io.containerd.cri.v1.runtime\"]\n    device_ownership_from_security_context = true\n"
       permissions: 0o0
       path: /etc/cri/conf.d/20-customization.part
       op: create
