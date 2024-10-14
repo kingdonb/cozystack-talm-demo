@@ -94,7 +94,7 @@ machine:
     #    serial: 7VP007L1
     #    wwid: eui.6479a74fdf0014cc
     #    size: 0.45 TB
-    disk: /dev/loop0
+    disk: /dev/nvme0n1
     image: kingdonb/talos:v1.8.1-cozy-spin-tailscale
     extraKernelArgs:
       - "kexec_load_disabled=1"
