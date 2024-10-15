@@ -3,8 +3,9 @@ all: none
 # Define the list of node IPs or hostnames (space-separated)
 # NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker05.turkey.local hpworker04.turkey.local
 # STORAGE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
-NODE_LIST:= dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker05.turkey.local hpworker04.turkey.local
-STSLESS_LIST := hpworker05.turkey.local hpworker04.turkey.local
+NODE_LIST:= dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker06.turkey.local
+# STSLESS_LIST := hpworker05.turkey.local hpworker04.turkey.local
+STSLESS_LIST := hpworker06.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -22,8 +23,9 @@ tailscale:
 	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.6 -e 10.17.13.6
 	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.86 -e 10.17.13.86
 	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.173 -e 10.17.13.173
-	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.101 -e 10.17.13.86
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.101 -e 10.17.13.86
 	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.144 -e 10.17.13.86
+	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.138 -e 10.17.13.86
 
 storage:
 	kubectl create -f configs/storage/
@@ -42,6 +44,7 @@ template:
 	talm template -e 10.17.13.101 -n 10.17.13.101 -t templates/worker.yaml -i > nodes/hpworker05.yaml
 	talm template -e 10.17.13.144 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
 	# talm template -e 10.17.13.173 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.138 -n 10.17.13.138 -t templates/worker.yaml -i > nodes/hpworker06.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -65,6 +68,8 @@ apply-dellwork02:
 	talm apply -f nodes/dellwork02.yaml -i
 apply-hpworker03:
 	talm apply -f nodes/hpworker03.yaml -i
+apply-hpworker06:
+	talm apply -f nodes/hpworker06.yaml -i
 apply-hpworker05:
 	talm apply -f nodes/hpworker05.yaml -i
 apply-hpworker04:
@@ -78,7 +83,7 @@ bootstrap:
 	talm bootstrap -f nodes/dellwork01.yaml
 
 dashboard:
-	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml -f nodes/hpworker04.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker01.yaml # -f nodes/moo.yaml
+	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml # -f nodes/hpworker04.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker01.yaml # -f nodes/moo.yaml
 
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/dellwork01.yaml
@@ -160,6 +165,8 @@ nuke-stateless:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
 	@echo "\\ \n\
+	talm reset -f nodes/hpworker06.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false; \\ \n\
 	talm reset -f nodes/hpworker05.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false; \\ \n\
 	talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
