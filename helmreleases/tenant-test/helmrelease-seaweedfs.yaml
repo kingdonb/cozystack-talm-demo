@@ -3,16 +3,16 @@ kind: HelmRelease
 metadata:
   annotations:
     helm.sh/resource-policy: keep
-    meta.helm.sh/release-name: tenant-root
+    meta.helm.sh/release-name: tenant-test
     meta.helm.sh/release-namespace: tenant-root
   labels:
-    app.kubernetes.io/instance: tenant-root
+    app.kubernetes.io/instance: tenant-test
     app.kubernetes.io/managed-by: Helm
     cozystack.io/ui: "true"
-    helm.toolkit.fluxcd.io/name: tenant-root
+    helm.toolkit.fluxcd.io/name: tenant-test
     helm.toolkit.fluxcd.io/namespace: tenant-root
   name: seaweedfs
-  namespace: tenant-root
+  namespace: tenant-test
 spec:
   chart:
     spec:

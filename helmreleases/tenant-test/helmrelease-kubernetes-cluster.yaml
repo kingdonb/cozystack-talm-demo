@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.10.0
+      version: 0.12.1
   interval: 1m0s
   timeout: 5m0s
   values:
@@ -23,6 +23,11 @@ spec:
         enabled: true
       fluxcd:
         enabled: true
+        valuesOverride:
+          flux-instance:
+            instance:
+              distribution:
+                version: 2.x
       ingressNginx:
         enabled: true
     controlPlane:

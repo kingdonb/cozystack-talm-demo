@@ -1,0 +1,16 @@
+domain:
+  cpu:
+    cores: 4
+    features:
+    - name: fb-clear
+      policy: disable
+    - name: ibrs-all
+      policy: disable
+    - name: mds-no
+      policy: disable
+    - name: rdctl-no
+      policy: disable
+    - name: tsx-ctrl
+      policy: disable
+    - name: rsba
+      policy: disable

@@ -19,7 +19,7 @@ spec:
   timeout: 5m0s
   values:
     etcd: false
-    host: ""
+    host: legacy.moomboo.space
     ingress: false
     isolated: false
     monitoring: false

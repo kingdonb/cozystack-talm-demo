@@ -1,0 +1,9 @@
+# helm upgrade --install ingress-public ingress-nginx/ingress-nginx \
+#   --values ingress-nginx-control0-values.yaml \
+#   --create-namespace --namespace ingress-nginx
+controller:
+  hostNetwork: true
+  hostPort:
+    enabled: true
+  service:
+    type: NodePort

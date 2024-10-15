@@ -46,4 +46,3 @@ spec:
       k8sServiceHost: kubernetes-cluster.tenant-test.svc
       k8sServicePort: 6443
       routingMode: tunnel
-      tunnel: disabled

@@ -18,9 +18,9 @@ spec:
   interval: 1m0s
   timeout: 5m0s
   values:
-    etcd: true
+    etcd: false
     host: test.moomboo.space
     ingress: true
     isolated: false
-    monitoring: true
-    seaweedfs: false
+    monitoring: false
+    seaweedfs: true

@@ -3,13 +3,13 @@ kind: HelmRelease
 metadata:
   annotations:
     meta.helm.sh/release-name: seaweedfs
-    meta.helm.sh/release-namespace: tenant-root
+    meta.helm.sh/release-namespace: tenant-test
   labels:
     app.kubernetes.io/managed-by: Helm
     helm.toolkit.fluxcd.io/name: seaweedfs
-    helm.toolkit.fluxcd.io/namespace: tenant-root
+    helm.toolkit.fluxcd.io/namespace: tenant-test
   name: seaweedfs-system
-  namespace: tenant-root
+  namespace: tenant-test
 spec:
   chart:
     spec:
@@ -24,23 +24,26 @@ spec:
   timeout: 5m0s
   values:
     global:
-      serviceAccountName: tenant-root-seaweedfs
+      serviceAccountName: tenant-test-seaweedfs
     seaweedfs:
       cosi:
-        bucketClassName: tenant-root
-        driverName: tenant-root.seaweedfs.objectstorage.k8s.io
+        bucketClassName: tenant-test
+        driverName: tenant-test.seaweedfs.objectstorage.k8s.io
+      filer:
+        s3:
+          domainName: s3.test.moomboo.space
       s3:
         ingress:
           annotations:
-            acme.cert-manager.io/http01-ingress-class: tenant-root
+            acme.cert-manager.io/http01-ingress-class: tenant-test
             cert-manager.io/cluster-issuer: letsencrypt-prod
             nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
-          className: tenant-root
-          host: s3.moomboo.space
+          className: tenant-test
+          host: s3.test.moomboo.space
           tls:
           - hosts:
-            - s3.moomboo.space
+            - s3.test.moomboo.space
             secretName: seaweedfs-s3-ingress-tls
       volume:
         dataDirs:

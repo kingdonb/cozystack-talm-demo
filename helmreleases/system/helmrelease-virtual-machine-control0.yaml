@@ -23,11 +23,19 @@ spec:
     external: true
     externalPorts:
     - 22
+    - 80
+    - 8080
+    - 8000
+    - 6443
+    - 8443
+    - 443
+    - 5353
+    - 2222
     image: ubuntu
     resources:
       cpu: 4
       disk: 50Gi
-      memory: 8095M
+      memory: 8096M
     running: true
     sshKeys:
     - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOAEa0lEIJwx2xRQtPbEqw4h55yNBEjlxMfW5cqrq5A
