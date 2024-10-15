@@ -43,7 +43,3 @@ spec:
   upgrade:
     remediation:
       retries: -1
-  valuesFrom:
-  - kind: Secret
-    name: kubernetes-cluster-fluxcd-values-override
-    valuesKey: values

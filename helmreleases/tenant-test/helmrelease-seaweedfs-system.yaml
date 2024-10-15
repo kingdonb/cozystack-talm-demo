@@ -29,14 +29,17 @@ spec:
       cosi:
         bucketClassName: tenant-test
         driverName: tenant-test.seaweedfs.objectstorage.k8s.io
+      filer:
+        s3:
+          domainName: s3.test.moomboo.space
       s3:
         ingress:
           annotations:
-            acme.cert-manager.io/http01-ingress-class: tenant-root
+            acme.cert-manager.io/http01-ingress-class: tenant-test
             cert-manager.io/cluster-issuer: letsencrypt-prod
             nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
-          className: tenant-root
+          className: tenant-test
           host: s3.test.moomboo.space
           tls:
           - hosts:

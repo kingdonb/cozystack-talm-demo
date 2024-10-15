@@ -33,7 +33,7 @@ spec:
     - 2222
     image: ubuntu
     resources:
-      cpu: 8
+      cpu: 4
       disk: 50Gi
       memory: 8096M
     running: true
