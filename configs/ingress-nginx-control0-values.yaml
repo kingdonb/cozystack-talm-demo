@@ -2,6 +2,7 @@
 #   --values ingress-nginx-control0-values.yaml \
 #   --create-namespace --namespace ingress-nginx
 controller:
+  kind: DaemonSet
   hostNetwork: true
   hostPort:
     enabled: true
