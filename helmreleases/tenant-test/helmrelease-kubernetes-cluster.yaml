@@ -30,6 +30,8 @@ spec:
                 version: 2.x
       ingressNginx:
         enabled: true
+        hosts:
+        - water.teamhephy.info
     controlPlane:
       replicas: 2
     host: ""
