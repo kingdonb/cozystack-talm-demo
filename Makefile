@@ -3,9 +3,9 @@ all: none
 # Define the list of node IPs or hostnames (space-separated)
 # NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker05.turkey.local hpworker04.turkey.local
 # STORAGE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
-NODE_LIST:= dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker06.turkey.local
-# STSLESS_LIST := hpworker05.turkey.local hpworker04.turkey.local
-STSLESS_LIST := hpworker06.turkey.local
+NODE_LIST:= dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker06.turkey.local hpworker05.turkey.local
+# STSLESS_LIST := hpworker04.turkey.local
+STSLESS_LIST := hpworker05.turkey.local hpworker06.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -16,7 +16,7 @@ help:
 install:
 	kubectl create ns cozy-system
 	kubectl apply -f configs/cozystack-config.yaml
-	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.16.5/manifests/cozystack-installer.yaml
+	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.17.1/manifests/cozystack-installer.yaml
 	# local:# kubectl apply -f cozystack-installer.yaml
 
 tailscale:
@@ -83,7 +83,7 @@ bootstrap:
 	talm bootstrap -f nodes/dellwork01.yaml
 
 dashboard:
-	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml # -f nodes/hpworker04.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker01.yaml # -f nodes/moo.yaml
+	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker04.yaml # -f nodes/hpworker01.yaml # -f nodes/moo.yaml
 
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/dellwork01.yaml
