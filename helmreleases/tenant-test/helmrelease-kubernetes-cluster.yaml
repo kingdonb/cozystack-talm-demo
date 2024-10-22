@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.12.1
+      version: 0.13.0
   interval: 1m0s
   timeout: 5m0s
   values:
@@ -38,11 +38,12 @@ spec:
     nodeGroups:
       md0:
         ephemeralStorage: 20Gi
+        instanceType: u1.medium
         maxReplicas: 10
         minReplicas: 0
         resources:
-          cpu: 2
-          memory: 1024Mi
+          cpu: ""
+          memory: ""
         roles:
         - ingress-nginx
     storageClass: replicated

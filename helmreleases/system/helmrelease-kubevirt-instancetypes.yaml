@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: dashboard
-  namespace: cozy-dashboard
+  name: kubevirt-instancetypes
+  namespace: cozy-kubevirt
 spec:
   chart:
     spec:
-      chart: cozy-dashboard
+      chart: cozy-kubevirt-instancetypes
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -21,20 +21,17 @@ spec:
     namespace: cozy-cilium
   - name: kubeovn
     namespace: cozy-kubeovn
+  - name: kubevirt-operator
+    namespace: cozy-kubevirt
+  - name: kubevirt
+    namespace: cozy-kubevirt
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: dashboard
+  releaseName: kubevirt-instancetypes
   upgrade:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    kubeapps:
-      redis:
-        master:
-          podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:3d6d9153dd58c72ca8e77fe4fe49961d2d1685d7a81354bef13c714684d893da
-            repository.cozystack.io/cozystack-extra: sha256:9a514bb80b4ca4af50c7eb3813f4441ef0095578ded8fa4160e4e37bcacb9677
