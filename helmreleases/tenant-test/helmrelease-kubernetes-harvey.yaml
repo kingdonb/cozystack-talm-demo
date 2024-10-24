@@ -25,6 +25,9 @@ spec:
         enabled: true
       ingressNginx:
         enabled: true
+        hosts:
+        - '*.harvey.moomboo.space'
+        - harvey.moomboo.space
     controlPlane:
       replicas: 2
     host: harvey.test.moomboo.space
