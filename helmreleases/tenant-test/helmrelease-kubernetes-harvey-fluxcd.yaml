@@ -43,3 +43,7 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  valuesFrom:
+  - kind: Secret
+    name: kubernetes-harvey-fluxcd-values-override
+    valuesKey: values

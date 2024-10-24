@@ -23,11 +23,21 @@ spec:
         enabled: true
       fluxcd:
         enabled: true
+        valuesOverride:
+          flux-instance:
+            instance:
+              sync:
+                interval: 1m
+                kind: GitRepository
+                path: ./water-dev
+                ref: refs/heads/main
+                url: https://github.com/kingdonb/water-monitor.git
       ingressNginx:
         enabled: true
         hosts:
         - '*.harvey.moomboo.space'
         - harvey.moomboo.space
+        - water.harvey.moomboo.space
     controlPlane:
       replicas: 2
     host: harvey.test.moomboo.space
