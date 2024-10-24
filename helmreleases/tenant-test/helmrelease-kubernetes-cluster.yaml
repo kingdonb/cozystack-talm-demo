@@ -26,8 +26,12 @@ spec:
         valuesOverride:
           flux-instance:
             instance:
-              distribution:
-                version: 2.x
+              sync:
+                interval: 1m
+                kind: GitRepository
+                path: ./water-prod
+                ref: refs/heads/main
+                url: https://github.com/kingdonb/water-monitor.git
       ingressNginx:
         enabled: true
         hosts:
