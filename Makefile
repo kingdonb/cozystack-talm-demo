@@ -54,8 +54,8 @@ patch-nodes:
 		for node in $$NODES; do \
 			short_name=$$(echo $$node | cut -d. -f1); \
 			for patch in $$PATCHES; do \
-				echo "nodes/$$short_name.yaml (config/$$patch.yaml)"; \
-				yq -i ea ". as \$$item ireduce ({}; . * \$$item )" nodes/$${short_name}.yaml configs/$${patch}.yaml; \
+				echo "nodes/$$short_name.yaml (configs/patches/$$patch.yaml)"; \
+				yq -i ea ". as \$$item ireduce ({}; . * \$$item )" nodes/$${short_name}.yaml configs/patches/$${patch}.yaml; \
 			done; \
 		done \
 	'

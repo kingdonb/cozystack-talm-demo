@@ -7,4 +7,4 @@ metadata:
     kubevirt.io: ""
 data:
   feature-gates: "LiveMigration"
-  cpuModel: "Skylake-Client-noTSX-IBRS"
+  cpuModel: "Westmere"
