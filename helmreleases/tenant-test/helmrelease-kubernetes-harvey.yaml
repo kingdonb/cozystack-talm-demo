@@ -3,7 +3,7 @@ kind: HelmRelease
 metadata:
   labels:
     cozystack.io/ui: "true"
-  name: kubernetes-cluster
+  name: kubernetes-harvey
   namespace: tenant-test
 spec:
   chart:
@@ -29,16 +29,18 @@ spec:
               sync:
                 interval: 1m
                 kind: GitRepository
-                path: ./water-prod
+                path: ./water-dev
                 ref: refs/heads/main
                 url: https://github.com/kingdonb/water-monitor.git
       ingressNginx:
         enabled: true
         hosts:
-        - water.teamhephy.info
+        - '*.harvey.moomboo.space'
+        - harvey.moomboo.space
+        - water.harvey.moomboo.space
     controlPlane:
       replicas: 2
-    host: ""
+    host: harvey.test.moomboo.space
     nodeGroups:
       md0:
         ephemeralStorage: 20Gi

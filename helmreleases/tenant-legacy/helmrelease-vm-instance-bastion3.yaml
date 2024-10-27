@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    cozystack.io/ui: "true"
+  name: vm-instance-bastion3
+  namespace: tenant-legacy
+spec:
+  chart:
+    spec:
+      chart: vm-instance
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-apps
+        namespace: cozy-public
+      version: 0.1.0
+  interval: 1m0s
+  timeout: 5m0s
+  values:
+    cloudInit: |
+      #cloud-config
+    disks:
+    - name: vm-disk-bastion-root
+    external: true
+    externalPorts:
+    - 22
+    instanceProfile: ubuntu
+    instanceType: u1.xlarge
+    resources:
+      cpu: ""
+      memory: ""
+    running: true
+    sshKeys:
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOAEa0lEIJwx2xRQtPbEqw4h55yNBEjlxMfW5cqrq5A       yebyen@kingdon-mbp.turkey.local
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDoro44rwfclMP9tGeGbLSU+lYpNHMFxoSOx6KWRAKtj       kingdon@samhop
