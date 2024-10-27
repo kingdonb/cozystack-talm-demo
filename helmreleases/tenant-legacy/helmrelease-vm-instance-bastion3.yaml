@@ -21,7 +21,7 @@ spec:
     cloudInit: |
       #cloud-config
     disks:
-    - name: vm-disk-example-system
+    - name: vm-disk-bastion-root
     external: true
     externalPorts:
     - 22
