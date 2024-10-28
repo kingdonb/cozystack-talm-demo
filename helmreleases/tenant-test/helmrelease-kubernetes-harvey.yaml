@@ -38,6 +38,7 @@ spec:
         - '*.harvey.moomboo.space'
         - harvey.moomboo.space
         - water.harvey.moomboo.space
+        - moo-cluster.turkey.local
     controlPlane:
       replicas: 2
     host: harvey.test.moomboo.space
