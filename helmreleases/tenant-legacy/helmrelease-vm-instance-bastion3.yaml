@@ -26,7 +26,7 @@ spec:
     externalPorts:
     - 22
     instanceProfile: ubuntu
-    instanceType: u1.xlarge
+    instanceType: u1.large
     resources:
       cpu: ""
       memory: ""
