@@ -19,5 +19,5 @@ spec:
   timeout: 5m0s
   values:
     optical: false
-    storage: 225Gi
+    storage: 125Gi
     storageClass: replicated
