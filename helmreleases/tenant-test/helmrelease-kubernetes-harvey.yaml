@@ -21,6 +21,11 @@ spec:
     addons:
       certManager:
         enabled: true
+        valuesOverride:
+          cert-manager:
+            webhook:
+              networkPolicy:
+                enabled: true
       fluxcd:
         enabled: true
         valuesOverride:
