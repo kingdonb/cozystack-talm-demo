@@ -37,6 +37,7 @@ spec:
         hosts:
         - '*.harvey.moomboo.space'
         - harvey.moomboo.space
+        - webhook.harvey.moomboo.space
         - water.harvey.moomboo.space
         - moo-cluster.turkey.local
     controlPlane:

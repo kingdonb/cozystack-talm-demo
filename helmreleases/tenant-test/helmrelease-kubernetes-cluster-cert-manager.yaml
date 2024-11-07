@@ -41,3 +41,7 @@ spec:
   upgrade:
     remediation:
       retries: -1
+  valuesFrom:
+  - kind: Secret
+    name: kubernetes-cluster-cert-manager-values-override
+    valuesKey: values
