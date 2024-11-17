@@ -102,6 +102,14 @@ clean-talosconfig:
 clean-secrets:
 	rm secrets.yaml
 
+preserve-secrets:
+	mkdir -p preserved
+	mv -i secrets.yaml talosconfig kubeconfig preserved/
+
+restore-secrets:
+	mv -i preserved/* ./
+	rmdir preserved
+
 clean-template:
 	rm -rf charts Chart.yaml values.yaml templates
 
