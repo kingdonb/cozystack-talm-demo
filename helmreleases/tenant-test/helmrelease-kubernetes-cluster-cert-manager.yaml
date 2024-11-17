@@ -27,6 +27,8 @@ spec:
     namespace: tenant-test
   - name: kubernetes-cluster-cilium
     namespace: tenant-test
+  - name: kubernetes-cluster-cert-manager-crds
+    namespace: tenant-test
   install:
     createNamespace: true
     remediation:
