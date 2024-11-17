@@ -31,6 +31,8 @@ spec:
         valuesOverride:
           flux-instance:
             instance:
+              cluster:
+                networkPolicy: false
               sync:
                 interval: 1m
                 kind: GitRepository
