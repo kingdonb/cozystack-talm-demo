@@ -36,9 +36,9 @@ spec:
               sync:
                 interval: 1m
                 kind: GitRepository
-                path: ./water-dev
+                path: ./clusters/harvey-moomboo-space
                 ref: refs/heads/main
-                url: https://github.com/kingdonb/water-monitor.git
+                url: https://github.com/kingdon-ci/fleet-infra.git
       ingressNginx:
         enabled: true
         hosts:
