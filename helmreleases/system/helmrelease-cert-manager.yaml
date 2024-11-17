@@ -17,16 +17,15 @@ spec:
         namespace: cozy-system
       version: '*'
   dependsOn:
-  - name: cilium
-    namespace: cozy-cilium
-  - name: kubeovn
-    namespace: cozy-kubeovn
+  - name: cert-manager-crds
+    namespace: cozy-cert-manager
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
   releaseName: cert-manager
+  suspend: true
   upgrade:
     crds: CreateReplace
     remediation:
