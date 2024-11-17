@@ -10,12 +10,12 @@ metadata:
     cozystack.io/repository: system
     helm.toolkit.fluxcd.io/name: kubernetes-harvey
     helm.toolkit.fluxcd.io/namespace: tenant-test
-  name: kubernetes-harvey-cert-manager
+  name: kubernetes-harvey-cert-manager-crds
   namespace: tenant-test
 spec:
   chart:
     spec:
-      chart: cozy-cert-manager
+      chart: cozy-cert-manager-crds
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -27,8 +27,6 @@ spec:
     namespace: tenant-test
   - name: kubernetes-harvey-cilium
     namespace: tenant-test
-  - name: kubernetes-harvey-cert-manager-crds
-    namespace: tenant-test
   install:
     createNamespace: true
     remediation:
@@ -37,13 +35,13 @@ spec:
   kubeConfig:
     secretRef:
       name: kubernetes-harvey-kubeconfig
-  releaseName: cert-manager
-  storageNamespace: cozy-cert-manager
-  targetNamespace: cozy-cert-manager
+  releaseName: cert-manager-crds
+  storageNamespace: cozy-cert-manager-crds
+  targetNamespace: cozy-cert-manager-crds
   upgrade:
     remediation:
       retries: -1
   valuesFrom:
   - kind: Secret
-    name: kubernetes-harvey-cert-manager-values-override
+    name: kubernetes-harvey-cert-manager-crds-values-override
     valuesKey: values

@@ -25,7 +25,6 @@ spec:
       retries: -1
   interval: 5m
   releaseName: kubeovn
-  suspend: true
   upgrade:
     crds: CreateReplace
     remediation:
