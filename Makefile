@@ -16,7 +16,7 @@ help:
 install:
 	kubectl create ns cozy-system
 	kubectl apply -f configs/cozystack-config.yaml
-	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.17.1/manifests/cozystack-installer.yaml
+	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.18.0/manifests/cozystack-installer.yaml
 	# local:# kubectl apply -f cozystack-installer.yaml
 
 tailscale:
@@ -101,6 +101,14 @@ clean-talosconfig:
 
 clean-secrets:
 	rm secrets.yaml
+
+preserve-secrets:
+	mkdir -p preserved
+	mv -i secrets.yaml talosconfig kubeconfig preserved/
+
+restore-secrets:
+	mv -i preserved/* ./
+	rmdir preserved
 
 clean-template:
 	rm -rf charts Chart.yaml values.yaml templates

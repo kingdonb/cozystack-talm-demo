@@ -14,13 +14,18 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.13.0
+      version: 0.14.0
   interval: 1m0s
   timeout: 5m0s
   values:
     addons:
       certManager:
         enabled: true
+        valuesOverride:
+          cert-manager:
+            webhook:
+              networkPolicy:
+                enabled: false
       fluxcd:
         enabled: true
         valuesOverride:
@@ -36,13 +41,15 @@ spec:
         enabled: true
         hosts:
         - water.teamhephy.info
+      monitoringAgents:
+        enabled: false
     controlPlane:
       replicas: 2
     host: ""
     nodeGroups:
       md0:
         ephemeralStorage: 20Gi
-        instanceType: u1.medium
+        instanceType: u1.large
         maxReplicas: 10
         minReplicas: 0
         resources:

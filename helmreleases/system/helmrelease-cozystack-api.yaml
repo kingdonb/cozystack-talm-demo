@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: cert-manager
-  namespace: cozy-cert-manager
+  name: cozystack-api
+  namespace: cozy-system
 spec:
   chart:
     spec:
-      chart: cozy-cert-manager
+      chart: cozy-cozystack-api
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -17,14 +17,16 @@ spec:
         namespace: cozy-system
       version: '*'
   dependsOn:
-  - name: cert-manager-crds
-    namespace: cozy-cert-manager
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: cert-manager
+  releaseName: cozystack-api
   upgrade:
     crds: CreateReplace
     remediation:

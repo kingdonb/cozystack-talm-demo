@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: monitoring
+  name: monitoring-agents
   namespace: cozy-monitoring
 spec:
   chart:
     spec:
-      chart: cozy-monitoring
+      chart: cozy-monitoring-agents
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -28,7 +28,7 @@ spec:
     remediation:
       retries: -1
   interval: 5m
-  releaseName: monitoring
+  releaseName: monitoring-agents
   upgrade:
     crds: CreateReplace
     remediation:

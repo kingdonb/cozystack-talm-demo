@@ -14,37 +14,48 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.13.0
+      version: 0.14.0
   interval: 1m0s
   timeout: 5m0s
   values:
     addons:
       certManager:
         enabled: true
+        valuesOverride:
+          cert-manager:
+            webhook:
+              networkPolicy:
+                enabled: false
       fluxcd:
         enabled: true
         valuesOverride:
           flux-instance:
             instance:
+              cluster:
+                networkPolicy: false
               sync:
                 interval: 1m
                 kind: GitRepository
-                path: ./water-dev
+                path: ./clusters/harvey-moomboo-space
                 ref: refs/heads/main
-                url: https://github.com/kingdonb/water-monitor.git
+                url: https://github.com/kingdon-ci/fleet-infra.git
       ingressNginx:
         enabled: true
         hosts:
         - '*.harvey.moomboo.space'
         - harvey.moomboo.space
+        - webhook.harvey.moomboo.space
         - water.harvey.moomboo.space
+        - moo-cluster.turkey.local
+      monitoringAgents:
+        enabled: false
     controlPlane:
       replicas: 2
     host: harvey.test.moomboo.space
     nodeGroups:
       md0:
         ephemeralStorage: 20Gi
-        instanceType: u1.medium
+        instanceType: u1.large
         maxReplicas: 10
         minReplicas: 0
         resources:
