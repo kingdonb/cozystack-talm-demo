@@ -95,7 +95,7 @@ machine:
     #    wwid: eui.6479a74fdf0014cc
     #    size: 0.45 TB
     disk: /dev/nvme0n1
-    image: ghcr.io/aenix-io/cozystack/talos:v1.8.2
+    image: kingdonb/talos:v1.8.3-cozy-spin
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"
