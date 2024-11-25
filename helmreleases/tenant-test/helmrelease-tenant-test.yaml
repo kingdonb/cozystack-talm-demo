@@ -22,5 +22,5 @@ spec:
     host: test.moomboo.space
     ingress: true
     isolated: false
-    monitoring: false
+    monitoring: true
     seaweedfs: true
