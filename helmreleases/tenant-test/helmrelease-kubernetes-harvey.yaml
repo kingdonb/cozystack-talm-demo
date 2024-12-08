@@ -48,7 +48,7 @@ spec:
         - water.harvey.moomboo.space
         - moo-cluster.turkey.local
       monitoringAgents:
-        enabled: false
+        enabled: true
     controlPlane:
       replicas: 2
     host: harvey.test.moomboo.space

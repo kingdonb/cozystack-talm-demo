@@ -16,11 +16,6 @@ spec:
         name: cozystack-system
         namespace: cozy-system
       version: '*'
-  dependsOn:
-  - name: cilium
-    namespace: cozy-cilium
-  - name: kubeovn
-    namespace: cozy-kubeovn
   install:
     crds: CreateReplace
     remediation:
@@ -32,9 +27,8 @@ spec:
     remediation:
       retries: -1
   values:
-    kubeapps:
-      redis:
-        master:
-          podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:cf26ec98bd4948dfcd408e90e368f48e0408ea7cf756b54a82c893f53c8eb676
-            repository.cozystack.io/cozystack-extra: sha256:9b544c16a3e17725f5983e68a4b5d92db9a3869227fcdca166aefee1bdc7ab11
+    redis:
+      master:
+        podAnnotations:
+          repository.cozystack.io/cozystack-apps: sha256:550d43aefb23d2a94c050017b56236b4fb578aae051c95d8fa4cffff16a3b512
+          repository.cozystack.io/cozystack-extra: sha256:49a1e177b40c1fcd48a0845817beb106ce4b363fa9cb46d2db4b24e00bbabf63
