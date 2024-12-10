@@ -20,12 +20,12 @@ install:
 	# local:# kubectl apply -f cozystack-installer.yaml
 
 tailscale:
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.6 -e 10.17.13.6
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.86 -e 10.17.13.86
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.173 -e 10.17.13.173
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.101 -e 10.17.13.86
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.144 -e 10.17.13.86
-	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.138 -e 10.17.13.86
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.7 -e 10.17.13.7
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.87 -e 10.17.13.87
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.174 -e 10.17.13.174
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.102 -e 10.17.13.87
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.144 -e 10.17.13.87
+	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.138 -e 10.17.13.87
 
 storage:
 	kubectl create -f configs/storage/
@@ -38,13 +38,13 @@ init:
 
 template:
 	mkdir -p nodes
-	talm template -e 10.17.13.86 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
-	talm template -e 10.17.13.101 -n 10.17.13.101 -t templates/controlplane.yaml -i > nodes/hpworker05.yaml
-	# talm template -e 10.17.13.86 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
-	# talm template -e 10.17.13.173 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.87 -n 10.17.13.87 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
+	talm template -e 10.17.13.102 -n 10.17.13.102 -t templates/controlplane.yaml -i > nodes/hpworker05.yaml
+	# talm template -e 10.17.13.87 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
+	# talm template -e 10.17.13.174 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
 	talm template -e 10.17.13.138 -n 10.17.13.138 -t templates/controlplane.yaml -i > nodes/hpworker06.yaml
-	talm template -e 10.17.13.86 -n 10.17.13.173 -t templates/worker.yaml -i > nodes/dellwork01.yaml
-	talm template -e 10.17.13.86 -n 10.17.13.6 -t templates/worker.yaml -i > nodes/dellwork02.yaml
+	talm template -e 10.17.13.87 -n 10.17.13.174 -t templates/worker.yaml -i > nodes/dellwork01.yaml
+	talm template -e 10.17.13.87 -n 10.17.13.7 -t templates/worker.yaml -i > nodes/dellwork02.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
