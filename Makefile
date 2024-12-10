@@ -80,13 +80,13 @@ apply-hpworker04:
 # 	talm apply -f nodes/hpworker01.yaml -i
 
 bootstrap:
-	talm bootstrap -f nodes/dellwork01.yaml
+	talm bootstrap -f nodes/hpworker03.yaml
 
 dashboard:
 	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker04.yaml # -f nodes/hpworker01.yaml # -f nodes/moo.yaml
 
 kubeconfig:
-	talm kubeconfig kubeconfig -f nodes/dellwork01.yaml
+	talm kubeconfig kubeconfig -f nodes/hpworker03.yaml
 
 clean: clean-kubeconfig clean-talosconfig clean-secrets
 
