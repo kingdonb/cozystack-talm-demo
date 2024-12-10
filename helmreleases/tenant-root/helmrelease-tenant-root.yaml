@@ -34,5 +34,5 @@ spec:
     etcd: true
     host: moomboo.space
     ingress: true
-    isolated: true
+    isolated: false
     monitoring: true
