@@ -16,16 +16,16 @@ help:
 install:
 	kubectl create ns cozy-system
 	kubectl apply -f configs/cozystack-config.yaml
-	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.19.0/manifests/cozystack-installer.yaml
+	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.20.1/manifests/cozystack-installer.yaml
 	# local:# kubectl apply -f cozystack-installer.yaml
 
 tailscale:
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.6 -e 10.17.13.6
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.86 -e 10.17.13.86
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.173 -e 10.17.13.173
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.101 -e 10.17.13.86
-	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.144 -e 10.17.13.86
-	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.138 -e 10.17.13.86
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.7 -e 10.17.13.7
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.87 -e 10.17.13.87
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.174 -e 10.17.13.174
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.102 -e 10.17.13.87
+	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.144 -e 10.17.13.87
+	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.138 -e 10.17.13.87
 
 storage:
 	kubectl create -f configs/storage/
@@ -38,13 +38,13 @@ init:
 
 template:
 	mkdir -p nodes
-	talm template -e 10.17.13.173 -n 10.17.13.173 -t templates/controlplane.yaml -i > nodes/dellwork01.yaml
-	talm template -e 10.17.13.6 -n 10.17.13.6 -t templates/controlplane.yaml -i > nodes/dellwork02.yaml
-	talm template -e 10.17.13.86 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
-	talm template -e 10.17.13.86 -n 10.17.13.101 -t templates/worker.yaml -i > nodes/hpworker05.yaml
-	# talm template -e 10.17.13.86 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
-	# talm template -e 10.17.13.173 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
-	talm template -e 10.17.13.86 -n 10.17.13.138 -t templates/worker.yaml -i > nodes/hpworker06.yaml
+	talm template -e 10.17.13.87 -n 10.17.13.87 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
+	talm template -e 10.17.13.102 -n 10.17.13.102 -t templates/controlplane.yaml -i > nodes/hpworker05.yaml
+	# talm template -e 10.17.13.87 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
+	# talm template -e 10.17.13.174 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
+	talm template -e 10.17.13.138 -n 10.17.13.138 -t templates/controlplane.yaml -i > nodes/hpworker06.yaml
+	talm template -e 10.17.13.87 -n 10.17.13.174 -t templates/worker.yaml -i > nodes/dellwork01.yaml
+	talm template -e 10.17.13.87 -n 10.17.13.7 -t templates/worker.yaml -i > nodes/dellwork02.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -60,7 +60,7 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-dellwork01 apply-dellwork02 apply-hpworker03 apply-hpworker04 apply-hpworker05 # apply-moo apply-hpworker01
+apply: apply-dellwork01 apply-dellwork02 apply-hpworker03 apply-hpworker06 apply-hpworker05 # apply-moo apply-hpworker01
 
 apply-dellwork01:
 	talm apply -f nodes/dellwork01.yaml -i
@@ -80,13 +80,13 @@ apply-hpworker04:
 # 	talm apply -f nodes/hpworker01.yaml -i
 
 bootstrap:
-	talm bootstrap -f nodes/dellwork01.yaml
+	talm bootstrap -f nodes/hpworker03.yaml
 
 dashboard:
 	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker04.yaml # -f nodes/hpworker01.yaml # -f nodes/moo.yaml
 
 kubeconfig:
-	talm kubeconfig kubeconfig -f nodes/dellwork01.yaml
+	talm kubeconfig kubeconfig -f nodes/hpworker03.yaml
 
 clean: clean-kubeconfig clean-talosconfig clean-secrets
 
