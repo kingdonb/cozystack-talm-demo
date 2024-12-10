@@ -9,12 +9,12 @@ spec:
   chart:
     spec:
       chart: tenant
-      reconcileStrategy: ChartVersion
+      reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 1.6.1
+      version: '*'
   dependsOn:
   - name: cilium
     namespace: cozy-cilium
@@ -32,4 +32,5 @@ spec:
     etcd: true
     host: moomboo.space
     ingress: true
+    isolated: true
     monitoring: true

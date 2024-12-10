@@ -11,7 +11,8 @@ backup:
 			kubectl neat -f $$i > $$i.neat && mv $$i.neat $$i ;\
 		done
 
-TENANT_LIST := tenant-test tenant-root tenant-legacy
+# TENANT_LIST := tenant-test tenant-root tenant-legacy
+TENANT_LIST := tenant-root
 reset:
 	rm -f helmrelease-*.yaml
 	@bash -c ' \
