@@ -97,6 +97,11 @@ cluster:
   apiServer:
     certSANs:
       - 127.0.0.1
+    extraArgs:
+      oidc-issuer-url: "https://keycloak.moomboo.space/realms/cozy"
+      oidc-client-id: "kubernetes"
+      oidc-username-claim: "preferred_username"
+      oidc-groups-claim: "groups"
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
