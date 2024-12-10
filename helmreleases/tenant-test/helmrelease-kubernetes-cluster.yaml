@@ -40,7 +40,7 @@ spec:
         enabled: false
     controlPlane:
       replicas: 2
-    host: test.moomboo.space
+    host: ""
     nodeGroups:
       md0:
         ephemeralStorage: 20Gi
