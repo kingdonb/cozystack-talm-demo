@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 1.6.1
+      version: 1.6.2
   interval: 1m0s
   timeout: 5m0s
   values:
@@ -22,5 +22,5 @@ spec:
     host: test.moomboo.space
     ingress: true
     isolated: false
-    monitoring: true
-    seaweedfs: true
+    monitoring: false
+    seaweedfs: false

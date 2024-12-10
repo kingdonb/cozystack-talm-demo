@@ -12,7 +12,7 @@ backup:
 		done
 
 # TENANT_LIST := tenant-test tenant-root tenant-legacy
-TENANT_LIST := tenant-root
+TENANT_LIST := tenant-test tenant-root
 reset:
 	rm -f helmrelease-*.yaml
 	@bash -c ' \

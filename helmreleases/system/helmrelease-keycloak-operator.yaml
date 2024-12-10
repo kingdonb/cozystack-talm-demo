@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: dashboard
-  namespace: cozy-dashboard
+  name: keycloak-operator
+  namespace: cozy-keycloak
 spec:
   chart:
     spec:
-      chart: cozy-dashboard
+      chart: cozy-keycloak-operator
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -17,25 +17,15 @@ spec:
         namespace: cozy-system
       version: '*'
   dependsOn:
-  - name: keycloak-configure
+  - name: keycloak
     namespace: cozy-keycloak
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: dashboard
+  releaseName: keycloak-operator
   upgrade:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    redis:
-      master:
-        podAnnotations:
-          repository.cozystack.io/cozystack-apps: sha256:cad70186270886ae9f17f3998adb0b6976dff47560e282e560c723fed49341db
-          repository.cozystack.io/cozystack-extra: sha256:aa9bfc14c6b4eee3ceeba37668385636262b2488db8bf245c3ad8745c76e7d7e
-  valuesFrom:
-  - kind: ConfigMap
-    name: kubeapps-auth-config
-    valuesKey: values.yaml
