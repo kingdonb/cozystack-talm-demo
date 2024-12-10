@@ -1,8 +1,6 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  annotations:
-    reconcile.fluxcd.io/forceAt: "2024-12-10T14:22:52Z"
   labels:
     cozystack.io/ui: "true"
   name: tenant-root
