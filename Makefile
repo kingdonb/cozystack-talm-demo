@@ -60,7 +60,7 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-dellwork01 apply-dellwork02 apply-hpworker03 apply-hpworker04 apply-hpworker05 # apply-moo apply-hpworker01
+apply: apply-dellwork01 apply-dellwork02 apply-hpworker03 apply-hpworker06 apply-hpworker05 # apply-moo apply-hpworker01
 
 apply-dellwork01:
 	talm apply -f nodes/dellwork01.yaml -i
