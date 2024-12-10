@@ -1,0 +1,45 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  annotations:
+    meta.helm.sh/release-name: kubernetes-cluster
+    meta.helm.sh/release-namespace: tenant-test
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    coztstack.io/target-cluster-name: kubernetes-cluster
+    cozystack.io/repository: system
+    helm.toolkit.fluxcd.io/name: kubernetes-cluster
+    helm.toolkit.fluxcd.io/namespace: tenant-test
+  name: kubernetes-cluster-cert-manager
+  namespace: tenant-test
+spec:
+  chart:
+    spec:
+      chart: cozy-cert-manager
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '*'
+  dependsOn:
+  - name: kubernetes-cluster
+    namespace: tenant-test
+  - name: kubernetes-cluster-cilium
+    namespace: tenant-test
+  - name: kubernetes-cluster-cert-manager-crds
+    namespace: tenant-test
+  install:
+    createNamespace: true
+    remediation:
+      retries: -1
+  interval: 5m
+  kubeConfig:
+    secretRef:
+      name: kubernetes-cluster-kubeconfig
+  releaseName: cert-manager
+  storageNamespace: cozy-cert-manager
+  targetNamespace: cozy-cert-manager
+  upgrade:
+    remediation:
+      retries: -1
