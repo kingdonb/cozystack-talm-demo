@@ -38,7 +38,7 @@ spec:
                 kind: GitRepository
                 path: ./clusters/harvey-moomboo-space
                 ref: refs/heads/main
-                url: https://github.com/kingdon-ci/fleet-infra.git
+                url: https://github.com/cozy-fleet/fleet-infra.git
       ingressNginx:
         enabled: true
         hosts:
