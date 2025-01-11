@@ -36,8 +36,8 @@ machine:
     #    serial: S6N1NF1TB52530
     #    wwid: nvme.144d-20202020202053364e314e463154423532353330-504d394231204e564d652053616d73756e67203235364742-00000001
     #    size: 0.23 TB
-    disk: /dev/loop0
-    image: kingdonb/talos:v1.8.3-cozy-spin
+    disk: /dev/nvme0n1
+    image: kingdonb/talos:v1.8.3-cozy-spin-tailscale
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"

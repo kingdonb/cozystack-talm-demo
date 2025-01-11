@@ -41,7 +41,7 @@ machine:
     #    serial: 
     #    wwid: naa.5001b444a44ebcd0
     #    size: 0.87 TB
-    disk: /dev/loop0
+    disk: /dev/nvme0n1
     image: kingdonb/talos:v1.8.3-cozy-spin
     extraKernelArgs:
       - "kexec_load_disabled=1"
