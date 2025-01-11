@@ -139,16 +139,16 @@ nuke-all-nodes-fast:
 	@echo "Be sure you know what you are doing!!"
 	@echo "====================================="
 	@echo "\\ \n\
+	talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false& \\ \n\
+	talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
+	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false& \\ \n\
 	talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false& \\ \n\
 	talm reset -f nodes/hpworker05.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false& \\ \n\
-	talm reset -f nodes/dellwork02.yaml --reboot \\ \n\
-	  --wipe-mode all --user-disks-to-wipe /dev/sdb --graceful=false& \\ \n\
-	talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
+	talm reset -f nodes/hpworker06.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false& \\ \n\
-	talm reset -f nodes/dellwork01.yaml --reboot \\ \n\
-	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false& \\ \n\
 	talm reset -f nodes/hpworker01.yaml --reboot \\ \n\
 	  --wipe-mode all --user-disks-to-wipe /dev/sda --graceful=false"
 	@echo "====================================="
@@ -177,7 +177,7 @@ nuke-stateless:
 	  --wipe-mode all --graceful=false; \\ \n\
 	talm reset -f nodes/hpworker05.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false; \\ \n\
-	talm reset -f nodes/hpworker04.yaml --reboot \\ \n\
+	talm reset -f nodes/hpworker03.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
