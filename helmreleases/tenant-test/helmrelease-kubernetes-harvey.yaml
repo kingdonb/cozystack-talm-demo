@@ -47,6 +47,7 @@ spec:
         - webhook.harvey.moomboo.space
         - water.harvey.moomboo.space
         - moo-cluster.turkey.local
+        - podinfo.local
       monitoringAgents:
         enabled: true
     controlPlane:
