@@ -36,8 +36,8 @@ machine:
     #    serial: S6N1NF1TB52530
     #    wwid: nvme.144d-20202020202053364e314e463154423532353330-504d394231204e564d652053616d73756e67203235364742-00000001
     #    size: 0.23 TB
-    disk: /dev/nvme0n1
-    image: kingdonb/talos:v1.8.3-cozy-spin-tailscale
+    disk: /dev/loop0
+    image: kingdonb/talos:v1.8.3-cozy-spin
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"
@@ -92,11 +92,6 @@ cluster:
   apiServer:
     certSANs:
       - 127.0.0.1
-    extraArgs:
-      oidc-issuer-url: "https://keycloak.moomboo.space/realms/cozy"
-      oidc-client-id: "kubernetes"
-      oidc-username-claim: "preferred_username"
-      oidc-groups-claim: "groups"
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
