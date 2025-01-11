@@ -60,7 +60,7 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-hpworker03 apply-hpworker06 apply-hpworker05 # apply-moo apply-hpworker01 apply-dellwork01 apply-dellwork02 
+apply: apply-hpworker03 apply-hpworker06 apply-hpworker05 # apply-moo apply-hpworker01 apply-dellwork01 apply-dellwork02
 
 # apply-dellwork01:
 # 	talm apply -f nodes/dellwork01.yaml -i
@@ -83,7 +83,7 @@ bootstrap:
 	talm bootstrap -f nodes/hpworker03.yaml
 
 dashboard:
-	talm dashboard -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker04.yaml # -f nodes/hpworker01.yaml # -f nodes/moo.yaml
+	talm dashboard -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml -f nodes/hpworker05.yaml # -f nodes/hpworker04.yaml -f nodes/hpworker01.yaml -f nodes/moo.yaml -f nodes/dellwork01.yaml -f nodes/dellwork02.yaml 
 
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/hpworker03.yaml
