@@ -3,7 +3,7 @@ all: none
 # Define the list of node IPs or hostnames (space-separated)
 # NODE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker05.turkey.local hpworker04.turkey.local
 # STORAGE_LIST := hpworker01.turkey.local dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local
-NODE_LIST:= dellwork01.turkey.local dellwork02.turkey.local hpworker03.turkey.local hpworker06.turkey.local hpworker05.turkey.local
+NODE_LIST:= hpworker03.turkey.local hpworker06.turkey.local hpworker05.turkey.local
 # STSLESS_LIST := hpworker04.turkey.local
 STSLESS_LIST := hpworker05.turkey.local hpworker06.turkey.local
 
@@ -43,8 +43,8 @@ template:
 	# talm template -e 10.17.13.87 -n 10.17.13.144 -t templates/worker.yaml -i > nodes/hpworker04.yaml
 	# talm template -e 10.17.13.174 -n 10.17.13.73 -t templates/worker.yaml -i > nodes/hpworker01.yaml
 	talm template -e 10.17.13.138 -n 10.17.13.138 -t templates/controlplane.yaml -i > nodes/hpworker06.yaml
-	talm template -e 10.17.13.87 -n 10.17.13.174 -t templates/worker.yaml -i > nodes/dellwork01.yaml
-	talm template -e 10.17.13.87 -n 10.17.13.7 -t templates/worker.yaml -i > nodes/dellwork02.yaml
+	# talm template -e 10.17.13.87 -n 10.17.13.174 -t templates/worker.yaml -i > nodes/dellwork01.yaml
+	# talm template -e 10.17.13.87 -n 10.17.13.7 -t templates/worker.yaml -i > nodes/dellwork02.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
@@ -60,20 +60,20 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-dellwork01 apply-dellwork02 apply-hpworker03 apply-hpworker06 apply-hpworker05 # apply-moo apply-hpworker01
+apply: apply-hpworker03 apply-hpworker06 apply-hpworker05 # apply-moo apply-hpworker01 apply-dellwork01 apply-dellwork02 
 
-apply-dellwork01:
-	talm apply -f nodes/dellwork01.yaml -i
-apply-dellwork02:
-	talm apply -f nodes/dellwork02.yaml -i
+# apply-dellwork01:
+# 	talm apply -f nodes/dellwork01.yaml -i
+# apply-dellwork02:
+# 	talm apply -f nodes/dellwork02.yaml -i
 apply-hpworker03:
 	talm apply -f nodes/hpworker03.yaml -i
 apply-hpworker06:
 	talm apply -f nodes/hpworker06.yaml -i
 apply-hpworker05:
 	talm apply -f nodes/hpworker05.yaml -i
-apply-hpworker04:
-	talm apply -f nodes/hpworker04.yaml -i
+# apply-hpworker04:
+# 	talm apply -f nodes/hpworker04.yaml -i
 # apply-moo:
 # 	talm apply -f nodes/moo.yaml -i
 # apply-hpworker01:
