@@ -31,7 +31,7 @@ spec:
       retries: -1
   values:
     cozystack:
-      nodesHash: ENC[redacted]
+      nodesHash: [redacted
     kube-ovn:
       ipv4:
         JOIN_CIDR: 100.64.0.0/16
