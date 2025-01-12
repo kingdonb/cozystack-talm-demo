@@ -16,9 +16,6 @@ spec:
         name: cozystack-system
         namespace: cozy-system
       version: '*'
-  dependsOn:
-  - name: keycloak-configure
-    namespace: cozy-keycloak
   install:
     crds: CreateReplace
     remediation:
@@ -33,9 +30,5 @@ spec:
     redis:
       master:
         podAnnotations:
-          repository.cozystack.io/cozystack-apps: sha256:cad70186270886ae9f17f3998adb0b6976dff47560e282e560c723fed49341db
-          repository.cozystack.io/cozystack-extra: sha256:aa9bfc14c6b4eee3ceeba37668385636262b2488db8bf245c3ad8745c76e7d7e
-  valuesFrom:
-  - kind: ConfigMap
-    name: kubeapps-auth-config
-    valuesKey: values.yaml
+          repository.cozystack.io/cozystack-apps: sha256:a3e1d5431f13835b919ad70802b5fbd40bdc838133756c2af4cc7637c37a1059
+          repository.cozystack.io/cozystack-extra: sha256:85b5666e70f15e38a2d2b60ecbca1a92688c967a1d05206d0f59e3f12f9bbfe2
