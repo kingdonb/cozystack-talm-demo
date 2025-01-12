@@ -12,7 +12,9 @@ So First: destroy your production cluster. We’ve got our clone of: https://git
 
 We have 3 machines on a special DHCP network set to netboot a Cozystack-branded Talos Linux installer image from Matchbox server, and they are now in maintenance mode, with clean wiped disks, fully booted.
 
-Next, follow the steps in the README beginning with `make mrproper` if necessary
+Next, follow the steps in the README beginning with `make mrproper` if necessary, then `make init`
+
+If you want to recreate the nodes from scratch, you can `make clean-nodes` and `make template`
 
 In your clone, `head -30 README.md` for the tl;dr which you can read and understand later.
 

@@ -30,14 +30,8 @@ machine:
     nameservers:
       - 10.17.13.254
   install:
-    # -- Discovered disks:
-    # /dev/nvme0n1:
-    #    model: Seagate FireCuda 530 ZP500GM30013
-    #    serial: 7VP007L1
-    #    wwid: eui.6479a74fdf0014cc
-    #    size: 0.45 TB
     disk: /dev/nvme0n1
-    image: kingdonb/talos:v1.8.3-cozy-spin
+    image: ghcr.io/aenix-io/cozystack/talos:v1.8.4
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"
@@ -60,6 +54,9 @@ machine:
           - usermode_helper=disabled
       - name: zfs
       - name: spl
+  nodeLabels:
+    node.kubernetes.io/exclude-from-external-load-balancers:
+      $patch: delete
   registries:
     mirrors:
       docker.io:
