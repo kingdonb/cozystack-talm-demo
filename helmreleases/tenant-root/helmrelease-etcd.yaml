@@ -25,3 +25,5 @@ spec:
       version: '*'
   interval: 1m0s
   timeout: 5m0s
+  values:
+    replicas: 1
