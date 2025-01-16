@@ -47,7 +47,10 @@ spec:
         - webhook.harvey.moomboo.space
         - water.harvey.moomboo.space
         - moo-cluster.turkey.local
+        - mop-cluster.turkey.local
+        - vcluster-cluster.turkey.local
         - podinfo.local
+        - socryx-topled.arvo.network
       monitoringAgents:
         enabled: false
     controlPlane:
