@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: kubevirt-operator
-  namespace: cozy-kubevirt
+  name: keycloak-configure
+  namespace: cozy-keycloak
 spec:
   chart:
     spec:
-      chart: cozy-kubevirt-operator
+      chart: cozy-keycloak-configure
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -17,18 +17,14 @@ spec:
         namespace: cozy-system
       version: '*'
   dependsOn:
-  - name: cilium
-    namespace: cozy-cilium
-  - name: kubeovn
-    namespace: cozy-kubeovn
-  - name: victoria-metrics-operator
-    namespace: cozy-victoria-metrics-operator
+  - name: keycloak-operator
+    namespace: cozy-keycloak
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: kubevirt-operator
+  releaseName: keycloak-configure
   upgrade:
     crds: CreateReplace
     remediation:
