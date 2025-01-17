@@ -8,4 +8,4 @@ serviceSubnets:
 - 10.96.0.0/16
 advertisedSubnets:
 - 10.17.13.0/24
-oidcIssuerUrl: ""
+oidcIssuerUrl: "https://keycloak.moomboo.space/realms/cozy"
