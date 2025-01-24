@@ -1,6 +1,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
+  annotations:
+    meta.helm.sh/release-name: tenant-root
+    meta.helm.sh/release-namespace: tenant-root
   labels:
     cozystack.io/ui: "true"
   name: etcd
