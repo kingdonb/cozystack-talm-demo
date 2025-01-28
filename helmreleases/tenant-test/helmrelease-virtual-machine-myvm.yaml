@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.7.0
+      version: 0.7.1
   interval: 0s
   values:
     cloudInit: ""
@@ -28,7 +28,8 @@ spec:
       memory: ""
     running: true
     sshKeys:
-    - ssh-ed25519     AAAAC3NzaC1lZDI1NTE5AAAAIOOAEa0lEIJwx2xRQtPbEqw4h55yNBEjlxMfW5cqrq5A     yebyen@kingdon-mbp.turkey.local
+    - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOOAEa0lEIJwx2xRQtPbEqw4h55yNBEjlxMfW5cqrq5A
+      yebyen@kingdon-mbp.turkey.local
     systemDisk:
       image: ubuntu
       storage: 50Gi
