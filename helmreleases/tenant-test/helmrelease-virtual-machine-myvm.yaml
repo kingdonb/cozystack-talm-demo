@@ -1,0 +1,35 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    cozystack.io/ui: "true"
+  name: virtual-machine-myvm
+  namespace: tenant-test
+spec:
+  chart:
+    spec:
+      chart: virtual-machine
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-apps
+        namespace: cozy-public
+      version: 0.7.0
+  interval: 0s
+  values:
+    cloudInit: ""
+    external: true
+    externalPorts:
+    - 22
+    instanceProfile: ubuntu
+    instanceType: u1.large
+    resources:
+      cpu: ""
+      memory: ""
+    running: true
+    sshKeys:
+    - ssh-ed25519     AAAAC3NzaC1lZDI1NTE5AAAAIOOAEa0lEIJwx2xRQtPbEqw4h55yNBEjlxMfW5cqrq5A     yebyen@kingdon-mbp.turkey.local
+    systemDisk:
+      image: ubuntu
+      storage: 50Gi
+      storageClass: replicated
