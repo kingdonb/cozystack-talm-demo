@@ -66,6 +66,20 @@ dashboard:
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/hpworker03.yaml
 
+more-kubeconfigs:
+	kubectl get secret -n tenant-test kubernetes-harvey-admin-kubeconfig -o go-template='{{ printf "%s\n" (index .data "super-admin.conf" | base64decode) }}' > harvey-kubeconfig.yaml
+	kubectl get secret -n tenant-test kubernetes-cluster-admin-kubeconfig -o go-template='{{ printf "%s\n" (index .data "super-admin.conf" | base64decode) }}' > test-kubeconfig.yaml
+
+load-kubeconfigs:
+	kconf add test-kubeconfig.yaml
+	kconf add harvey-kubeconfig.yaml
+	kconf rename kubernetes-super-admin@kubernetes-cluster admin@test.cluster
+	kconf rename kubernetes-super-admin@kubernetes-harvey super-admin@harvey
+
+clean-kubeconfigs:
+	kconf rm super-admin@harvey
+	kconf rm admin@test.cluster
+
 clean: clean-kubeconfig clean-talosconfig clean-secrets
 
 mrproper: clean clean-template
