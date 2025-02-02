@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: kubevirt-operator
-  namespace: cozy-kubevirt
+  name: cozystack-controller
+  namespace: cozy-system
 spec:
   chart:
     spec:
-      chart: cozy-kubevirt-operator
+      chart: cozy-cozystack-controller
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -21,14 +21,12 @@ spec:
     namespace: cozy-cilium
   - name: kubeovn
     namespace: cozy-kubeovn
-  - name: victoria-metrics-operator
-    namespace: cozy-victoria-metrics-operator
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: kubevirt-operator
+  releaseName: cozystack-controller
   upgrade:
     crds: CreateReplace
     remediation:

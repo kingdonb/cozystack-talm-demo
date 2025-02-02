@@ -14,9 +14,8 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 1.6.2
-  interval: 1m0s
-  timeout: 5m0s
+      version: 1.6.7
+  interval: 0s
   values:
     etcd: false
     host: test.moomboo.space

@@ -16,6 +16,9 @@ spec:
         name: cozystack-system
         namespace: cozy-system
       version: '*'
+  dependsOn:
+  - name: keycloak-configure
+    namespace: cozy-keycloak
   install:
     crds: CreateReplace
     remediation:
@@ -27,8 +30,20 @@ spec:
     remediation:
       retries: -1
   values:
+    kubeapps:
+      authProxy:
+        clientID: kubeapps
+        clientSecret: [redacted
+        cookieSecret: [redacted
+        enabled: true
+        extraFlags:
+        - --ssl-insecure-skip-verify
+        - --cookie-secure=false
+        - --scope=openid email groups
+        - --oidc-issuer-url=https://keycloak.moomboo.space/realms/cozy
+        provider: oidc
     redis:
       master:
         podAnnotations:
-          repository.cozystack.io/cozystack-apps: sha256:a3e1d5431f13835b919ad70802b5fbd40bdc838133756c2af4cc7637c37a1059
-          repository.cozystack.io/cozystack-extra: sha256:85b5666e70f15e38a2d2b60ecbca1a92688c967a1d05206d0f59e3f12f9bbfe2
+          repository.cozystack.io/cozystack-apps: sha256:44bc98e21868cf5e142487ea05b989ad6c7ab2b387a27c4df76a0ec6c5af1afb
+          repository.cozystack.io/cozystack-extra: sha256:81879236c1c63f0af3f29d6b6a7d0fa674f1f3c1015a2ea10314cafc10629080

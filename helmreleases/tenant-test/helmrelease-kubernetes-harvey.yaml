@@ -14,9 +14,8 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.14.1
-  interval: 1m0s
-  timeout: 5m0s
+      version: 0.15.0
+  interval: 0s
   values:
     addons:
       certManager:
@@ -44,6 +43,7 @@ spec:
         hosts:
         - '*.harvey.moomboo.space'
         - harvey.moomboo.space
+        - dex.harvey.moomboo.space
         - webhook.harvey.moomboo.space
         - water.harvey.moomboo.space
         - moo-cluster.turkey.local
