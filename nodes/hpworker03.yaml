@@ -9,6 +9,7 @@ machine:
       validSubnets:
         - 10.17.13.0/24
   network:
+    hostname: talos-9e5aa
     # -- Discovered interfaces:
     # enxf4390904571e:
     #   id: enp2s0
@@ -31,7 +32,7 @@ machine:
       - 10.17.13.254
   install:
     disk: /dev/nvme0n1
-    image: ghcr.io/aenix-io/cozystack/talos:v1.9.2
+    image: ghcr.io/aenix-io/cozystack/talos:v1.9.3
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"
