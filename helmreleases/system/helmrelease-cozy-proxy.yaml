@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: monitoring-agents
-  namespace: cozy-monitoring
+  name: cozy-proxy
+  namespace: cozy-system
 spec:
   chart:
     spec:
-      chart: cozy-monitoring-agents
+      chart: cozy-cozy-proxy
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -21,19 +21,13 @@ spec:
     namespace: cozy-cilium
   - name: kubeovn
     namespace: cozy-kubeovn
-  - name: victoria-metrics-operator
-    namespace: cozy-victoria-metrics-operator
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: monitoring-agents
+  releaseName: cozystack
   upgrade:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    scrapeRules:
-      etcd:
-        enabled: true

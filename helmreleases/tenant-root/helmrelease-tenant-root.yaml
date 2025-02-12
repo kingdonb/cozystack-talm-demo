@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 1.6.7
+      version: '*'
   dependsOn:
   - name: cilium
     namespace: cozy-cilium
