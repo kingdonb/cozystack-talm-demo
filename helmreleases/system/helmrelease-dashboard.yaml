@@ -45,5 +45,5 @@ spec:
     redis:
       master:
         podAnnotations:
-          repository.cozystack.io/cozystack-apps: sha256:6360a4aa9a46888da88aea6892c26b471a0486a6cd001d5ae8c40525d7f8ee9c
-          repository.cozystack.io/cozystack-extra: sha256:d5882ec1350527e306380c38f51675ddac0f888a869b3286d54cfa15611c562f
+          repository.cozystack.io/cozystack-apps: sha256:755f6bb8336d460969cd1268afb3fb70efc9e20522746889b167215702caacc5
+          repository.cozystack.io/cozystack-extra: sha256:fee8e6b48ee4840795e2a5db9e361789ccf771b654cc7ddbaca706af1f5be1c6
