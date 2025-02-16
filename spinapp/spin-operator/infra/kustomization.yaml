@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: tenant-test
+resources:
+# cluster scoped:
+- spin-operator.crds.yaml
+- spin-operator.runtime-class.yaml
+# namespaced:
+- spin-operator.shim-executor.yaml
