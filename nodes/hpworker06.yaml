@@ -32,7 +32,7 @@ machine:
       - 10.17.13.254
   install:
     disk: /dev/nvme0n1
-    image: kingdonb/talos:v1.9.4-cozy-spin
+    image: kingdonb/talos:v1.9.4-cozy-spin-tailscale
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"
