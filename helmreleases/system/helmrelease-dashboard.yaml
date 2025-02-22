@@ -31,19 +31,40 @@ spec:
       retries: -1
   values:
     kubeapps:
-      authProxy:
-        clientID: kubeapps
-        clientSecret: [redacted
-        cookieSecret: [redacted
-        enabled: true
-        extraFlags:
-        - --ssl-insecure-skip-verify
-        - --cookie-secure=false
-        - --scope=openid email groups
-        - --oidc-issuer-url=https://keycloak.moomboo.space/realms/cozy
-        provider: oidc
-    redis:
-      master:
-        podAnnotations:
-          repository.cozystack.io/cozystack-apps: sha256:755f6bb8336d460969cd1268afb3fb70efc9e20522746889b167215702caacc5
-          repository.cozystack.io/cozystack-extra: sha256:fee8e6b48ee4840795e2a5db9e361789ccf771b654cc7ddbaca706af1f5be1c6
+      dashboard:
+        customStyle: |
+          #serviceaccount-selector {
+            display: none;
+          }
+          .login-moreinfo {
+            display: none;
+          }
+          a[href="#/docs"] {
+            display: none;
+          }
+          .login-group .clr-form-control .clr-control-label {
+            display: none;
+          }
+          .appview-separator div.appview-first-row div.center {
+            display: none;
+          }
+          .appview-separator div.appview-first-row section[aria-labelledby="app-secrets"] {
+            display: none;
+          }
+          .appview-first-row section[aria-labelledby="access-urls-title"] {
+            width: 100%;
+          }
+        image:
+          digest: sha256:81e7b625c667bce5fc339eb97c8e115eafb82f66df4501550b3677ac53f6e234
+          registry: ghcr.io/aenix-io/cozystack
+          repository: dashboard
+          tag: v0.25.0
+      redis:
+        master:
+          podAnnotations:
+            repository.cozystack.io/cozystack-apps: sha256:7ea5da8ac837e538d9d1dba452f07564370674e8d93632c952f1b8b2d9656d3c
+            repository.cozystack.io/cozystack-extra: sha256:3ca6d458beb6c87fd9e851c7b250e0cc6de2ac85fab7415319cb39b8583b6748
+  valuesFrom:
+  - kind: ConfigMap
+    name: kubeapps-auth-config
+    valuesKey: values.yaml

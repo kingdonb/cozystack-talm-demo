@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: spin-operator
+  namespace: spin-operator
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: spinkube
+  driftDetection:
+    mode: enabled
+  interval: 10m0s
+  values:
+    controllerManager:
+      manager:
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 10m
+            memory: 128Mi
