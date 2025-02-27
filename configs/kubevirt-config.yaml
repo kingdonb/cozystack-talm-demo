@@ -6,5 +6,4 @@ metadata:
   labels:
     kubevirt.io: ""
 data:
-  feature-gates: "LiveMigration"
   cpuModel: "Westmere"
