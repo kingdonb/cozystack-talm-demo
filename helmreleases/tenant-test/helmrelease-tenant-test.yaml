@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 1.7.0
+      version: 1.8.0
   interval: 0s
   values:
     etcd: false

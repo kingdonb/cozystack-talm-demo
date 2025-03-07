@@ -13,11 +13,11 @@ help:
 install:
 	kubectl create ns cozy-system
 	kubectl apply -f configs/cozystack-config.yaml
-	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.25.3/manifests/cozystack-installer.yaml
+	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.27.0/manifests/cozystack-installer.yaml
 	# local:# kubectl apply -f cozystack-installer.yaml
 
 tailscale:
-	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.138 -e 10.17.13.87
+	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.139 -e 10.17.13.86
 
 storage:
 	kubectl create -f configs/storage/
@@ -30,9 +30,9 @@ init:
 
 template:
 	mkdir -p nodes
-	talm template -e 10.17.13.87 -n 10.17.13.87 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
-	talm template -e 10.17.13.102 -n 10.17.13.102 -t templates/controlplane.yaml -i > nodes/hpworker05.yaml
-	talm template -e 10.17.13.138 -n 10.17.13.138 -t templates/controlplane.yaml -i > nodes/hpworker06.yaml
+	talm template -e 10.17.13.86 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
+	talm template -e 10.17.13.101 -n 10.17.13.101 -t templates/controlplane.yaml -i > nodes/hpworker05.yaml
+	talm template -e 10.17.13.139 -n 10.17.13.139 -t templates/controlplane.yaml -i > nodes/hpworker06.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."

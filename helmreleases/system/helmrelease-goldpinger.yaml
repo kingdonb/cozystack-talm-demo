@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: linstor
-  namespace: cozy-linstor
+  name: goldpinger
+  namespace: cozy-goldpinger
 spec:
   chart:
     spec:
-      chart: cozy-linstor
+      chart: cozy-goldpinger
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -17,22 +17,14 @@ spec:
         namespace: cozy-system
       version: '*'
   dependsOn:
-  - name: piraeus-operator
-    namespace: cozy-linstor
-  - name: cilium
-    namespace: cozy-cilium
-  - name: kubeovn
-    namespace: cozy-kubeovn
-  - name: cert-manager
-    namespace: cozy-cert-manager
-  - name: snapshot-controller
-    namespace: cozy-snapshot-controller
+  - name: monitoring-agents
+    namespace: cozy-monitoring
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: linstor
+  releaseName: goldpinger
   upgrade:
     crds: CreateReplace
     remediation:
