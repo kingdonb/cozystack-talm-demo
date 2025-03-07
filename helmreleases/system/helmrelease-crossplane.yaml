@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  labels:
+    kustomize.toolkit.fluxcd.io/name: crossplane-system
+    kustomize.toolkit.fluxcd.io/namespace: cozy-fluxcd
+  name: crossplane
+  namespace: crossplane-system
+spec:
+  chart:
+    spec:
+      chart: crossplane
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: crossplane-stable
+      version: '*'
+  interval: 10m0s

@@ -54,16 +54,11 @@ spec:
           .appview-first-row section[aria-labelledby="access-urls-title"] {
             width: 100%;
           }
-        image:
-          digest: sha256:81e7b625c667bce5fc339eb97c8e115eafb82f66df4501550b3677ac53f6e234
-          registry: ghcr.io/aenix-io/cozystack
-          repository: dashboard
-          tag: v0.25.0
       redis:
         master:
           podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:7ea5da8ac837e538d9d1dba452f07564370674e8d93632c952f1b8b2d9656d3c
-            repository.cozystack.io/cozystack-extra: sha256:3ca6d458beb6c87fd9e851c7b250e0cc6de2ac85fab7415319cb39b8583b6748
+            repository.cozystack.io/cozystack-apps: sha256:e7d2a942909cf58e888ba0c6bd7a3b0402f5ab179f40a97b03a25f337c94b9b8
+            repository.cozystack.io/cozystack-extra: sha256:34b2ae41eda6e34e821f2b680a14d79852f69d1897ad7fdad2467cacf39e21c4
   valuesFrom:
   - kind: ConfigMap
     name: kubeapps-auth-config

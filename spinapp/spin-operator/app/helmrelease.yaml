@@ -10,3 +10,13 @@ spec:
   interval: 10m0s
   driftDetection:
     mode: enabled
+  values:
+    controllerManager:
+      manager:
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 10m
+            memory: 128Mi
