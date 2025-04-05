@@ -13,7 +13,7 @@ help:
 install:
 	kubectl create ns cozy-system
 	kubectl apply -f configs/cozystack-config.yaml
-	# remote:# kubectl apply -f https://github.com/aenix-io/cozystack/raw/v0.28.2/manifests/cozystack-installer.yaml
+	# remote:# kubectl apply -f https://github.com/cozystack/cozystack/releases/download/v0.29.1/cozystack-installer.yaml
 	# local:# kubectl apply -f cozystack-installer.yaml
 
 tailscale:
