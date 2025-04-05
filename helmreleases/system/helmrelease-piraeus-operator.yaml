@@ -23,6 +23,8 @@ spec:
     namespace: cozy-kubeovn
   - name: cert-manager
     namespace: cozy-cert-manager
+  - name: victoria-metrics-operator
+    namespace: cozy-victoria-metrics-operator
   install:
     crds: CreateReplace
     remediation:

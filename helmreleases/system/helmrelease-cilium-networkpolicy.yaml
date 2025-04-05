@@ -4,12 +4,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: kafka-operator
-  namespace: cozy-kafka-operator
+  name: cilium-networkpolicy
+  namespace: cozy-cilium
 spec:
   chart:
     spec:
-      chart: cozy-kafka-operator
+      chart: cozy-cilium-networkpolicy
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -19,16 +19,12 @@ spec:
   dependsOn:
   - name: cilium
     namespace: cozy-cilium
-  - name: kubeovn
-    namespace: cozy-kubeovn
-  - name: victoria-metrics-operator
-    namespace: cozy-victoria-metrics-operator
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: kafka-operator
+  releaseName: cilium-networkpolicy
   upgrade:
     crds: CreateReplace
     remediation:
