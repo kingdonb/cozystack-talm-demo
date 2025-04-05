@@ -14,11 +14,12 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.5.0
+      version: 0.6.0
   interval: 0s
   values:
     authEnabled: true
     external: true
     replicas: 2
+    resourcesPreset: nano
     size: 1Gi
     storageClass: ""

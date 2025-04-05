@@ -34,7 +34,8 @@ spec:
   interval: 5m
   kubeConfig:
     secretRef:
-      name: kubernetes-cluster-kubeconfig
+      key: super-admin.svc
+      name: kubernetes-cluster-admin-kubeconfig
   releaseName: fluxcd-operator
   storageNamespace: cozy-fluxcd
   targetNamespace: cozy-fluxcd
