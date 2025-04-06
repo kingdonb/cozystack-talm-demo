@@ -62,7 +62,7 @@ spec:
           server:
             resourcesPreset: micro
       apiServer:
-        resourcesPreset: small
+        resourcesPreset: medium
       controllerManager:
         resourcesPreset: micro
       scheduler:
