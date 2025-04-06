@@ -33,6 +33,7 @@ template:
 	talm template -e 10.17.13.86 -n 10.17.13.86 -t templates/controlplane.yaml -i > nodes/hpworker03.yaml
 	talm template -e 10.17.13.101 -n 10.17.13.101 -t templates/controlplane.yaml -i > nodes/hpworker05.yaml
 	talm template -e 10.17.13.139 -n 10.17.13.139 -t templates/controlplane.yaml -i > nodes/hpworker06.yaml
+	talm template -e 10.17.13.132 -n 10.17.13.132 -t templates/worker.yaml -i > nodes/hpworker02.yaml
 
 patch-nodes:
 	@echo "Merging patches into nodes/* : ..."
