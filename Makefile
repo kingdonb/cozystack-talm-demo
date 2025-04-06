@@ -1,7 +1,7 @@
 all: none
 
 # Define the list of node IPs or hostnames (space-separated)
-NODE_LIST:= hpworker03.turkey.local hpworker06.turkey.local hpworker05.turkey.local
+NODE_LIST:= hpworker03.turkey.local hpworker06.turkey.local hpworker05.turkey.local hpworker02.turkey.local
 STSLESS_LIST := hpworker05.turkey.local hpworker06.turkey.local
 
 none:
@@ -62,7 +62,7 @@ bootstrap:
 	talm bootstrap -f nodes/hpworker03.yaml
 
 dashboard:
-	talm dashboard -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml -f nodes/hpworker05.yaml
+	talm dashboard -f nodes/hpworker03.yaml -f nodes/hpworker06.yaml -f nodes/hpworker05.yaml -f nodes/hpworker02.yaml
 
 kubeconfig:
 	talm kubeconfig kubeconfig -f nodes/hpworker03.yaml
