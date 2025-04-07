@@ -2,7 +2,8 @@ all: none
 
 # Define the list of node IPs or hostnames (space-separated)
 NODE_LIST:= hpworker03.turkey.local hpworker06.turkey.local hpworker05.turkey.local hpworker02.turkey.local
-STSLESS_LIST := hpworker05.turkey.local hpworker06.turkey.local
+CONTROL_LIST:= hpworker03.turkey.local hpworker06.turkey.local hpworker05.turkey.local
+STSLESS_LIST := hpworker05.turkey.local hpworker06.turkey.local hpworker02.turkey.local
 
 none:
 	echo "try 'make tailscale'"
@@ -49,7 +50,7 @@ patch-nodes:
 		done \
 	'
 
-apply: apply-hpworker03 apply-hpworker06 apply-hpworker05
+apply: apply-hpworker03 apply-hpworker06 apply-hpworker05 apply-hpworker02
 
 apply-hpworker03:
 	talm apply -f nodes/hpworker03.yaml -i
@@ -57,6 +58,8 @@ apply-hpworker06:
 	talm apply -f nodes/hpworker06.yaml -i
 apply-hpworker05:
 	talm apply -f nodes/hpworker05.yaml -i
+apply-hpworker02:
+	talm apply -f nodes/hpworker02.yaml -i
 
 bootstrap:
 	talm bootstrap -f nodes/hpworker03.yaml
@@ -118,6 +121,8 @@ nuke-all-nodes:
 	talm reset -f nodes/hpworker05.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false; \\ \n\
 	talm reset -f nodes/hpworker06.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false; \\ \n\
+	talm reset -f nodes/hpworker02.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
@@ -131,6 +136,8 @@ nuke-all-nodes-fast:
 	talm reset -f nodes/hpworker05.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false& \\ \n\
 	talm reset -f nodes/hpworker06.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false& \\ \n\
+	talm reset -f nodes/hpworker02.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
@@ -151,6 +158,8 @@ nuke-stateless:
 	talm reset -f nodes/hpworker06.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false; \\ \n\
 	talm reset -f nodes/hpworker05.yaml --reboot \\ \n\
+	  --wipe-mode all --graceful=false; \\ \n\
+	talm reset -f nodes/hpworker02.yaml --reboot \\ \n\
 	  --wipe-mode all --graceful=false"
 	@echo "====================================="
 	@echo "Don't say you weren't warned! Danger!"
