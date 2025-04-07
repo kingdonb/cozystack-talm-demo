@@ -34,7 +34,8 @@ spec:
   interval: 5m
   kubeConfig:
     secretRef:
-      name: kubernetes-harvey-kubeconfig
+      key: super-admin.svc
+      name: kubernetes-harvey-admin-kubeconfig
   releaseName: ingress-nginx
   storageNamespace: cozy-ingress-nginx
   targetNamespace: cozy-ingress-nginx

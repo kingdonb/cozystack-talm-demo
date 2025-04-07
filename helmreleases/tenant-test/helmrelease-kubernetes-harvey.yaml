@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.15.2
+      version: 0.17.0
   interval: 0s
   values:
     addons:
@@ -56,6 +56,17 @@ spec:
     controlPlane:
       replicas: 2
     host: harvey.test.moomboo.space
+    kamajiControlPlane:
+      addons:
+        konnectivity:
+          server:
+            resourcesPreset: micro
+      apiServer:
+        resourcesPreset: xlarge
+      controllerManager:
+        resourcesPreset: micro
+      scheduler:
+        resourcesPreset: micro
     nodeGroups:
       md0:
         ephemeralStorage: 20Gi
