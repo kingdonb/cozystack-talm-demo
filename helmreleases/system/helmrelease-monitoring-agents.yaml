@@ -17,12 +17,10 @@ spec:
         namespace: cozy-system
       version: '*'
   dependsOn:
-  - name: cilium
-    namespace: cozy-cilium
-  - name: kubeovn
-    namespace: cozy-kubeovn
   - name: victoria-metrics-operator
     namespace: cozy-victoria-metrics-operator
+  - name: vertical-pod-autoscaler-crds
+    namespace: cozy-vertical-pod-autoscaler
   install:
     crds: CreateReplace
     remediation:
