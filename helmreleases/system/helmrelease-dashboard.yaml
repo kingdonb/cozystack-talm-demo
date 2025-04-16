@@ -57,8 +57,8 @@ spec:
       redis:
         master:
           podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:b921a9319f92a53ea6350fb181cb89cfe71a172aa402a7928e24f3ba8053dccf
-            repository.cozystack.io/cozystack-extra: sha256:473de2d29c6b0aed5b0ce210573ffff2896f9ec2b7479f64346c6d58a3096f9c
+            repository.cozystack.io/cozystack-apps: sha256:8e3f69c2807501e00aabee723d698dfe0799039cd1548afe4345c9ef42118c8f
+            repository.cozystack.io/cozystack-extra: sha256:e3024380b2fb33e516d2733e26c1426a5d563079c92748e2feccd3820f77fe9f
   valuesFrom:
   - kind: ConfigMap
     name: kubeapps-auth-config
