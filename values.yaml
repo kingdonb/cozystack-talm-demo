@@ -9,3 +9,6 @@ serviceSubnets:
 advertisedSubnets:
 - 10.17.13.0/24
 oidcIssuerUrl: "https://keycloak.moomboo.space/realms/cozy"
+certSANs:
+  - talos-dev-planevip.turkey.local
+  - metal.urmanac.com

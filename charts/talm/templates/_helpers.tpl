@@ -5,7 +5,7 @@
 {{- else }}
 {{- $disk := "/dev/sda" }}
 {{- range (lookup "disks" "" "").items }}
-{{- if .spec.wwid }}
+{{- if or .spec.wwid .spec.model }}
 {{- $disk = .spec.dev_path }}
 {{- break }}
 {{- end }}
@@ -30,7 +30,7 @@
 {{- define "talm.discovered.disks_info" }}
 # -- Discovered disks:
 {{- range (lookup "disks" "" "").items }}
-{{- if .spec.wwid }}
+{{- if or .spec.wwid .spec.model }}
 # {{ .spec.dev_path }}:
 #    model: {{ .spec.model }}
 #    serial: {{ .spec.serial }}
@@ -70,8 +70,7 @@
 # -- Discovered interfaces:
 {{- range (lookup "links" "" "").items }}
 {{- if and .spec.busPath (regexMatch "^(eno|eth|enp|enx|ens)" .metadata.id) }}
-# enx{{ .spec.hardwareAddr | replace ":" "" }}:
-#   id: {{ .metadata.id }}
+# {{ .metadata.id }}:
 #   hardwareAddr:{{ .spec.hardwareAddr }}
 #   busPath: {{ .spec.busPath }}
 #   driver: {{ .spec.driver }}
@@ -140,5 +139,11 @@ busPath: {{ .spec.busPath }}
 {{- define "talm.discovered.default_resolvers" }}
 {{- with (lookup "resolvers" "" "resolvers") }}
 {{- toJson .spec.dnsServers }}
+{{- end }}
+{{- end }}
+
+{{- define "talm.discovered.existing_interfaces_configuration" }}
+{{- with (lookup "machineconfig" "" "v1alpha1") }}
+{{ toYaml .spec | fromYaml | dig "machine" "network" "interfaces" (list) | toYaml }}
 {{- end }}
 {{- end }}

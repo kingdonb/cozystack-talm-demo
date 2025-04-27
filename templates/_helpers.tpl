@@ -20,6 +20,18 @@ machine:
         - usermode_helper=disabled
     - name: zfs
     - name: spl
+    - name: vfio_pci
+    - name: vfio_iommu_type1
+  certSANs:
+  - 127.0.0.1
+  {{- with .Values.certSANs }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+  registries:
+    mirrors:
+      docker.io:
+        endpoints:
+        - https://mirror.gcr.io
   files:
   - content: |
       [plugins]
@@ -40,16 +52,20 @@ machine:
     nameservers: {{ include "talm.discovered.default_resolvers" . }}
     {{- (include "talm.discovered.physical_links_info" .) | nindent 4 }}
     interfaces:
-    - deviceSelector:
-        {{- include "talm.discovered.default_link_selector_by_gateway" . | nindent 8 }}
+    {{- $existingInterfacesConfiguration := include "talm.discovered.existing_interfaces_configuration" . }}
+    {{- if $existingInterfacesConfiguration }}
+    {{- $existingInterfacesConfiguration | nindent 4 }}
+    {{- else }}
+    - interface: {{ include "talm.discovered.default_link_name_by_gateway" . }}
       addresses: {{ include "talm.discovered.default_addresses_by_gateway" . }}
       routes:
         - network: 0.0.0.0/0
           gateway: {{ include "talm.discovered.default_gateway" . }}
-      {{- if eq .MachineType "controlplane" }}{{ with .Values.floatingIP }}
+      {{- if and .Values.floatingIP (eq .MachineType "controlplane") }}
       vip:
-        ip: {{ . }}
-      {{- end }}{{ end }}
+        ip: {{ .Values.floatingIP }}
+      {{- end }}
+    {{- end }}
 
 cluster:
   network:
@@ -81,6 +97,9 @@ cluster:
     {{- end }}
     certSANs:
     - 127.0.0.1
+    {{- with .Values.certSANs }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
   proxy:
     disabled: true
   discovery:
