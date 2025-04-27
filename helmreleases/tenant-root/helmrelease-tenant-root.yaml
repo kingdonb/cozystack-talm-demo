@@ -33,4 +33,4 @@ spec:
     host: moomboo.space
     ingress: true
     isolated: false
-    monitoring: false
+    monitoring: true
