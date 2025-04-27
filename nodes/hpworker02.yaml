@@ -39,6 +39,10 @@ machine:
     #    size: 256 GB
     disk: /dev/nvme0n1
     image: kingdonb/talos:v1.9.5-cozy-spin
+    extraKernelArgs:
+      - "kexec_load_disabled=1"
+      - "sysctl.kernel.kexec_load_disabled=1"
+      - "proc.sys.kernel.kexec_load_disabled=1"
   files:
     - content: |
         [plugins]
@@ -53,7 +57,19 @@ machine:
     mirrors:
       docker.io:
         endpoints:
-          - https://mirror.gcr.io
+          - http://netmoom-13net.turkey.local:5050
+      quay.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5052
+      gcr.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5053
+      ghcr.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5054
+      registry.k8s.io:
+        endpoints:
+          - http://netmoom-13net.turkey.local:5051
   kernel:
     modules:
       - name: openvswitch
@@ -64,6 +80,8 @@ machine:
       - name: spl
       - name: vfio_pci
       - name: vfio_iommu_type1
+  sysctls:
+    kernel.domainname: cozy.local
 cluster:
   controlPlane:
     endpoint: https://10.17.13.253:6443
@@ -74,5 +92,3 @@ cluster:
     dnsDomain: cozy.local
     serviceSubnets:
       - 10.96.0.0/16
-
-
