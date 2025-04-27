@@ -69,6 +69,7 @@ Now follow Get Started guide starting from the [Install Cozystack][] section, to
 * [youtu.be/D6qR_jCoPMw][] - "Build, Test Cozystack 0.9-pre"
 * [youtu.be/drUrHKAY2dk][] - "Cozystack 0.10"
 * [youtu.be/8uutRKJo19k][] - First Speed Run of 2025
+* [youtu.be/GBgUfvexnJI][] - What is Moonlander? Birthday speed-run in April 2025
 
 [youtu.be/q43l_YerEy8]: https://youtube.com/watch?v=q43l_YerEy8
 [youtu.be/bIgAeSfAEys]: https://youtube.com/watch?v=bIgAeSfAEys
@@ -76,3 +77,4 @@ Now follow Get Started guide starting from the [Install Cozystack][] section, to
 [youtu.be/D6qR_jCoPMw]: https://youtube.com/watch?v=D6qR_jCoPMw
 [youtu.be/drUrHKAY2dk]: https://youtube.com/watch?v=drUrHKAY2dk
 [youtu.be/8uutRKJo19k]: https://youtube.com/watch?v=8uutRKJo19k
+[youtu.be/GBgUfvexnJI]: https://youtube.com/watch?v=GBgUfvexnJI
