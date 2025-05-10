@@ -19,7 +19,7 @@ install:
 
 tailscale:
 	# talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.132 -e 10.17.13.86
-	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.101 -e 10.17.13.86
+	talosctl patch mc -p @configs/tailscale-config.yaml -n 10.17.13.139 -e 10.17.13.86
 
 storage:
 	kubectl create -f configs/storage/

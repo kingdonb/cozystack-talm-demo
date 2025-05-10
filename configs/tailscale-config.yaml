@@ -3,7 +3,7 @@ apiVersion: v1alpha1
 kind: ExtensionServiceConfig
 name: tailscale
 environment:
-  # Next Revocation: Jul 26, 2025 at 3:22 PM EDT
-  # - TS_AUTHKEY=tskey-auth-kpVj........[REDACTED]........4G8G
+  # Next Revocation: Aug 8, 2025 at 12:03 PM EDT
+  # - TS_AUTHKEY=tskey-auth-k7nr........[REDACTED]........KAX2
   - TS_ROUTES=10.96.0.0/16,10.244.0.0/16
   - TS_USERSPACE=true
