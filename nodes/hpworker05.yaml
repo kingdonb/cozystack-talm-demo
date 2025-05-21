@@ -31,7 +31,7 @@ machine:
         vip:
           ip: 10.17.13.253
     nameservers:
-      - 10.17.13.254
+      - 10.17.13.140
   install:
     # -- Discovered disks:
     # /dev/nvme0n1:
