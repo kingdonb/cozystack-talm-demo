@@ -69,19 +69,19 @@ machine:
     mirrors:
       docker.io:
         endpoints:
-          - http://netmoom-13net.turkey.local:5050
+          - http://metnoom-13net.turkey.local:5050
       quay.io:
         endpoints:
-          - http://netmoom-13net.turkey.local:5052
+          - http://metnoom-13net.turkey.local:5052
       gcr.io:
         endpoints:
-          - http://netmoom-13net.turkey.local:5053
+          - http://metnoom-13net.turkey.local:5053
       ghcr.io:
         endpoints:
-          - http://netmoom-13net.turkey.local:5054
+          - http://metnoom-13net.turkey.local:5054
       registry.k8s.io:
         endpoints:
-          - http://netmoom-13net.turkey.local:5051
+          - http://metnoom-13net.turkey.local:5051
   kernel:
     modules:
       - name: openvswitch
