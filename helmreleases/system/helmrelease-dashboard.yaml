@@ -35,8 +35,20 @@ spec:
       retries: -1
   values:
     kubeapps:
+      authProxy:
+        clientID: kubeapps
+        clientSecret: [redacted
+        cookieSecret: [redacted
+        enabled: true
+        extraFlags:
+        - --ssl-insecure-skip-verify
+        - --cookie-secure=false
+        - --scope=openid email groups
+        - --oidc-issuer-url=https://keycloak.moomboo.space/realms/cozy
+        provider: oidc
+        resourcesPreset: none
       dashboard:
-        customStyle: |
+        customStyle: |-
           #serviceaccount-selector {
             display: none;
           }

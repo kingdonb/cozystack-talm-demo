@@ -1,6 +1,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
+  annotations:
+    reconcile.fluxcd.io/forceAt: 2025-06-08 01:07:17.150343982+00:00
+    reconcile.fluxcd.io/requestedAt: 2025-06-08 01:07:17.150343982+00:00
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
