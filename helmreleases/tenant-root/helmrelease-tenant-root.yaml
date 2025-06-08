@@ -23,7 +23,7 @@ spec:
   install:
     remediation:
       retries: -1
-  interval: 1m
+  interval: 0s
   releaseName: tenant-root
   upgrade:
     remediation:

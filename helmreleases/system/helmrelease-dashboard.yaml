@@ -15,8 +15,12 @@ spec:
         kind: HelmRepository
         name: cozystack-system
         namespace: cozy-system
-      version: '*'
+      version: '>= 0.0.0-0'
   dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
   - name: keycloak-configure
     namespace: cozy-keycloak
   install:
@@ -54,12 +58,11 @@ spec:
           .appview-first-row section[aria-labelledby="access-urls-title"] {
             width: 100%;
           }
+        resourcesPreset: none
+      frontend:
+        resourcesPreset: none
       redis:
         master:
           podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:0de13f7d5029d6640749bc99974090b600dcdbafd7a1e8bac09f04bab2ddfa53
-            repository.cozystack.io/cozystack-extra: sha256:bbfd452af88dd536820a2fc49a5f2103aea7e4cde6270662dd2709b86e60f440
-  valuesFrom:
-  - kind: ConfigMap
-    name: kubeapps-auth-config
-    valuesKey: values.yaml
+            repository.cozystack.io/cozystack-apps: sha256:4923129e92cfc656f1e2e25c9b746c5e9d4116138b21c5d99076c2652164cbfa
+            repository.cozystack.io/cozystack-extra: sha256:701d8f1622399c464580e4bb99dfb45984a06897ea10e7ab6c8c17cc89217528

@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.18.1
+      version: 0.21.0
   interval: 0s
   values:
     addons:
@@ -36,7 +36,7 @@ spec:
         hosts:
         - water.teamhephy.info
       monitoringAgents:
-        enabled: false
+        enabled: true
     controlPlane:
       replicas: 2
     host: ""

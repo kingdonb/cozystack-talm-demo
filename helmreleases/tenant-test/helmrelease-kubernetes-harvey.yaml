@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.18.1
+      version: 0.21.0
   interval: 0s
   values:
     addons:
@@ -62,7 +62,7 @@ spec:
           server:
             resourcesPreset: micro
       apiServer:
-        resourcesPreset: xlarge
+        resourcesPreset: 2xlarge
       controllerManager:
         resourcesPreset: micro
       scheduler:
