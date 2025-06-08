@@ -1,6 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
+  annotations:
+    cozystack.io/tenant-config-digest: sha256:75d295a848bf07b2845ea4636c80571b933f2a40f7f12df1922d4ccbf03ab4ac
+    reconcile.fluxcd.io/forceAt: "2025-06-08T01:10:50.631263497Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-08T01:10:50.631263497Z"
   labels:
     cozystack.io/ui: "true"
   name: kubernetes-harvey
@@ -52,7 +56,7 @@ spec:
         - podinfo.local
         - socryx-topled.arvo.network
       monitoringAgents:
-        enabled: false
+        enabled: true
     controlPlane:
       replicas: 2
     host: harvey.test.moomboo.space

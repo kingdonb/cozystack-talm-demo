@@ -2,12 +2,15 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
+    cozystack.io/tenant-config-digest: sha256:75d295a848bf07b2845ea4636c80571b933f2a40f7f12df1922d4ccbf03ab4ac
     meta.helm.sh/release-name: kubernetes-harvey
     meta.helm.sh/release-namespace: tenant-test
+    reconcile.fluxcd.io/forceAt: "2025-06-08T01:10:50.767281904Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-08T01:10:50.767281904Z"
   labels:
     app.kubernetes.io/managed-by: Helm
-    coztstack.io/target-cluster-name: kubernetes-harvey
     cozystack.io/repository: system
+    cozystack.io/target-cluster-name: kubernetes-harvey
     helm.toolkit.fluxcd.io/name: kubernetes-harvey
     helm.toolkit.fluxcd.io/namespace: tenant-test
   name: kubernetes-harvey-fluxcd
@@ -43,7 +46,14 @@ spec:
   upgrade:
     remediation:
       retries: -1
-  valuesFrom:
-  - kind: Secret
-    name: kubernetes-harvey-fluxcd-values-override
-    valuesKey: values
+  values:
+    flux-instance:
+      instance:
+        cluster:
+          networkPolicy: false
+        sync:
+          interval: 1m
+          kind: GitRepository
+          path: ./clusters/harvey
+          ref: refs/heads/main
+          url: https://github.com/kingdon-ci/cozy-fleet.git

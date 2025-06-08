@@ -5,20 +5,20 @@ metadata:
     cozystack.io/tenant-config-digest: sha256:75d295a848bf07b2845ea4636c80571b933f2a40f7f12df1922d4ccbf03ab4ac
     meta.helm.sh/release-name: kubernetes-cluster
     meta.helm.sh/release-namespace: tenant-test
-    reconcile.fluxcd.io/forceAt: "2025-06-08T01:10:50.724591341Z"
-    reconcile.fluxcd.io/requestedAt: "2025-06-08T01:10:50.724591341Z"
+    reconcile.fluxcd.io/forceAt: "2025-06-08T01:10:50.861887528Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-08T01:10:50.861887528Z"
   labels:
     app.kubernetes.io/managed-by: Helm
     cozystack.io/repository: system
     cozystack.io/target-cluster-name: kubernetes-cluster
     helm.toolkit.fluxcd.io/name: kubernetes-cluster
     helm.toolkit.fluxcd.io/namespace: tenant-test
-  name: kubernetes-cluster-fluxcd-operator
+  name: kubernetes-cluster-vertical-pod-autoscaler-crds
   namespace: tenant-test
 spec:
   chart:
     spec:
-      chart: cozy-fluxcd-operator
+      chart: cozy-vertical-pod-autoscaler-crds
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -39,13 +39,9 @@ spec:
     secretRef:
       key: super-admin.svc
       name: kubernetes-cluster-admin-kubeconfig
-  releaseName: fluxcd-operator
-  storageNamespace: cozy-fluxcd
-  targetNamespace: cozy-fluxcd
+  releaseName: vertical-pod-autoscaler-crds
+  storageNamespace: cozy-vertical-pod-autoscaler-crds
+  targetNamespace: cozy-vertical-pod-autoscaler-crds
   upgrade:
     remediation:
       retries: -1
-  values:
-    flux-operator:
-      fullnameOverride: flux-operator
-      hostNetwork: false

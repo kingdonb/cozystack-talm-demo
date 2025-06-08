@@ -5,6 +5,8 @@ metadata:
     helm.sh/resource-policy: keep
     meta.helm.sh/release-name: tenant-root
     meta.helm.sh/release-namespace: tenant-root
+    reconcile.fluxcd.io/forceAt: "2025-06-07T22:01:32.871177-04:00"
+    reconcile.fluxcd.io/requestedAt: "2025-06-07T22:01:32.871177-04:00"
   labels:
     app.kubernetes.io/instance: tenant-root
     app.kubernetes.io/managed-by: Helm

@@ -1,0 +1,110 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  annotations:
+    cozystack.io/tenant-config-digest: sha256:75d295a848bf07b2845ea4636c80571b933f2a40f7f12df1922d4ccbf03ab4ac
+    meta.helm.sh/release-name: kubernetes-harvey
+    meta.helm.sh/release-namespace: tenant-test
+    reconcile.fluxcd.io/forceAt: "2025-06-08T01:10:50.500825054Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-08T01:10:50.500825054Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    cozystack.io/repository: system
+    cozystack.io/target-cluster-name: kubernetes-harvey
+    helm.toolkit.fluxcd.io/name: kubernetes-harvey
+    helm.toolkit.fluxcd.io/namespace: tenant-test
+  name: kubernetes-harvey-monitoring-agents
+  namespace: tenant-test
+spec:
+  chart:
+    spec:
+      chart: cozy-monitoring-agents
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '>= 0.0.0-0'
+  dependsOn:
+  - name: kubernetes-harvey
+    namespace: tenant-test
+  - name: kubernetes-harvey-cozy-victoria-metrics-operator
+    namespace: tenant-test
+  - name: kubernetes-harvey-vertical-pod-autoscaler-crds
+    namespace: tenant-test
+  install:
+    createNamespace: true
+    remediation:
+      retries: -1
+    timeout: 300s
+  interval: 5m
+  kubeConfig:
+    secretRef:
+      key: super-admin.svc
+      name: kubernetes-harvey-admin-kubeconfig
+  releaseName: cozy-monitoring-agents
+  storageNamespace: cozy-monitoring-agents
+  targetNamespace: cozy-monitoring-agents
+  upgrade:
+    remediation:
+      retries: -1
+  values:
+    fluent-bit:
+      config:
+        filters: |
+          [FILTER]
+              Name kubernetes
+              Match kube.*
+              Merge_Log On
+              Keep_Log On
+              K8S-Logging.Parser On
+              K8S-Logging.Exclude On
+          [FILTER]
+              Name                nest
+              Match               *
+              Wildcard            pod_name
+              Operation lift
+              Nested_under kubernetes
+              Add_prefix   kubernetes_
+          [FILTER]
+              Name modify
+              Match *
+              Add tenant tenant-test
+          [FILTER]
+              Name modify
+              Match *
+              Add cluster kubernetes-harvey
+        outputs: |
+          [OUTPUT]
+              Name http
+              Match kube.*
+              Host vlogs-generic.tenant-root.svc
+              port 9428
+              compress gzip
+              uri /insert/jsonline?_stream_fields=stream,kubernetes_pod_name,kubernetes_container_name,kubernetes_namespace_name&_msg_field=log&_time_field=date
+              format json_lines
+              json_date_format iso8601
+              header AccountID 0
+              header ProjectID 0
+      daemonSetVolumeMounts:
+      - mountPath: /var/log
+        name: varlog
+      - mountPath: /var/lib/docker/containers
+        name: varlibdockercontainers
+        readOnly: true
+      daemonSetVolumes:
+      - hostPath:
+          path: /var/log
+        name: varlog
+      - hostPath:
+          path: /var/lib/docker/containers
+        name: varlibdockercontainers
+      readinessProbe:
+        httpGet:
+          path: /
+    vmagent:
+      externalLabels:
+        cluster: kubernetes-harvey
+        tenant: tenant-test
+      remoteWrite:
+        url: http://vminsert-shortterm.tenant-root.svc:8480/insert/0/prometheus

@@ -3,22 +3,22 @@ kind: HelmRelease
 metadata:
   annotations:
     cozystack.io/tenant-config-digest: sha256:75d295a848bf07b2845ea4636c80571b933f2a40f7f12df1922d4ccbf03ab4ac
-    meta.helm.sh/release-name: kubernetes-cluster
+    meta.helm.sh/release-name: kubernetes-harvey
     meta.helm.sh/release-namespace: tenant-test
-    reconcile.fluxcd.io/forceAt: "2025-06-08T01:10:50.724591341Z"
-    reconcile.fluxcd.io/requestedAt: "2025-06-08T01:10:50.724591341Z"
+    reconcile.fluxcd.io/forceAt: "2025-06-08T01:10:50.871461029Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-08T01:10:50.871461029Z"
   labels:
     app.kubernetes.io/managed-by: Helm
     cozystack.io/repository: system
-    cozystack.io/target-cluster-name: kubernetes-cluster
-    helm.toolkit.fluxcd.io/name: kubernetes-cluster
+    cozystack.io/target-cluster-name: kubernetes-harvey
+    helm.toolkit.fluxcd.io/name: kubernetes-harvey
     helm.toolkit.fluxcd.io/namespace: tenant-test
-  name: kubernetes-cluster-fluxcd-operator
+  name: kubernetes-harvey-cozy-victoria-metrics-operator
   namespace: tenant-test
 spec:
   chart:
     spec:
-      chart: cozy-fluxcd-operator
+      chart: cozy-victoria-metrics-operator
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -26,9 +26,11 @@ spec:
         namespace: cozy-system
       version: '>= 0.0.0-0'
   dependsOn:
-  - name: kubernetes-cluster
+  - name: kubernetes-harvey
     namespace: tenant-test
-  - name: kubernetes-cluster-cilium
+  - name: kubernetes-harvey-cilium
+    namespace: tenant-test
+  - name: kubernetes-harvey-cert-manager-crds
     namespace: tenant-test
   install:
     createNamespace: true
@@ -38,14 +40,10 @@ spec:
   kubeConfig:
     secretRef:
       key: super-admin.svc
-      name: kubernetes-cluster-admin-kubeconfig
-  releaseName: fluxcd-operator
-  storageNamespace: cozy-fluxcd
-  targetNamespace: cozy-fluxcd
+      name: kubernetes-harvey-admin-kubeconfig
+  releaseName: cozy-victoria-metrics-operator
+  storageNamespace: cozy-victoria-metrics-operator
+  targetNamespace: cozy-victoria-metrics-operator
   upgrade:
     remediation:
       retries: -1
-  values:
-    flux-operator:
-      fullnameOverride: flux-operator
-      hostNetwork: false
