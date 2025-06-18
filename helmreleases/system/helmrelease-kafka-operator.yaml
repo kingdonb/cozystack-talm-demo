@@ -1,6 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
+  annotations:
+    cozystack.io/cozy-config-digest: 25819b88d8f4c284beeeb5ec3869b208e99181ff4b6bb0f5e2adf1911879f231
+    reconcile.fluxcd.io/forceAt: "2025-06-18T01:55:59.604590585Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-18T01:55:59.604590585Z"
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
@@ -33,3 +37,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
+  values:
+    strimzi-kafka-operator:
+      kubernetesServiceDnsDomain: cozy.local
