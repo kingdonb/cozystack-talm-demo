@@ -1,6 +1,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
+  annotations:
+    cozystack.io/tenant-config-digest: sha256:354074821231337b4e13c16a18e323baec184b935c2d1b784ec2574bf4b11056
+    meta.helm.sh/release-name: tenant-root
+    meta.helm.sh/release-namespace: tenant-root
+    reconcile.fluxcd.io/forceAt: "2025-06-18T01:55:59.804526872Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-18T01:55:59.804526872Z"
   labels:
     cozystack.io/ui: "true"
   name: ingress
@@ -14,5 +20,5 @@ spec:
         kind: HelmRepository
         name: cozystack-extra
         namespace: cozy-public
-      version: 1.6.0
+      version: 1.7.0
   interval: 0s

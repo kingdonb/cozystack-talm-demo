@@ -6,20 +6,20 @@ metadata:
     helm.sh/resource-policy: keep
     meta.helm.sh/release-name: tenant-root
     meta.helm.sh/release-namespace: tenant-root
-    reconcile.fluxcd.io/forceAt: "2025-06-18T01:55:59.700080176Z"
-    reconcile.fluxcd.io/requestedAt: "2025-06-18T01:55:59.700080176Z"
+    reconcile.fluxcd.io/forceAt: "2025-06-18T01:55:59.757083202Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-18T01:55:59.757083202Z"
   labels:
     app.kubernetes.io/instance: tenant-root
     app.kubernetes.io/managed-by: Helm
     cozystack.io/ui: "true"
     helm.toolkit.fluxcd.io/name: tenant-root
     helm.toolkit.fluxcd.io/namespace: tenant-root
-  name: etcd
+  name: info
   namespace: tenant-root
 spec:
   chart:
     spec:
-      chart: etcd
+      chart: info
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -28,5 +28,3 @@ spec:
       version: '*'
   interval: 1m0s
   timeout: 5m0s
-  values:
-    replicas: 1
