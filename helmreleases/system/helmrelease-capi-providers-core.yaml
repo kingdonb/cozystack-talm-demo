@@ -1,0 +1,39 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  annotations:
+    cozystack.io/cozy-config-digest: 25819b88d8f4c284beeeb5ec3869b208e99181ff4b6bb0f5e2adf1911879f231
+    reconcile.fluxcd.io/forceAt: "2025-06-18T01:55:59.604590585Z"
+    reconcile.fluxcd.io/requestedAt: "2025-06-18T01:55:59.604590585Z"
+  labels:
+    cozystack.io/repository: system
+    cozystack.io/system-app: "true"
+  name: capi-providers-core
+  namespace: cozy-cluster-api
+spec:
+  chart:
+    spec:
+      chart: cozy-capi-providers-core
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '>= 0.0.0-0'
+  dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
+  - name: capi-operator
+    namespace: cozy-cluster-api
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: capi-providers-core
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
