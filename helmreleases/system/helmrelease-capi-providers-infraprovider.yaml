@@ -8,12 +8,12 @@ metadata:
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: kubeovn-webhook
-  namespace: cozy-kubeovn
+  name: capi-providers-infraprovider
+  namespace: cozy-cluster-api
 spec:
   chart:
     spec:
-      chart: cozy-kubeovn-webhook
+      chart: cozy-capi-providers-infraprovider
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -25,14 +25,14 @@ spec:
     namespace: cozy-cilium
   - name: kubeovn
     namespace: cozy-kubeovn
-  - name: cert-manager
-    namespace: cozy-cert-manager
+  - name: capi-operator
+    namespace: cozy-cluster-api
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: kubeovn-webhook
+  releaseName: capi-providers-infraprovider
   upgrade:
     crds: CreateReplace
     remediation:
