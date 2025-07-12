@@ -2,9 +2,9 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
-    cozystack.io/tenant-config-digest: sha256:354074821231337b4e13c16a18e323baec184b935c2d1b784ec2574bf4b11056
-    reconcile.fluxcd.io/forceAt: "2025-06-18T01:55:59.791314686Z"
-    reconcile.fluxcd.io/requestedAt: "2025-06-18T01:55:59.791314686Z"
+    cozystack.io/tenant-config-digest: sha256:ce85b36096324558cf86352ff4c289203f1199d3a1a892e781da536887540b5e
+    reconcile.fluxcd.io/forceAt: "2025-07-12T14:59:01.921517035Z"
+    reconcile.fluxcd.io/requestedAt: "2025-07-12T14:59:01.921517035Z"
   labels:
     cozystack.io/ui: "true"
   name: tenant-test
@@ -18,7 +18,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 1.10.0
+      version: 1.11.0
   interval: 0s
   values:
     etcd: false
