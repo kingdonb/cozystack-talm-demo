@@ -64,9 +64,9 @@ spec:
       apiServer:
         resourcesPreset: 2xlarge
       controllerManager:
-        resourcesPreset: micro
+        resourcesPreset: large
       scheduler:
-        resourcesPreset: micro
+        resourcesPreset: large
     nodeGroups:
       md0:
         ephemeralStorage: 20Gi
