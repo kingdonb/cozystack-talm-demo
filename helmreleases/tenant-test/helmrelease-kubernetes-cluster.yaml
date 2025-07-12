@@ -1,10 +1,6 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  annotations:
-    cozystack.io/tenant-config-digest: sha256:84bea0b8770c34d7f9fa552ff237263f95bca0532e798f21fe3d5303b1351daf
-    reconcile.fluxcd.io/forceAt: "2025-06-17T22:12:38.184255-04:00"
-    reconcile.fluxcd.io/requestedAt: "2025-06-17T22:12:38.184255-04:00"
   labels:
     cozystack.io/ui: "true"
   name: kubernetes-cluster
@@ -18,7 +14,7 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.24.0
+      version: 0.25.2
   interval: 0s
   values:
     addons:
