@@ -43,8 +43,8 @@ spec:
       key: super-admin.svc
       name: kubernetes-harvey-admin-kubeconfig
   releaseName: cozy-monitoring-agents
-  storageNamespace: cozy-monitoring-agents
-  targetNamespace: cozy-monitoring-agents
+  storageNamespace: cozy-monitoring
+  targetNamespace: cozy-monitoring
   upgrade:
     remediation:
       retries: -1
