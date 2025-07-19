@@ -38,7 +38,7 @@ machine:
     #    wwid: eui.00080d0400e69efb
     #    size: 256 GB
     disk: /dev/nvme0n1
-    image: kingdonb/talos:v1.10.3-cozy-spin
+    image: kingdonb/talos:v1.10.5-cozy-spin
     extraKernelArgs:
       - "kexec_load_disabled=1"
       - "sysctl.kernel.kexec_load_disabled=1"
