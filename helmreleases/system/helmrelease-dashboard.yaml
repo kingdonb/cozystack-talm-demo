@@ -45,8 +45,7 @@ spec:
         cookieSecret: [redacted
         enabled: true
         extraFlags:
-        - --ssl-insecure-skip-verify
-        - --cookie-secure=false
+        - --cookie-secure
         - --scope=openid email groups
         - --oidc-issuer-url=https://keycloak.moomboo.space/realms/cozy
         provider: oidc
@@ -86,5 +85,5 @@ spec:
       redis:
         master:
           podAnnotations:
-            repository.cozystack.io/cozystack-apps: sha256:6695328de89a9b753e67d22542217d9a8bf8cb9d6f58b2f2e6d2e6b3dacfa05a
-            repository.cozystack.io/cozystack-extra: sha256:9f6931ce21a23e320c3c1f96c34be3d2b4ecaa23ce87afb2d32c7dbfcf01ab1c
+            repository.cozystack.io/cozystack-apps: sha256:8cba7131bc23eb93de82180fa3d4ac5708796314d93cc0a1149fc4a26b852710
+            repository.cozystack.io/cozystack-extra: sha256:eb1c7ff231b2fce6f2cd9685f1ead1b0728bd4daad0628c25e645e1eeaf39856

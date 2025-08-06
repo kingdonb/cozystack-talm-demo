@@ -1,0 +1,57 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  annotations:
+    cozystack.io/cozy-config-digest: 25819b88d8f4c284beeeb5ec3869b208e99181ff4b6bb0f5e2adf1911879f231
+    meta.helm.sh/release-name: vertical-pod-autoscaler
+    meta.helm.sh/release-namespace: cozy-vertical-pod-autoscaler
+    reconcile.fluxcd.io/forceAt: "2025-07-23T01:16:54.22138852Z"
+    reconcile.fluxcd.io/requestedAt: "2025-07-23T01:16:54.22138852Z"
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    cozystack.io/repository: system
+    cozystack.io/system-app: "true"
+    helm.toolkit.fluxcd.io/name: vertical-pod-autoscaler
+    helm.toolkit.fluxcd.io/namespace: cozy-vertical-pod-autoscaler
+  name: vpa-for-vpa
+  namespace: cozy-vpa-for-vpa
+spec:
+  chart:
+    spec:
+      chart: cozy-vertical-pod-autoscaler
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: HelmRepository
+        name: cozystack-system
+        namespace: cozy-system
+      version: '>= 0.0.0-0'
+  dependsOn:
+  - name: monitoring-agents
+    namespace: cozy-monitoring
+  install:
+    crds: Skip
+    remediation:
+      retries: -1
+  interval: 5m
+  releaseName: vertical-pod-autoscaler
+  upgrade:
+    crds: Skip
+    remediation:
+      retries: -1
+  values:
+    vertical-pod-autoscaler:
+      admissionController:
+        enabled: false
+      fullnameOverride: vpa-for-vpa
+      nameOverride: vpa-for-vpa
+      recommender:
+        extraArgs:
+          recommender-name: vpa-for-vpa
+          vpa-object-namespace: cozy-vertical-pod-autoscaler
+        resources:
+          limits:
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+    vpaForVPA: false

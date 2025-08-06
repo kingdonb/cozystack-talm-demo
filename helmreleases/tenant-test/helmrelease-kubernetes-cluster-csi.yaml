@@ -2,11 +2,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
-    cozystack.io/tenant-config-digest: sha256:66a9e073401114d3d474afd2dc7b39d4b8dd2f8905743f2e94a4edf73fb69e47
+    cozystack.io/tenant-config-digest: sha256:df7a5d291aa688a324385bd57b0f242de2998c4adbf28a6ab5f2763b7b4550c6
     meta.helm.sh/release-name: kubernetes-cluster
     meta.helm.sh/release-namespace: tenant-test
-    reconcile.fluxcd.io/forceAt: "2025-07-12T14:59:07.120659957Z"
-    reconcile.fluxcd.io/requestedAt: "2025-07-12T14:59:07.120659957Z"
+    reconcile.fluxcd.io/forceAt: "2025-07-23T23:02:28.229236891Z"
+    reconcile.fluxcd.io/requestedAt: "2025-07-23T23:02:28.229236891Z"
   labels:
     app.kubernetes.io/managed-by: Helm
     cozystack.io/repository: system
@@ -26,6 +26,8 @@ spec:
         namespace: cozy-system
       version: '>= 0.0.0-0'
   dependsOn:
+  - name: kubernetes-cluster-vsnap-crd
+    namespace: tenant-test
   - name: kubernetes-cluster
     namespace: tenant-test
   install:

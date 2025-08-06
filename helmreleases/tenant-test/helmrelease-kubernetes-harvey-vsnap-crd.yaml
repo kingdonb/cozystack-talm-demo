@@ -2,23 +2,20 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
-    cozystack.io/tenant-config-digest: sha256:df7a5d291aa688a324385bd57b0f242de2998c4adbf28a6ab5f2763b7b4550c6
     meta.helm.sh/release-name: kubernetes-harvey
     meta.helm.sh/release-namespace: tenant-test
-    reconcile.fluxcd.io/forceAt: "2025-07-23T23:02:28.455959038Z"
-    reconcile.fluxcd.io/requestedAt: "2025-07-23T23:02:28.455959038Z"
   labels:
     app.kubernetes.io/managed-by: Helm
     cozystack.io/repository: system
     cozystack.io/target-cluster-name: kubernetes-harvey
     helm.toolkit.fluxcd.io/name: kubernetes-harvey
     helm.toolkit.fluxcd.io/namespace: tenant-test
-  name: kubernetes-harvey-cozy-victoria-metrics-operator
+  name: kubernetes-harvey-vsnap-crd
   namespace: tenant-test
 spec:
   chart:
     spec:
-      chart: cozy-victoria-metrics-operator
+      chart: cozy-vsnap-crd
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
@@ -30,8 +27,6 @@ spec:
     namespace: tenant-test
   - name: kubernetes-harvey-cilium
     namespace: tenant-test
-  - name: kubernetes-harvey-cert-manager-crds
-    namespace: tenant-test
   install:
     createNamespace: true
     remediation:
@@ -41,9 +36,9 @@ spec:
     secretRef:
       key: super-admin.svc
       name: kubernetes-harvey-admin-kubeconfig
-  releaseName: cozy-victoria-metrics-operator
-  storageNamespace: cozy-victoria-metrics-operator
-  targetNamespace: cozy-victoria-metrics-operator
+  releaseName: vsnap-crd
+  storageNamespace: cozy-vsnap-crd
+  targetNamespace: cozy-vsnap-crd
   upgrade:
     remediation:
       retries: -1
