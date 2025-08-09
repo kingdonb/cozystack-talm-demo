@@ -1,6 +1,10 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
+  annotations:
+    cozystack.io/cozy-config-digest: 25819b88d8f4c284beeeb5ec3869b208e99181ff4b6bb0f5e2adf1911879f231
+    reconcile.fluxcd.io/forceAt: "2025-08-07T13:49:12.512522501Z"
+    reconcile.fluxcd.io/requestedAt: "2025-08-07T13:49:12.512522501Z"
   labels:
     cozystack.io/ui: "true"
   name: tenant-root
@@ -15,7 +19,19 @@ spec:
         name: cozystack-apps
         namespace: cozy-public
       version: 1.11.2
+  dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
+  install:
+    remediation:
+      retries: -1
   interval: 0s
+  releaseName: tenant-root
+  upgrade:
+    remediation:
+      retries: -1
   values:
     etcd: true
     host: moomboo.space

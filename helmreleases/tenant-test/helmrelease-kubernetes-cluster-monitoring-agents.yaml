@@ -2,11 +2,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
-    cozystack.io/tenant-config-digest: sha256:69b8a6eba2f3437c3625d757e03cf7601af492c301fd0365b7109d43c89797a7
+    cozystack.io/tenant-config-digest: sha256:c7c27bb8a76e12e147c7e676878bfc7db46f1e829e73cd988368aa7960e248c1
     meta.helm.sh/release-name: kubernetes-cluster
     meta.helm.sh/release-namespace: tenant-test
-    reconcile.fluxcd.io/forceAt: "2025-08-06T18:05:40.548499915Z"
-    reconcile.fluxcd.io/requestedAt: "2025-08-06T18:05:40.548499915Z"
+    reconcile.fluxcd.io/forceAt: "2025-08-07T13:49:16.16232252Z"
+    reconcile.fluxcd.io/requestedAt: "2025-08-07T13:49:16.16232252Z"
   labels:
     app.kubernetes.io/managed-by: Helm
     cozystack.io/repository: system
