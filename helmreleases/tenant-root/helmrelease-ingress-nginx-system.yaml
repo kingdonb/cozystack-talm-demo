@@ -2,11 +2,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
-    cozystack.io/tenant-config-digest: sha256:0704fff932252922f8203659165ed3e71ec7c1ae4c611b51807e1310c3e6d72d
+    cozystack.io/tenant-config-digest: sha256:5b305aa086df1e58020c7fda2a6da8966da6e8a863a65a88c1f993bf68eea172
     meta.helm.sh/release-name: ingress
     meta.helm.sh/release-namespace: tenant-root
-    reconcile.fluxcd.io/forceAt: "2025-08-22T20:19:57.679350222Z"
-    reconcile.fluxcd.io/requestedAt: "2025-08-22T20:19:57.679350222Z"
+    reconcile.fluxcd.io/forceAt: "2025-09-28T17:03:04.87943975Z"
+    reconcile.fluxcd.io/requestedAt: "2025-09-28T17:03:04.87943975Z"
   labels:
     app.kubernetes.io/managed-by: Helm
     helm.toolkit.fluxcd.io/name: ingress
@@ -23,8 +23,14 @@ spec:
         name: cozystack-system
         namespace: cozy-system
       version: '>= 0.0.0-0'
+  install:
+    remediation:
+      retries: -1
   interval: 1m0s
-  timeout: 5m0s
+  timeout: 10m0s
+  upgrade:
+    remediation:
+      retries: -1
   values:
     ingress-nginx:
       controller:
@@ -36,6 +42,15 @@ spec:
           cozystack.io/service: ingress
           policy.cozystack.io/allow-to-apiserver: "true"
         replicaCount: 2
+        resources:
+          limits:
+            cpu: 500m
+            ephemeral-storage: 2Gi
+            memory: 256Mi
+          requests:
+            cpu: "0.05"
+            ephemeral-storage: "53687091"
+            memory: "268435456"
         service:
           externalTrafficPolicy: Local
           type: LoadBalancer
