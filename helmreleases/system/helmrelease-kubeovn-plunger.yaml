@@ -6,36 +6,32 @@ metadata:
     reconcile.fluxcd.io/forceAt: "2025-09-28T17:01:06.686546456Z"
     reconcile.fluxcd.io/requestedAt: "2025-09-28T17:01:06.686546456Z"
   labels:
-    cozystack.io/ui: "true"
-  name: tenant-root
-  namespace: tenant-root
+    cozystack.io/repository: system
+    cozystack.io/system-app: "true"
+  name: kubeovn-plunger
+  namespace: cozy-kubeovn
 spec:
   chart:
     spec:
-      chart: tenant
+      chart: cozy-kubeovn-plunger
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
-        name: cozystack-apps
-        namespace: cozy-public
-      version: 1.14.0
+        name: cozystack-system
+        namespace: cozy-system
+      version: '>= 0.0.0-0'
   dependsOn:
   - name: cilium
     namespace: cozy-cilium
   - name: kubeovn
     namespace: cozy-kubeovn
   install:
+    crds: CreateReplace
     remediation:
       retries: -1
-  interval: 0s
-  releaseName: tenant-root
+  interval: 5m
+  releaseName: kubeovn-plunger
   upgrade:
+    crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    etcd: true
-    host: moomboo.space
-    ingress: true
-    isolated: false
-    monitoring: true
-    seaweedfs: false
