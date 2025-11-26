@@ -69,7 +69,7 @@ spec:
       serviceAccountName: cozystack
       containers:
       - name: cozystack
-        image: "ghcr.io/cozystack/cozystack/installer:v0.36.2@sha256:052e82d1bdb8f04cda10a13084a5f539427f7466a8c938fe3ee238f81c43354b"
+        image: "ghcr.io/cozystack/cozystack/installer:v0.38.0@sha256:1a902ebd15fe375079098c088dd5b40475926c8d9576faf6348433f0fd86a963"
         env:
         - name: KUBERNETES_SERVICE_HOST
           value: localhost
@@ -88,7 +88,7 @@ spec:
             fieldRef:
               fieldPath: metadata.name
       - name: assets
-        image: "ghcr.io/cozystack/cozystack/installer:v0.36.2@sha256:052e82d1bdb8f04cda10a13084a5f539427f7466a8c938fe3ee238f81c43354b"
+        image: "ghcr.io/cozystack/cozystack/installer:v0.38.0@sha256:1a902ebd15fe375079098c088dd5b40475926c8d9576faf6348433f0fd86a963"
         command:
         - /usr/bin/cozystack-assets-server
         - "-dir=/cozystack/assets"
