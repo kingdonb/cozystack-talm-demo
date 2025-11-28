@@ -3,8 +3,8 @@ kind: HelmRelease
 metadata:
   annotations:
     cozystack.io/cozy-config-digest: 25819b88d8f4c284beeeb5ec3869b208e99181ff4b6bb0f5e2adf1911879f231
-    reconcile.fluxcd.io/forceAt: "2025-06-18T01:55:59.604590585Z"
-    reconcile.fluxcd.io/requestedAt: "2025-06-18T01:55:59.604590585Z"
+    reconcile.fluxcd.io/forceAt: "2025-11-26T17:29:36.556357-05:00"
+    reconcile.fluxcd.io/requestedAt: "2025-11-26T19:30:22.677286-05:00"
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
@@ -26,6 +26,7 @@ spec:
       retries: -1
   interval: 5m
   releaseName: fluxcd-operator
+  timeout: 1m
   upgrade:
     crds: CreateReplace
     remediation:
