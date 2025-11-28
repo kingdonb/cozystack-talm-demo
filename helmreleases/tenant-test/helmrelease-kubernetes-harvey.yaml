@@ -1,10 +1,6 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  annotations:
-    cozystack.io/tenant-config-digest: sha256:c7d74d62a0fdd65bc6c3a100278fe38d2b8eb5b893fee9ca91076c6942419712
-    reconcile.fluxcd.io/forceAt: "2025-09-28T17:03:45.029996983Z"
-    reconcile.fluxcd.io/requestedAt: "2025-09-28T13:35:01.790313-04:00"
   labels:
     cozystack.io/ui: "true"
   name: kubernetes-harvey
@@ -18,8 +14,14 @@ spec:
         kind: HelmRepository
         name: cozystack-apps
         namespace: cozy-public
-      version: 0.29.1
-  interval: 0s
+      version: '>= 0.0.0-0'
+  install:
+    remediation:
+      retries: -1
+  interval: 5m0s
+  upgrade:
+    remediation:
+      retries: -1
   values:
     addons:
       certManager:
@@ -61,7 +63,7 @@ spec:
         - podinfo.local
         - socryx-topled.arvo.network
       monitoringAgents:
-        enabled: true
+        enabled: false
       velero:
         enabled: false
     controlPlane:

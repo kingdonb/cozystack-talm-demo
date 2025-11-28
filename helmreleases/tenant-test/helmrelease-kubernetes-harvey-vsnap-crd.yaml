@@ -2,11 +2,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
-    cozystack.io/tenant-config-digest: sha256:c7d74d62a0fdd65bc6c3a100278fe38d2b8eb5b893fee9ca91076c6942419712
+    cozystack.io/tenant-config-digest: sha256:34a5a8fca7ea4cb9e44fe14e1e271ec868414fa8ac4f9677c0605d91ce1efa80
     meta.helm.sh/release-name: kubernetes-harvey
     meta.helm.sh/release-namespace: tenant-test
-    reconcile.fluxcd.io/forceAt: "2025-09-28T17:03:45.447543951Z"
-    reconcile.fluxcd.io/requestedAt: "2025-09-28T17:03:45.447543951Z"
+    reconcile.fluxcd.io/forceAt: "2025-11-28T20:45:17.247848628Z"
+    reconcile.fluxcd.io/requestedAt: "2025-11-28T20:45:17.247848628Z"
   labels:
     app.kubernetes.io/managed-by: Helm
     cozystack.io/repository: system
@@ -42,6 +42,8 @@ spec:
   releaseName: vsnap-crd
   storageNamespace: cozy-vsnap-crd
   targetNamespace: cozy-vsnap-crd
+  timeout: 10m
   upgrade:
+    force: true
     remediation:
       retries: -1

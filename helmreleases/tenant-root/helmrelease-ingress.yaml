@@ -2,13 +2,14 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   annotations:
-    cozystack.io/tenant-config-digest: sha256:5b305aa086df1e58020c7fda2a6da8966da6e8a863a65a88c1f993bf68eea172
+    cozystack.io/tenant-config-digest: sha256:a22b2a6d39d409290389d37ac5a3b65b6ceac16b504d3340679e390d14545fc2
     meta.helm.sh/release-name: tenant-root
     meta.helm.sh/release-namespace: tenant-root
-    reconcile.fluxcd.io/forceAt: "2025-09-28T17:03:04.866511806Z"
-    reconcile.fluxcd.io/requestedAt: "2025-09-28T17:03:04.866511806Z"
+    reconcile.fluxcd.io/forceAt: "2025-11-28T20:44:52.663973148Z"
+    reconcile.fluxcd.io/requestedAt: "2025-11-28T20:44:52.663973148Z"
   labels:
     cozystack.io/ui: "true"
+    internal.cozystack.io/tenantmodule: "true"
   name: ingress
   namespace: tenant-root
 spec:
@@ -20,9 +21,12 @@ spec:
         kind: HelmRepository
         name: cozystack-extra
         namespace: cozy-public
-      version: 1.9.0
-  interval: 0s
-  values:
-    cloudflareProxy: false
-    replicas: 2
-    resourcesPreset: micro
+      version: '>= 0.0.0-0'
+  install:
+    remediation:
+      retries: -1
+  interval: 5m
+  timeout: 10m
+  upgrade:
+    remediation:
+      retries: -1
