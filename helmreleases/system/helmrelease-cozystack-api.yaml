@@ -1,32 +1,34 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  annotations:
-    cozystack.io/cozy-config-digest: 25819b88d8f4c284beeeb5ec3869b208e99181ff4b6bb0f5e2adf1911879f231
-    reconcile.fluxcd.io/forceAt: "2025-12-06T10:31:59.233766-05:00"
-    reconcile.fluxcd.io/requestedAt: "2025-12-06T10:31:59.233766-05:00"
   labels:
     cozystack.io/repository: system
     cozystack.io/system-app: "true"
-  name: fluxcd-operator
-  namespace: cozy-fluxcd
+  name: cozystack-api
+  namespace: cozy-system
 spec:
   chart:
     spec:
-      chart: cozy-fluxcd-operator
+      chart: cozy-cozystack-api
       reconcileStrategy: Revision
       sourceRef:
         kind: HelmRepository
         name: cozystack-system
         namespace: cozy-system
       version: '>= 0.0.0-0'
+  dependsOn:
+  - name: cilium
+    namespace: cozy-cilium
+  - name: kubeovn
+    namespace: cozy-kubeovn
+  - name: cozystack-controller
+    namespace: cozy-system
   install:
     crds: CreateReplace
     remediation:
       retries: -1
   interval: 5m
-  releaseName: fluxcd-operator
-  timeout: 1m
+  releaseName: cozystack-api
   upgrade:
     crds: CreateReplace
     remediation:
